@@ -1,0 +1,25 @@
+Format: 1.8
+Date: Mon, 23 Oct 2023 02:00:02 -0400
+Source: xdelta3-gui
+Binary: xdelta3-gui
+Architecture: i386
+Version: 0.23.10
+Distribution: mx
+Urgency: medium
+Maintainer: Adrian <adrian@mxlinux.org>
+Changed-By: Adrian <adrian@mxlinux.org>
+Description:
+ xdelta3-gui - xdelta3-gui
+Changes:
+ xdelta3-gui (0.23.10) mx; urgency=medium
+ .
+   * Initial release
+Checksums-Sha1:
+ 46c11067089e7790d886219a9cee7884d991d502 10078 xdelta3-gui_0.23.10_i386.buildinfo
+ df225ce736f3af8d5d6962a8f1d884007dace97e 33164 xdelta3-gui_0.23.10_i386.deb
+Checksums-Sha256:
+ 65eff3fcc4b90d592af314120c9419c5cca35766228557ac27bbaddd69f30a96 10078 xdelta3-gui_0.23.10_i386.buildinfo
+ f3c5c3c03e894bddde09acd178216bb4c7701322e13e007b56295ba84526fe0c 33164 xdelta3-gui_0.23.10_i386.deb
+Files:
+ e8e5ecd62a38c768053267f07117f09e 10078 admin optional xdelta3-gui_0.23.10_i386.buildinfo
+ 065633e46ff2bd56b6a23d12b31971de 33164 admin optional xdelta3-gui_0.23.10_i386.deb

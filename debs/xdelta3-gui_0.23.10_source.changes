@@ -1,0 +1,40 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Format: 1.8
+Date: Mon, 23 Oct 2023 02:00:02 -0400
+Source: xdelta3-gui
+Architecture: source
+Version: 0.23.10
+Distribution: mx
+Urgency: medium
+Maintainer: Adrian <adrian@mxlinux.org>
+Changed-By: Adrian <adrian@mxlinux.org>
+Changes:
+ xdelta3-gui (0.23.10) mx; urgency=medium
+ .
+   * Initial release
+Checksums-Sha1:
+ fc6c7344159d72c38574a9cf90c12d712831714d 1132 xdelta3-gui_0.23.10.dsc
+ 4396efbfa7d6e2b20c693f0dfc6e54b56fbed671 1357560 xdelta3-gui_0.23.10.tar.xz
+ 6e367993e617e4fbdc8437dff9fae5bf9be95695 10929 xdelta3-gui_0.23.10_amd64.buildinfo
+Checksums-Sha256:
+ 7329a876e8d7b4522ad443160c2a0c32271a751db938cdaca9d46d3ee9960cf9 1132 xdelta3-gui_0.23.10.dsc
+ 368d23444b5cd3b2b0bbc631a71f279a128f49fea143f81d405c8f9db8e6e7da 1357560 xdelta3-gui_0.23.10.tar.xz
+ a7f1ab5431bba0f41cccd1d58bb71317320925f549b91690c4b90435aed313db 10929 xdelta3-gui_0.23.10_amd64.buildinfo
+Files:
+ f305a9f641c0df28975b5f868132e41e 1132 admin optional xdelta3-gui_0.23.10.dsc
+ b92b597cc349726c5667a6042275cf09 1357560 admin optional xdelta3-gui_0.23.10.tar.xz
+ 9c8608ddd913811b21608378d37d6765 10929 admin optional xdelta3-gui_0.23.10_amd64.buildinfo
+
+-----BEGIN PGP SIGNATURE-----
+
+iQFHBAEBCgAxFiEE8ndToY6S45N+YzXncJOMeAZ57pgFAmU2ua0THGFkcmlhbkBt
+eGxpbnV4Lm9yZwAKCRBwk4x4BnnumL74B/99mfXyvhCEFwAX+EcVivs1EDYsqmoB
+OGdf2P8sBQXN/uO+IYKIhxVYUV9vARsP5QJGJX83VvLV5mpf6ZXq2zY5km3rGAYx
+VeC8i1MiIfiqv4MbgGBnesapLqFRerUpxgo4WyXEO6cbFc7/WXgG+eWe5ukvvmrH
+HW3SSg1Ef+Ex5MX9aBYx1mjDFEEXpsHZux1FoMNRfBlKbPFT5kiAugG0wr41i1nC
+aSNsfNNvVQhZlBD6bE/Ha9czA3g5sv2FCtHuXPG7ULJAOUh5/RnL/eqwJCviBw8x
+pPbzXj+Jk5FqOuelgrtwkNywxNIBSXYwNo9y6mkgNZ2bPSiZB/cAkvD6
+=H5RE
+-----END PGP SIGNATURE-----
