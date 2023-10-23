@@ -1,25 +1,25 @@
 Format: 1.8
 Date: Mon, 23 Oct 2023 02:00:02 -0400
 Source: xdelta3-gui
-Architecture: source
+Binary: xdelta3-gui
+Architecture: arm64
 Version: 0.23.10
 Distribution: mx
 Urgency: medium
 Maintainer: Adrian <adrian@mxlinux.org>
 Changed-By: Adrian <adrian@mxlinux.org>
+Description:
+ xdelta3-gui - xdelta3-gui
 Changes:
  xdelta3-gui (0.23.10) mx; urgency=medium
  .
    * Initial release
 Checksums-Sha1:
- 848c7811ac538e2a9a9da90d47f08a6e3f1ed0ac 570 xdelta3-gui_0.23.10.dsc
- 248a4354ce34f5081b77c5b44aecfd3fee92f0ea 1357968 xdelta3-gui_0.23.10.tar.xz
  82efe61169143fd753200189742c13d61dbf006a 9798 xdelta3-gui_0.23.10_arm64.buildinfo
+ 613bdddc4740296673556951d21b6c0ac975ca15 31408 xdelta3-gui_0.23.10_arm64.deb
 Checksums-Sha256:
- 31c38a9ce6511696c51a16ef357a90d6d04958cbb022b78882d13855161f4e89 570 xdelta3-gui_0.23.10.dsc
- 27aabcc26b8245f2d2f5282273123aea48b941170d0d3477870ec26eb8dff9cc 1357968 xdelta3-gui_0.23.10.tar.xz
  4b53d472a61a8c5751218ca31174cc660b2ca758a77a254aa72161d7e19f79d9 9798 xdelta3-gui_0.23.10_arm64.buildinfo
+ 4a56d82c5ad9b8a95d1a46ad84206deec6aea48dcb793a5be8c521b911c7c38e 31408 xdelta3-gui_0.23.10_arm64.deb
 Files:
- 4cfead0c00804607e9020bda16c30cee 570 admin optional xdelta3-gui_0.23.10.dsc
- f558c4e32fe5b307ed5670e093d467d7 1357968 admin optional xdelta3-gui_0.23.10.tar.xz
  2800ca35f69b8c599ea1d9ca6ee34596 9798 admin optional xdelta3-gui_0.23.10_arm64.buildinfo
+ a696c275df9674996d3a79df911c8bd7 31408 admin optional xdelta3-gui_0.23.10_arm64.deb
