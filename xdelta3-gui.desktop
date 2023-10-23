@@ -1,0 +1,13 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=xdelta3 GUI
+Comment=GUI for xdelta3 application
+Exec=xdelta3-gui %f
+Terminal=false
+Type=Application
+Icon=xdelta3-gui
+Categories=System;MX-Software;
+NoDisplay=false
+MimeType=application/x-xdelta3;application/x-xdelta;
+StartupNotify=true
+Keywords=xdelta,patch

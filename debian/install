@@ -1,0 +1,6 @@
+xdelta3-gui		    usr/bin
+xdelta3-gui.desktop	usr/share/applications
+x-xdelta3.xml       usr/share/mime/packages
+# xdelta3-gui.svg	usr/share/icons/hicolor/scalable/apps
+# xdelta3-gui.png	usr/share/pixmaps
+translations/*.qm	usr/share/xdelta3-gui/locale

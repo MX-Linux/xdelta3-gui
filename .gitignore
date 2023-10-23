@@ -1,0 +1,52 @@
+# Created by https://www.gitignore.io
+# place file in ~/.config/git/ignore
+
+xdelta3-gui
+
+### Qt ###
+# C++ objects and libs
+
+*.slo
+*.lo
+*.o
+*.a
+*.la
+*.lai
+*.so
+*.dll
+*.dylib
+
+# Qt-es
+
+/.qmake.cache
+/.qmake.stash
+*.pro.user
+*.pro.user.*
+*.moc
+moc_*.cpp
+qrc_*.cpp
+ui_*.h
+Makefile*
+*-build-*
+
+# QtCreator
+
+*.autosave
+
+#QtCtreator Qml
+*.qmlproject.user
+*.qmlproject.user.*
+
+# CMake ignore
+.cmake
+.ninja_deps
+.ninja_log
+CMakeCache.txt
+CMakeLists.txt.user
+CMakeFiles
+build.ninja
+cmake_install.cmake
+*_autogen/
+
+# Transifex ignore
+.tx/

@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QDialog" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>823</width>
+    <height>494</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string/>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_4">
+   <item row="0" column="0" colspan="2">
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="currentIndex">
+      <number>1</number>
+     </property>
+     <widget class="QWidget" name="tabCreatePatch">
+      <attribute name="title">
+       <string>Create Patch</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="3" column="0" colspan="2">
+        <widget class="QPushButton" name="pushCreatePatch">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="text">
+          <string>Create patch</string>
+         </property>
+         <property name="autoDefault">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0" colspan="2">
+        <widget class="QGroupBox" name="groupOption">
+         <property name="title">
+          <string>Options</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout">
+          <item row="1" column="1">
+           <widget class="QComboBox" name="comboCompression">
+            <item>
+             <property name="text">
+              <string notr="true">None</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string notr="true">DJW</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string notr="true">FGK</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string notr="true">LZMA</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="labelCompression">
+            <property name="text">
+             <string>Compression level</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QSpinBox" name="spinCompressionLevel">
+            <property name="maximum">
+             <number>9</number>
+            </property>
+            <property name="value">
+             <number>4</number>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="labelSecondary">
+            <property name="text">
+             <string>Secondary compression</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="0" column="0" colspan="2">
+        <widget class="QGroupBox" name="groupSelection">
+         <property name="title">
+          <string>File selection</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_5">
+          <item row="2" column="1">
+           <widget class="QLineEdit" name="textTarget">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="placeholderText">
+             <string>select target (new) file</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QLineEdit" name="textPatch">
+            <property name="text">
+             <string>patch.xdelta3</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="labelTarget">
+            <property name="text">
+             <string>Target file</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="labelSource">
+            <property name="text">
+             <string>Source file</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="patchNameLabel">
+            <property name="text">
+             <string>Patch name</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2">
+           <widget class="QPushButton" name="pushSelectSource">
+            <property name="text">
+             <string>Select source file...</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLineEdit" name="textSource">
+            <property name="minimumSize">
+             <size>
+              <width>400</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="placeholderText">
+             <string>select source (old) file</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="2">
+           <widget class="QPushButton" name="pushSelectTarget">
+            <property name="text">
+             <string>Select target file...</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="2">
+           <widget class="QPushButton" name="pushPatchLocation">
+            <property name="text">
+             <string>Change location...</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="2" column="0" colspan="2">
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>0</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tabApplyPatch">
+      <attribute name="title">
+       <string>Apply Patch</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QGroupBox" name="groupSelectionPatch">
+         <property name="title">
+          <string>File selection</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_3">
+          <item row="0" column="0">
+           <widget class="QLabel" name="labelInputFile">
+            <property name="text">
+             <string>Input file</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="textInput">
+            <property name="placeholderText">
+             <string>select input file</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <widget class="QPushButton" name="pushSelectInput">
+            <property name="text">
+             <string>Select input file...</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="labelPatchFile">
+            <property name="text">
+             <string>Patch file</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLineEdit" name="textApplyPatch">
+            <property name="placeholderText">
+             <string>select patch</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2">
+           <widget class="QPushButton" name="pushSelectPatch">
+            <property name="text">
+             <string>Select patch...</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="labelOutputFile">
+            <property name="text">
+             <string>Output file</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QLineEdit" name="textOutput">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="placeholderText">
+             <string>use default, or set up a custom name</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="2">
+           <widget class="QPushButton" name="pushSelectOutput">
+            <property name="text">
+             <string>Change location..</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>0</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushApplyPatch">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="text">
+          <string>Apply Patch</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>textSource</tabstop>
+  <tabstop>pushSelectSource</tabstop>
+  <tabstop>textTarget</tabstop>
+  <tabstop>pushSelectTarget</tabstop>
+  <tabstop>textPatch</tabstop>
+  <tabstop>pushPatchLocation</tabstop>
+  <tabstop>spinCompressionLevel</tabstop>
+  <tabstop>comboCompression</tabstop>
+  <tabstop>pushCreatePatch</tabstop>
+  <tabstop>textInput</tabstop>
+  <tabstop>pushSelectInput</tabstop>
+  <tabstop>textApplyPatch</tabstop>
+  <tabstop>pushSelectPatch</tabstop>
+  <tabstop>textOutput</tabstop>
+  <tabstop>pushSelectOutput</tabstop>
+  <tabstop>pushApplyPatch</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>
