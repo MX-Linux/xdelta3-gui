@@ -1,0 +1,46 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Format: 1.8
+Date: Mon, 23 Oct 2023 02:00:02 -0400
+Source: xdelta3-gui
+Binary: xdelta3-gui
+Architecture: source amd64
+Version: 0.23.10
+Distribution: mx
+Urgency: medium
+Maintainer: Adrian <adrian@mxlinux.org>
+Changed-By: Adrian <adrian@mxlinux.org>
+Description:
+ xdelta3-gui - xdelta3-gui
+Changes:
+ xdelta3-gui (0.23.10) mx; urgency=medium
+ .
+   * Initial release
+Checksums-Sha1:
+ fc6c7344159d72c38574a9cf90c12d712831714d 1132 xdelta3-gui_0.23.10.dsc
+ 4396efbfa7d6e2b20c693f0dfc6e54b56fbed671 1357560 xdelta3-gui_0.23.10.tar.xz
+ 6e367993e617e4fbdc8437dff9fae5bf9be95695 10929 xdelta3-gui_0.23.10_amd64.buildinfo
+ 7085638ea3258f3ed96d739a84af92b88949bf7b 31828 xdelta3-gui_0.23.10_amd64.deb
+Checksums-Sha256:
+ 7329a876e8d7b4522ad443160c2a0c32271a751db938cdaca9d46d3ee9960cf9 1132 xdelta3-gui_0.23.10.dsc
+ 368d23444b5cd3b2b0bbc631a71f279a128f49fea143f81d405c8f9db8e6e7da 1357560 xdelta3-gui_0.23.10.tar.xz
+ a7f1ab5431bba0f41cccd1d58bb71317320925f549b91690c4b90435aed313db 10929 xdelta3-gui_0.23.10_amd64.buildinfo
+ f985e798a58111d82fe64f7581a93adabc7949b2df594fe1fdb2bcd725830290 31828 xdelta3-gui_0.23.10_amd64.deb
+Files:
+ f305a9f641c0df28975b5f868132e41e 1132 admin optional xdelta3-gui_0.23.10.dsc
+ b92b597cc349726c5667a6042275cf09 1357560 admin optional xdelta3-gui_0.23.10.tar.xz
+ 9c8608ddd913811b21608378d37d6765 10929 admin optional xdelta3-gui_0.23.10_amd64.buildinfo
+ 205f8ac26320c9cc56b2868289392ea2 31828 admin optional xdelta3-gui_0.23.10_amd64.deb
+
+-----BEGIN PGP SIGNATURE-----
+
+iQFHBAEBCgAxFiEE8ndToY6S45N+YzXncJOMeAZ57pgFAmU2ua0THGFkcmlhbkBt
+eGxpbnV4Lm9yZwAKCRBwk4x4BnnumDBkB/9/1NBDscSZtjcB7iv/V5kraxZFZ9Ul
+2kMHXwqnpyQCdALCRIujzZMLAYE//FqDN4wZ0f+jPVHNmdWNzpr5ExEtvsZsS6dy
+f9qA8hk1el++xpJjUx/TVum7HUFyQfQO7+rqqXAwjihVMIrGNeUwOBrx1ESXC5Tf
+DLlCe0C/fgblL4c7bOaReXdelxClu74P0qVHKvw8auoEERV5gJiQSyI4MdRlEQL5
+n+C+xThBuFIG+8prY63VaVYWlDzq4K/SXn0zadxBIeZ1F7vVpG7z9j1aKaj1pfM2
+oKDS/R27V8DSkLbOrl2vnTRS5wEmZEamO5TMmJYfECLXchHqBQJ5Z7Ro
+=q5JB
+-----END PGP SIGNATURE-----
