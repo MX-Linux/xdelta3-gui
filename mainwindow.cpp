@@ -272,8 +272,8 @@ void MainWindow::setPatchName()
     QString output = QFileInfo(ui->textTarget->text()).fileName();
     lastDotIndex = output.lastIndexOf('.');
     output = output.left(lastDotIndex);
-    QString root = findCommonRoot(input, output);
-    QString patchName = root + input.mid(root.length()) + "_to_" + output.mid(root.length()) + ".xdelta3";
+    QString prefix = findCommonPrefix(input, output);
+    QString patchName = prefix + input.mid(prefix.length()) + "_to_" + output.mid(prefix.length()) + ".xdelta3";
     ui->textPatch->setText(patchName);
 }
 
@@ -294,7 +294,7 @@ void MainWindow::setProgressDialog()
     progress->reset();
 }
 
-QString MainWindow::findCommonRoot(const QString &str1, const QString &str2)
+QString MainWindow::findCommonPrefix(const QString &str1, const QString &str2)
 {
     int i = 0;
     while (i < str1.length() && i < str2.length() && str1.at(i) == str2.at(i)) {
