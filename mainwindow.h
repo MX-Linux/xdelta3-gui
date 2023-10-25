@@ -69,6 +69,8 @@ private:
     bool checkFile(const QString &fileName);
     void createPatch();
     void setConnections();
+    void setPatchName();
     void setProgressDialog();
+    static QString findCommonRoot(const QString &str1, const QString &str2);
 };
 #endif // MAINWINDOW_H

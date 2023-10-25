@@ -79,8 +79,10 @@ void MainWindow::centerWindow()
 
 void MainWindow::cmdStart()
 {
+    bar->setValue(0);
+    progress->setLabelText("");
     if (!timer.isActive()) {
-        timer.start(100ms);
+        timer.start(1s);
     }
     setCursor(QCursor(Qt::BusyCursor));
 }
@@ -101,6 +103,12 @@ void MainWindow::onSelectFile(QLineEdit *lineEdit)
     if (checkFile(selected)) {
         lineEdit->setText(selected);
         QDir::setCurrent(QFileInfo(selected).absolutePath());
+    } else {
+        checkAllinfo();
+        return;
+    }
+    if (lineEdit->objectName() == "textTarget") {
+        setPatchName();
     }
     checkAllinfo();
 }
@@ -146,8 +154,10 @@ void MainWindow::applyPatch()
     progress->show();
     QTime time {0, 0};
     elapsedTimer.restart();
+    QString cmdout;
     bool res = cmd.run("xdelta3 -f decode -s \"" + ui->textInput->text() + "\" \"" + ui->textApplyPatch->text() + "\""
-                       + output);
+                           + output,
+                       &cmdout);
     time = time.addMSecs(static_cast<int>(elapsedTimer.elapsed()));
     QString location = output.isEmpty() ? QFileInfo(ui->textInput->text()).absolutePath().remove("\"")
                                         : QFileInfo(output).absolutePath().remove("\"");
@@ -157,7 +167,7 @@ void MainWindow::applyPatch()
                                  tr("File was successfuly written to '%1' directory.").arg(location) + "\n"
                                      + tr("Took %1 to patch the file.").arg(time.toString("mm:ss")));
     } else {
-        QMessageBox::critical(this, tr("Error"), tr("Error: Could not write the file.") + "\n\n" + cmd.out_buffer);
+        QMessageBox::critical(this, tr("Error"), tr("Error: Could not write the file.") + "\n\n" + cmdout);
     }
 }
 
@@ -166,7 +176,7 @@ void MainWindow::checkAllinfo()
     if (ui->tabWidget->currentWidget() == ui->tabCreatePatch) {
         ui->pushCreatePatch->setDisabled(ui->textSource->text().isEmpty() || ui->textTarget->text().isEmpty()
                                          || ui->textPatch->text().isEmpty());
-        if (QFileInfo(ui->textPatch->text()).baseName().isEmpty()) {
+        if (QFileInfo(ui->textPatch->text()).fileName().isEmpty()) {
             ui->pushCreatePatch->setDisabled(true);
             QMessageBox::warning(this, tr("Error"), tr("Please enter a name for the patch file."));
         }
@@ -180,9 +190,9 @@ bool MainWindow::checkFile(const QString &fileName)
     if (fileName.isEmpty()) {
         return false;
     }
-    if (!QFile::exists(fileName)) {
+    if (!QFileInfo(fileName).isFile()) {
         QMessageBox::warning(this, tr("File not found"),
-                             tr("File '%1' found, please double-check the input.").arg(fileName));
+                             tr("File '%1' found or not a file, please double-check the input.").arg(fileName));
         return false;
     } else {
         return true;
@@ -203,9 +213,11 @@ void MainWindow::createPatch()
     progress->show();
     QTime time {0, 0};
     elapsedTimer.restart();
+    QString cmdout;
     bool res = cmd.run("xdelta3 " + force + "encode -" + ui->spinCompressionLevel->cleanText() + " -S "
-                       + ui->comboCompression->currentText().toLower() + " -s \"" + ui->textSource->text() + "\" \""
-                       + ui->textTarget->text() + "\" \"" + ui->textPatch->text() + "\"");
+                           + ui->comboCompression->currentText().toLower() + " -s \"" + ui->textSource->text() + "\" \""
+                           + ui->textTarget->text() + "\" \"" + ui->textPatch->text() + "\"",
+                       &cmdout);
     time = time.addMSecs(static_cast<int>(elapsedTimer.elapsed()));
     if (res) {
         QMessageBox::information(this, tr("Success"),
@@ -213,7 +225,7 @@ void MainWindow::createPatch()
                                          .arg(QFileInfo(ui->textPatch->text()).absoluteFilePath().remove("\""))
                                      + "\n" + tr("Took %1 to create the patch.").arg(time.toString("mm:ss")));
     } else {
-        QMessageBox::critical(this, tr("Error"), tr("Error: Could not write the file.") + "\n\n" + cmd.out_buffer);
+        QMessageBox::critical(this, tr("Error"), tr("Error: Could not write the file.") + "\n\n" + cmdout);
     }
 }
 
@@ -233,7 +245,9 @@ void MainWindow::setConnections()
         checkAllinfo();
     });
     connect(ui->textTarget, &QLineEdit::editingFinished, this, [this] {
-        checkFile(ui->textTarget->text());
+        if (checkFile(ui->textTarget->text())) {
+            setPatchName();
+        }
         checkAllinfo();
     });
     connect(ui->textInput, &QLineEdit::editingFinished, this, [this] {
@@ -250,28 +264,58 @@ void MainWindow::setConnections()
     connect(&cmd, &Cmd::finished, this, &MainWindow::cmdDone);
 }
 
+void MainWindow::setPatchName()
+{
+    QString input = QFileInfo(ui->textSource->text()).fileName();
+    int lastDotIndex = input.lastIndexOf('.');
+    input = input.left(lastDotIndex);
+    QString output = QFileInfo(ui->textTarget->text()).fileName();
+    lastDotIndex = output.lastIndexOf('.');
+    output = output.left(lastDotIndex);
+    QString root = findCommonRoot(input, output);
+    QString patchName = root + input.mid(root.length()) + "_to_" + output.mid(root.length()) + ".xdelta3";
+    ui->textPatch->setText(patchName);
+}
+
 void MainWindow::setProgressDialog()
 {
     progress = new QProgressDialog(this);
     bar = new QProgressBar(progress);
     auto *pushCancel = new QPushButton(tr("Cancel"));
     connect(pushCancel, &QPushButton::clicked, this, [this] { cmd.terminate(); });
+    bar->setMaximum(100);
     progress->setWindowModality(Qt::WindowModal);
     progress->setWindowFlags(Qt::Dialog | Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowSystemMenuHint
                              | Qt::WindowStaysOnTopHint);
     progress->setCancelButton(pushCancel);
-    progress->setLabelText(tr("Please wait..."));
     progress->setAutoClose(false);
     progress->setBar(bar);
     bar->setTextVisible(false);
     progress->reset();
 }
 
+QString MainWindow::findCommonRoot(const QString &str1, const QString &str2)
+{
+    int i = 0;
+    while (i < str1.length() && i < str2.length() && str1.at(i) == str2.at(i)) {
+        i++;
+    }
+    return str1.left(i);
+}
+
 void MainWindow::updateBar()
 {
-    QApplication::processEvents();
-    bar->setValue((bar->value() + 1) % (bar->maximum() + 1));
+    Cmd cmd2;
+    QString output;
+    if (cmd2.run("progress -c xdelta3 | tail -n2", &output, true)) {
+        bool ok {false};
+        QString percentage = output.trimmed().section("%", 0, 0);
+        int prog = static_cast<int>(percentage.toDouble(&ok));
+        if (ok) {
+            bar->setValue(prog);
+        }
+    }
     QTime time {0, 0};
     time = time.addMSecs(static_cast<int>(elapsedTimer.elapsed()));
-    progress->setLabelText(tr("Please wait...") + "\n" + tr("%1 elapsed").arg(time.toString(QStringLiteral("mm:ss"))));
+    progress->setLabelText(tr("%1 elapsed").arg(time.toString(QStringLiteral("mm:ss"))) + "\n" + output);
 }
