@@ -131,107 +131,141 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="91"/>
+        <location filename="../mainwindow.cpp" line="100"/>
         <source>ISO Files (*.iso);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="92"/>
+        <location filename="../mainwindow.cpp" line="101"/>
         <source>ISO Files (*.xdelta3);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="93"/>
+        <location filename="../mainwindow.cpp" line="102"/>
         <source>Select file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="118"/>
+        <location filename="../mainwindow.cpp" line="133"/>
         <source>Path not found</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="118"/>
+        <location filename="../mainwindow.cpp" line="133"/>
         <source>Please select directory again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="127"/>
-        <location filename="../mainwindow.cpp" line="145"/>
-        <location filename="../mainwindow.cpp" line="156"/>
-        <location filename="../mainwindow.cpp" line="195"/>
+        <location filename="../mainwindow.cpp" line="142"/>
+        <location filename="../mainwindow.cpp" line="170"/>
+        <location filename="../mainwindow.cpp" line="181"/>
+        <location filename="../mainwindow.cpp" line="228"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="127"/>
+        <location filename="../mainwindow.cpp" line="142"/>
         <source>Please enter a name for the output file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="135"/>
-        <location filename="../mainwindow.cpp" line="182"/>
+        <location filename="../mainwindow.cpp" line="150"/>
+        <location filename="../mainwindow.cpp" line="207"/>
         <source>File exists</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="135"/>
+        <location filename="../mainwindow.cpp" line="150"/>
         <source>Output file exists, do you want to overwrite?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="143"/>
-        <location filename="../mainwindow.cpp" line="193"/>
+        <location filename="../mainwindow.cpp" line="166"/>
+        <location filename="../mainwindow.cpp" line="223"/>
         <source>Success</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="143"/>
-        <location filename="../mainwindow.cpp" line="193"/>
-        <source>File was successfuly written.</source>
+        <location filename="../mainwindow.cpp" line="167"/>
+        <source>File was successfuly written to &apos;%1&apos; directory.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="145"/>
-        <location filename="../mainwindow.cpp" line="195"/>
-        <source>Error: Could not finish writing the file.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="156"/>
-        <source>Please enter a name for the patch file.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="169"/>
-        <source>File not found</source>
+        <location filename="../mainwindow.cpp" line="168"/>
+        <source>Took %1 to patch the file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="170"/>
-        <source>File &apos;%1&apos; found, please double-check the input.</source>
+        <location filename="../mainwindow.cpp" line="228"/>
+        <source>Error: Could not write the file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="182"/>
+        <location filename="../mainwindow.cpp" line="195"/>
+        <source>File &apos;%1&apos; found or not a file, please double-check the input.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="320"/>
+        <source>%1 elapsed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="181"/>
+        <source>Please enter a name for the patch file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="194"/>
+        <source>File not found</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="207"/>
         <source>Patch file exists, do you want to overwrite?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="236"/>
-        <source>Cancel</source>
+        <location filename="../mainwindow.cpp" line="224"/>
+        <source>File &apos;%1&apos; was successfuly written.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="242"/>
-        <source>Please wait...</source>
+        <location filename="../mainwindow.cpp" line="226"/>
+        <source>Took %1 to create the patch.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="284"/>
+        <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../main.cpp" line="66"/>
+        <location filename="../main.cpp" line="45"/>
+        <source>GUI for xdelta3 application.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../main.cpp" line="48"/>
+        <source>file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../main.cpp" line="48"/>
+        <source>Name of the patch file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../main.cpp" line="48"/>
+        <source>[file]</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../main.cpp" line="75"/>
         <source>You must run this program as normal user.</source>
         <translation type="unfinished"></translation>
     </message>
