@@ -40,7 +40,6 @@ MainWindow::MainWindow(const QString &patchFile, QWidget *parent)
       ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    QDir::setCurrent(QDir::homePath());
     setConnections();
     adjustSize();
     const QSize size = this->size();
