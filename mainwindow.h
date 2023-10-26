@@ -22,7 +22,9 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QApplication>
 #include <QDialog>
+#include <QDir>
 #include <QElapsedTimer>
 #include <QLineEdit>
 #include <QProgressBar>
@@ -59,7 +61,7 @@ private:
     Cmd cmd;
     QProgressBar *bar {};
     QProgressDialog *progress {};
-    QSettings settings;
+    QSettings settings {QApplication::applicationName()};
     QTimer timer;
     QElapsedTimer elapsedTimer;
 
