@@ -36,7 +36,6 @@
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
-    QApplication::setOrganizationName(QStringLiteral("MX-Linux"));
     QApplication::setApplicationDisplayName(QStringLiteral("xdelta3 GUI"));
     QApplication::setWindowIcon(QIcon::fromTheme(QApplication::applicationName()));
     QApplication::setApplicationVersion(VERSION);
