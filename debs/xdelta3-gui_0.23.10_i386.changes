@@ -15,11 +15,11 @@ Changes:
  .
    * Initial release
 Checksums-Sha1:
- 05d61cd3562b3d2311cb5851c044f923c13320a2 9618 xdelta3-gui_0.23.10_i386.buildinfo
- 7d1123041be0fcafd84024aadb78e2666055d764 34228 xdelta3-gui_0.23.10_i386.deb
+ e4769a2ede594ea3070fca8190fa7b0035ab8fac 9539 xdelta3-gui_0.23.10_i386.buildinfo
+ 3317a3a536b7b077db706fa1af1f8902cc8b08b1 34200 xdelta3-gui_0.23.10_i386.deb
 Checksums-Sha256:
- af2ca5f3190ad00435a4941f0d5e0405233c4bc9270f76e558f53d8b80f746c4 9618 xdelta3-gui_0.23.10_i386.buildinfo
- 519a4c7f15b965135cc1f521cc91f83cdea9290ceb71043184690cb90dfb0610 34228 xdelta3-gui_0.23.10_i386.deb
+ 2d24ef7715c1480da5e1ded75517b7ed8d6fe8b9a9a5817ee63648d4bec35ca8 9539 xdelta3-gui_0.23.10_i386.buildinfo
+ bb4eb7e26c511bbc093c2f8bb62c71f7b08ffe1a8f6f33ed0e2e8a6b6f3699d0 34200 xdelta3-gui_0.23.10_i386.deb
 Files:
- b63e39e06ec6650c6f56d7284a8f84fe 9618 admin optional xdelta3-gui_0.23.10_i386.buildinfo
- d1c5103377aba77e4b677cf10e9cf077 34228 admin optional xdelta3-gui_0.23.10_i386.deb
+ d5aa01dc2d604d3cb52e46284ce1c71c 9539 admin optional xdelta3-gui_0.23.10_i386.buildinfo
+ 7188d6fc56f4550bb2fbf00f60648108 34200 admin optional xdelta3-gui_0.23.10_i386.deb
