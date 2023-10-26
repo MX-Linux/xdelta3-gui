@@ -12,14 +12,14 @@ Changes:
  .
    * Initial release
 Checksums-Sha1:
- 4997fd7d30d9074ff6d80ce0c3251376ac6cd25c 570 xdelta3-gui_0.23.10.dsc
- da9ceaceacfcc2d5e0f7231604c35d442759fd07 1358916 xdelta3-gui_0.23.10.tar.xz
- c57fc42592d54e216fec95a2ec04ed72b515b5eb 9590 xdelta3-gui_0.23.10_arm64.buildinfo
+ 10ed8534f8fcc67ad7f4579e632bddc0ec662fad 570 xdelta3-gui_0.23.10.dsc
+ 8c3b3e9cff9b31f3b875c2e6a60c6f3177806b6e 1360236 xdelta3-gui_0.23.10.tar.xz
+ 84ebea3c73e79c939263e3e30c62a8009f01d387 9590 xdelta3-gui_0.23.10_arm64.buildinfo
 Checksums-Sha256:
- 17b102f69d99f813c42559691a52bc530b00cbe41d25b13ead117b833378ad99 570 xdelta3-gui_0.23.10.dsc
- 50ac6ba21c1968268a755c89bfbf2bb98b21ed24df75e6d9a5f6738157038bc3 1358916 xdelta3-gui_0.23.10.tar.xz
- f4089322937bba29f71b9933eaf798cfd532c13d4b5e0b3cdaecc018f7bb3a32 9590 xdelta3-gui_0.23.10_arm64.buildinfo
+ 2769a5e82cce76277078022d8b7f930444b8c0355dbe7a5f194442b4495e6a5c 570 xdelta3-gui_0.23.10.dsc
+ ed2bec219b14aeade26eaeea16643872b0b5960377c4229881f3a25f9c8b71e9 1360236 xdelta3-gui_0.23.10.tar.xz
+ 080e0b9fda5f56daface3a2b667b1cc82f7615a2dc951b2f9d71c156fc0f04dd 9590 xdelta3-gui_0.23.10_arm64.buildinfo
 Files:
- 7b1959451c3d755f28531a1c5a84f9ad 570 admin optional xdelta3-gui_0.23.10.dsc
- 383ba7603c128bd5bb73b21bdafa82df 1358916 admin optional xdelta3-gui_0.23.10.tar.xz
- da2e80312a9f06aa0e5041a7705ab2dd 9590 admin optional xdelta3-gui_0.23.10_arm64.buildinfo
+ b721fb88aea57321693e31184ac47997 570 admin optional xdelta3-gui_0.23.10.dsc
+ 73aeea21d4056c8deb824f02389139d7 1360236 admin optional xdelta3-gui_0.23.10.tar.xz
+ 48921837b7234adfc2b1b46aee1c0e64 9590 admin optional xdelta3-gui_0.23.10_arm64.buildinfo

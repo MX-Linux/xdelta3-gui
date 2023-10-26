@@ -1,4 +1,4 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="da">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="fi_FI">
 <context>
     <name>MainWindow</name>
     <message>
@@ -14,7 +14,7 @@
     <message>
         <location filename="../mainwindow.ui" line="43"/>
         <source>Options</source>
-        <translation>Valgmuligheder</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="86"/>
@@ -159,7 +159,7 @@
         <location filename="../mainwindow.cpp" line="156"/>
         <location filename="../mainwindow.cpp" line="195"/>
         <source>Error</source>
-        <translation>Fejl</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="127"/>
@@ -181,7 +181,7 @@
         <location filename="../mainwindow.cpp" line="143"/>
         <location filename="../mainwindow.cpp" line="193"/>
         <source>Success</source>
-        <translation>Det lykkedes</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="143"/>
@@ -218,12 +218,12 @@
     <message>
         <location filename="../mainwindow.cpp" line="236"/>
         <source>Cancel</source>
-        <translation>Annuller</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="242"/>
         <source>Please wait...</source>
-        <translation>Vent venligst...</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -231,7 +231,7 @@
     <message>
         <location filename="../main.cpp" line="66"/>
         <source>You must run this program as normal user.</source>
-        <translation>Du skal køre programmet som normal bruger.</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 </TS>
