@@ -164,10 +164,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Higher number = better compression ration, but takes more time</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>More compression using various compression algorithms</source>
         <translation type="unfinished"></translation>
     </message>
@@ -201,6 +197,10 @@
     </message>
     <message>
         <source>Delta file exists, do you want to overwrite?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Higher number = better compression ratio, but takes more time to finish</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
