@@ -40,10 +40,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Patch name</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Select source file...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -69,18 +65,6 @@
     </message>
     <message>
         <source>Select input file...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Patch file</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>select patch</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Select patch...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -148,19 +132,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Please enter a name for the patch file.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>File not found</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>File &apos;%1&apos; found or not a file, please double-check the input.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Patch file exists, do you want to overwrite?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -176,11 +152,51 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Create patch</source>
+        <source>Create delta</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Apply patch</source>
+        <source>Create a binary difference between two files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Higher number = better compression ration, but takes more time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>More compression using various compression algorithms</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delta file name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply delta</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Create a new file applying a delta (difference) file to an original file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delta file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>select delta</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select delta...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please enter a name for the delta file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delta file exists, do you want to overwrite?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -191,19 +207,19 @@
         <translation>شما باید این برنامه را با یوزر معمولی اجرا کنید.</translation>
     </message>
     <message>
-        <source>GUI for xdelta3 application.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Name of the patch file</source>
+        <source>[file]</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>[file]</source>
+        <source>GUI for xdelta3 application. App for generating a binary difference between two files in the form of delta encoding</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name of the delta file</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

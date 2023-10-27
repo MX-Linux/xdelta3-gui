@@ -9,7 +9,7 @@
     </message>
     <message>
         <source>Create patch</source>
-        <translation>Patch erstellen</translation>
+        <translation type="vanished">Patch erstellen</translation>
     </message>
     <message>
         <source>Options</source>
@@ -45,7 +45,7 @@
     </message>
     <message>
         <source>Patch name</source>
-        <translation>Name des Patch</translation>
+        <translation type="vanished">Name des Patch</translation>
     </message>
     <message>
         <source>Select source file...</source>
@@ -81,15 +81,15 @@
     </message>
     <message>
         <source>Patch file</source>
-        <translation>Patch-Datei</translation>
+        <translation type="vanished">Patch-Datei</translation>
     </message>
     <message>
         <source>select patch</source>
-        <translation>Patch auswählen</translation>
+        <translation type="vanished">Patch auswählen</translation>
     </message>
     <message>
         <source>Select patch...</source>
-        <translation>Patch auswählen...</translation>
+        <translation type="vanished">Patch auswählen...</translation>
     </message>
     <message>
         <source>Output file</source>
@@ -153,7 +153,7 @@
     </message>
     <message>
         <source>Please enter a name for the patch file.</source>
-        <translation>Bitte den Namen der Patch-Datei angeben.</translation>
+        <translation type="vanished">Bitte den Namen der Patch-Datei angeben.</translation>
     </message>
     <message>
         <source>File not found</source>
@@ -165,7 +165,7 @@
     </message>
     <message>
         <source>Patch file exists, do you want to overwrite?</source>
-        <translation>Die Patch-Datei existiert bereits, soll sie überschrieben werden?</translation>
+        <translation type="vanished">Die Patch-Datei existiert bereits, soll sie überschrieben werden?</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -204,7 +204,51 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Apply patch</source>
+        <source>Create delta</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Create a binary difference between two files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Higher number = better compression ration, but takes more time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>More compression using various compression algorithms</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delta file name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply delta</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Create a new file applying a delta (difference) file to an original file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delta file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>select delta</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select delta...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please enter a name for the delta file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delta file exists, do you want to overwrite?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -215,19 +259,19 @@
         <translation>Diese Anwendung muss als normaler Benutzer ausgeführt werden.</translation>
     </message>
     <message>
-        <source>GUI for xdelta3 application.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Name of the patch file</source>
+        <source>[file]</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>[file]</source>
+        <source>GUI for xdelta3 application. App for generating a binary difference between two files in the form of delta encoding</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name of the delta file</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
