@@ -4,10 +4,6 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <source>Create Patch</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Options</source>
         <translation type="unfinished"></translation>
     </message>
@@ -57,10 +53,6 @@
     </message>
     <message>
         <source>Change location...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Apply Patch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -181,6 +173,14 @@
     </message>
     <message>
         <source>%1 elapsed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Create patch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply patch</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
