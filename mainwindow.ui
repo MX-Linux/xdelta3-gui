@@ -89,7 +89,7 @@
           <item row="0" column="0">
            <widget class="QLabel" name="labelCompression">
             <property name="toolTip">
-             <string>Higher number = better compression ration, but takes more time</string>
+             <string>Higher number = better compression ratio, but takes more time to finish</string>
             </property>
             <property name="text">
              <string>Compression level</string>

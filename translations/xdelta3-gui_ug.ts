@@ -20,11 +20,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="92"/>
-        <source>Higher number = better compression ration, but takes more time</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../mainwindow.ui" line="95"/>
         <source>Compression level</source>
         <translation type="unfinished"></translation>
@@ -99,6 +94,11 @@
     <message>
         <location filename="../mainwindow.ui" line="178"/>
         <source>Select source file...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="92"/>
+        <source>Higher number = better compression ratio, but takes more time to finish</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
