@@ -9,8 +9,8 @@ Build-Depends: debhelper (>= 10), qtbase5-dev, qttools5-dev-tools
 Package-List:
  xdelta3-gui deb admin optional arch=any
 Checksums-Sha1:
- 8c3b3e9cff9b31f3b875c2e6a60c6f3177806b6e 1360236 xdelta3-gui_0.23.10.tar.xz
+ 370a698c57d006fd43cdb1851ef0445ec2a83001 1365324 xdelta3-gui_0.23.10.tar.xz
 Checksums-Sha256:
- ed2bec219b14aeade26eaeea16643872b0b5960377c4229881f3a25f9c8b71e9 1360236 xdelta3-gui_0.23.10.tar.xz
+ 4f339a5b0d4fa85b8e290788a76fed7c39caaf3069744513c44c10b9e565d1c3 1365324 xdelta3-gui_0.23.10.tar.xz
 Files:
- 73aeea21d4056c8deb824f02389139d7 1360236 xdelta3-gui_0.23.10.tar.xz
+ 9857f15353383cea25323d7a12ca41d4 1365324 xdelta3-gui_0.23.10.tar.xz
