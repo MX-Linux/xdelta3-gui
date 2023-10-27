@@ -30,7 +30,7 @@
           <bool>false</bool>
          </property>
          <property name="text">
-          <string>Create patch</string>
+          <string>Create Patch</string>
          </property>
          <property name="autoDefault">
           <bool>false</bool>
@@ -89,6 +89,9 @@
           </item>
           <item row="0" column="1">
            <widget class="QSpinBox" name="spinCompressionLevel">
+            <property name="toolTip">
+             <string/>
+            </property>
             <property name="maximum">
              <number>9</number>
             </property>
@@ -130,6 +133,9 @@
            <widget class="QLineEdit" name="textPatch">
             <property name="text">
              <string>patch.xdelta3</string>
+            </property>
+            <property name="placeholderText">
+             <string notr="true"/>
             </property>
            </widget>
           </item>
