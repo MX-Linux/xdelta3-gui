@@ -18,29 +18,29 @@ Changes:
  .
    * Initial release
 Checksums-Sha1:
- d4e0a9238db03493c825b03d78a9aec653d2fdb5 1132 xdelta3-gui_0.23.10.dsc
- c4cd856e39db43ac0ddfbe41b43946cc9a3eb636 1365296 xdelta3-gui_0.23.10.tar.xz
- 16efbd65656108e62f02ab7815a7b9539031565f 10474 xdelta3-gui_0.23.10_amd64.buildinfo
- 3c8424b2d86b9983c60164d724fc613c376f9820 39052 xdelta3-gui_0.23.10_amd64.deb
+ ce5dcb2f9f95eae8f9a947ad2a2b4eb74fcdc22f 1132 xdelta3-gui_0.23.10.dsc
+ 3b563d44d2d3bb511e20a9cc143f288dc107cd6e 1365692 xdelta3-gui_0.23.10.tar.xz
+ d41693afd59dd1e18bdd12db7d3389bca12b5da6 10474 xdelta3-gui_0.23.10_amd64.buildinfo
+ 2677f55b4458d97e6c60ba694f638bc6e0af3820 39056 xdelta3-gui_0.23.10_amd64.deb
 Checksums-Sha256:
- a0f9523cadbb26b39d36a45831238c3efad5add9e604858d3cc12522fc050668 1132 xdelta3-gui_0.23.10.dsc
- be74eeddf6dac30f42fbd50782123df3a69dd58846cb0129b90871e218fb2635 1365296 xdelta3-gui_0.23.10.tar.xz
- a3c8e539d46902619e611916db0397012a75629d2f295f2d3db5a76b11187746 10474 xdelta3-gui_0.23.10_amd64.buildinfo
- c81c2000221269166b67898c2ae7a442a631f681b41bcead61de52c069ad6558 39052 xdelta3-gui_0.23.10_amd64.deb
+ 29b936440d87a68d587649ffe8d6c8bd6de91745e31ddf3d9c4dd91be818121b 1132 xdelta3-gui_0.23.10.dsc
+ a148eabce0a049606ddeb37f8c8370edbbad9354fe2a6e3ff1aa83f2bcf9ef23 1365692 xdelta3-gui_0.23.10.tar.xz
+ 6f5c6f5c5f98a9dd37e61ad3cdc0d0205aa650395bbb9ed52829f036877ade62 10474 xdelta3-gui_0.23.10_amd64.buildinfo
+ 36b839d1c2de26266782308a6e992493f09e27340590c6c7c186f7f25c28d269 39056 xdelta3-gui_0.23.10_amd64.deb
 Files:
- 978fb0c3350340bdc603b1252f78a383 1132 admin optional xdelta3-gui_0.23.10.dsc
- bc0fe6909a3fd6a436d326f23f54e67c 1365296 admin optional xdelta3-gui_0.23.10.tar.xz
- 0ec3a4adc8212b28efd2b537fc3f9664 10474 admin optional xdelta3-gui_0.23.10_amd64.buildinfo
- 5970993469069ab992dabcaec733311f 39052 admin optional xdelta3-gui_0.23.10_amd64.deb
+ 2a8d2034582fbbccc9c93cfe8d595267 1132 admin optional xdelta3-gui_0.23.10.dsc
+ e1bdbe4ff4b0bb16bfb3d22afc7ad59d 1365692 admin optional xdelta3-gui_0.23.10.tar.xz
+ 788a4b364c50d4392021ccb29109226f 10474 admin optional xdelta3-gui_0.23.10_amd64.buildinfo
+ 8ea17e4b19e91cab5a72f988396fbdc1 39056 admin optional xdelta3-gui_0.23.10_amd64.deb
 
 -----BEGIN PGP SIGNATURE-----
 
-iQFHBAEBCgAxFiEE8ndToY6S45N+YzXncJOMeAZ57pgFAmU7ypITHGFkcmlhbkBt
-eGxpbnV4Lm9yZwAKCRBwk4x4BnnumNrdB/4qyUp6wrmcy9kyvkemYXyptGi8i3wN
-YbUqQeKxuNd5HPLAG59/oFMkKYJfaOPDgv9wAEkbnSOaPREQERFfiX4SH51anCjQ
-dSoyg6qoKGoOuitVsvTEz/VcXTGgVofS744nIjbeDQHxQtyuxWp4r5xcIpL6gocA
-cgy3LHA/EKIHxNJzjrlyYljeL5dEJxegmOPAIJY3LKLqRge4lHHe9qemtaHAl+Lz
-jns/n7pHtBlaOGjQY6pPrCNED3lSZa1n+XNyC8itOKwo9yFxICRtG2Y2va1FsV+C
-0PG5vqseZS3VYZ1/oTgiPMbpUP6FhHcVXan4hQ0a3EPfg/B0AhZ4BObU
-=kexN
+iQFHBAEBCgAxFiEE8ndToY6S45N+YzXncJOMeAZ57pgFAmU70O0THGFkcmlhbkBt
+eGxpbnV4Lm9yZwAKCRBwk4x4BnnumBDXCACj5ukh2M9a+d9l40lA5Q6boKitw2iQ
+cFHQ2Agdsk2IEuqggqBbSW3edi/BVAo4cGhQvM/E35TwmM5Gi/w/2Bxssj7hKcOI
+HKNqlUCkeBcHmYfP6HAbT5KqBpL7s4bbh4NauItKgKjxybzTXcTi7sLGDNzSHg8y
+uBeLp8i7y1P0tbaPRnVv9jNtvDpT9BS3/qIdmdOk72pdXTosjEYKrRAiKcCwBKqa
+pz0498vDLxapkfc0kw01+EqtvKpYRZuaIb4TI6nNtuxPt/RaFqC45USgoPYB+48Q
+L+UONF5aY6rkPjscF9WfrPQj05kDKfc9b5Yxfg1hLUbncMaiIs2vRfbM
+=lbvb
 -----END PGP SIGNATURE-----
