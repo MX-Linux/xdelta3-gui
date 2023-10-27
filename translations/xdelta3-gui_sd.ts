@@ -6,7 +6,7 @@
     <message>
         <location filename="../mainwindow.ui" line="24"/>
         <location filename="../mainwindow.ui" line="33"/>
-        <source>Create Patch</source>
+        <source>Create patch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -78,7 +78,7 @@
     <message>
         <location filename="../mainwindow.ui" line="217"/>
         <location filename="../mainwindow.ui" line="314"/>
-        <source>Apply Patch</source>
+        <source>Apply patch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

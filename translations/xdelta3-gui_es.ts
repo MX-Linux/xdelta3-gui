@@ -5,11 +5,11 @@
     <name>MainWindow</name>
     <message>
         <source>Create Patch</source>
-        <translation>Crear parche</translation>
+        <translation type="vanished">Crear parche</translation>
     </message>
     <message>
         <source>Create patch</source>
-        <translation type="vanished">Crear parche</translation>
+        <translation>Crear parche</translation>
     </message>
     <message>
         <source>Options</source>
@@ -65,7 +65,7 @@
     </message>
     <message>
         <source>Apply Patch</source>
-        <translation>Aplicar parche</translation>
+        <translation type="vanished">Aplicar parche</translation>
     </message>
     <message>
         <source>Input file</source>
@@ -201,6 +201,10 @@
     </message>
     <message>
         <source>%1 elapsed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply patch</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
