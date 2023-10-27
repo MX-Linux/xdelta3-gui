@@ -41,10 +41,11 @@ int main(int argc, char *argv[])
     QApplication::setApplicationVersion(VERSION);
 
     QCommandLineParser parser;
-    parser.setApplicationDescription(QObject::tr("GUI for xdelta3 application."));
+    parser.setApplicationDescription(QObject::tr("GUI for xdelta3 application. App for generating a binary difference "
+                                                 "between two files in the form of delta encoding"));
     parser.addHelpOption();
     parser.addVersionOption();
-    parser.addPositionalArgument(QObject::tr("file"), QObject::tr("Name of the patch file"), QObject::tr("[file]"));
+    parser.addPositionalArgument(QObject::tr("file"), QObject::tr("Name of the delta file"), QObject::tr("[file]"));
     parser.process(app);
 
     QTranslator qtTran;

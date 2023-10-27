@@ -177,7 +177,7 @@ void MainWindow::checkAllinfo()
                                          || ui->textPatch->text().isEmpty());
         if (QFileInfo(ui->textPatch->text()).fileName().isEmpty()) {
             ui->pushCreatePatch->setDisabled(true);
-            QMessageBox::warning(this, tr("Error"), tr("Please enter a name for the patch file."));
+            QMessageBox::warning(this, tr("Error"), tr("Please enter a name for the delta file."));
         }
     } else {
         ui->pushApplyPatch->setDisabled(ui->textInput->text().isEmpty() || ui->textApplyPatch->text().isEmpty());
@@ -203,7 +203,7 @@ void MainWindow::createPatch()
     QString force;
     if (QFileInfo(ui->textPatch->text()).isFile()) {
         if (QMessageBox::No
-            == QMessageBox::question(this, tr("File exists"), tr("Patch file exists, do you want to overwrite?"))) {
+            == QMessageBox::question(this, tr("File exists"), tr("Delta file exists, do you want to overwrite?"))) {
             return;
         } else {
             force = "-f ";
