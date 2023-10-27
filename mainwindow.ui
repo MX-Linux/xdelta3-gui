@@ -16,12 +16,18 @@
   <layout class="QGridLayout" name="gridLayout_4">
    <item row="0" column="0" colspan="2">
     <widget class="QTabWidget" name="tabWidget">
+     <property name="toolTip">
+      <string/>
+     </property>
      <property name="currentIndex">
       <number>0</number>
      </property>
      <widget class="QWidget" name="tabCreatePatch">
       <attribute name="title">
        <string>Create delta</string>
+      </attribute>
+      <attribute name="toolTip">
+       <string>Create a binary difference between two files</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_2">
        <item row="3" column="0" colspan="2">
@@ -82,6 +88,9 @@
           </item>
           <item row="0" column="0">
            <widget class="QLabel" name="labelCompression">
+            <property name="toolTip">
+             <string>Higher number = better compression ration, but takes more time</string>
+            </property>
             <property name="text">
              <string>Compression level</string>
             </property>
@@ -102,6 +111,9 @@
           </item>
           <item row="1" column="0">
            <widget class="QLabel" name="labelSecondary">
+            <property name="toolTip">
+             <string>More compression using various compression algorithms</string>
+            </property>
             <property name="text">
              <string>Secondary compression</string>
             </property>
@@ -215,6 +227,9 @@
      <widget class="QWidget" name="tabApplyPatch">
       <attribute name="title">
        <string>Apply delta</string>
+      </attribute>
+      <attribute name="toolTip">
+       <string>Create a new file applying a delta (difference) file to an original file</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
