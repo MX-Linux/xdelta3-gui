@@ -4,36 +4,29 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <source>Create Patch</source>
-        <translation type="vanished">Crear parche</translation>
-    </message>
-    <message>
-        <source>Create patch</source>
-        <translation type="vanished">Crear parche</translation>
-    </message>
-    <message>
         <source>Options</source>
+        <extracomment>program options</extracomment>
         <translation>Opciones</translation>
     </message>
     <message>
         <source>Compression level</source>
+        <extracomment>level of compression the delta file will use</extracomment>
         <translation>Nivel de compresión</translation>
     </message>
     <message>
         <source>Secondary compression</source>
+        <extracomment>an extra layer of compression</extracomment>
         <translation>Compresión secundaria</translation>
     </message>
     <message>
         <source>File selection</source>
+        <extracomment>area for selecting input and output files</extracomment>
         <translation>Selección de archivos</translation>
     </message>
     <message>
         <source>select target (new) file</source>
+        <extracomment>select the new file from which to create a delta between it and the source.</extracomment>
         <translation>seleccionar archivo de destino (nuevo)</translation>
-    </message>
-    <message>
-        <source>patch.xdelta3</source>
-        <translation>parche.xdelta3</translation>
     </message>
     <message>
         <source>Target file</source>
@@ -44,84 +37,54 @@
         <translation>Archivo fuente</translation>
     </message>
     <message>
-        <source>Patch name</source>
-        <translation type="vanished">Nombre del parche</translation>
-    </message>
-    <message>
         <source>Select source file...</source>
+        <extracomment>starts a file chooser to select a file</extracomment>
         <translation>Seleccionar archivo fuente...</translation>
     </message>
     <message>
         <source>select source (old) file</source>
+        <extracomment>select the original or source file</extracomment>
         <translation>seleccionar archivo fuente (antiguo)</translation>
     </message>
     <message>
         <source>Select target file...</source>
+        <extracomment>starts a file chooser to select a file</extracomment>
         <translation>Seleccionar archivo de destino...</translation>
     </message>
     <message>
         <source>Change location...</source>
+        <extracomment>starts a file chooser to select destination for output delta file</extracomment>
         <translation>Cambiar ubicación...</translation>
     </message>
     <message>
-        <source>Apply Patch</source>
-        <translation type="vanished">Aplicar parche</translation>
-    </message>
-    <message>
         <source>Input file</source>
+        <extracomment>a file to start with as the source or input</extracomment>
         <translation>Archivo de entrada</translation>
     </message>
     <message>
         <source>select input file</source>
+        <extracomment>select the input or older file</extracomment>
         <translation>seleccionar archivo de entrada</translation>
     </message>
     <message>
         <source>Select input file...</source>
+        <extracomment>starts a file chooser to select a file</extracomment>
         <translation>Seleccionar archivo de entrada...</translation>
     </message>
     <message>
-        <source>Patch file</source>
-        <translation type="vanished">Archivo parche</translation>
-    </message>
-    <message>
-        <source>select patch</source>
-        <translation type="vanished">seleccionar parche</translation>
-    </message>
-    <message>
-        <source>Select patch...</source>
-        <translation type="vanished">Seleccionar parche...</translation>
-    </message>
-    <message>
         <source>Output file</source>
+        <extracomment>the final patched output file</extracomment>
         <translation>Archivo de salida</translation>
     </message>
     <message>
         <source>use default, or set up a custom name</source>
+        <extracomment>create the new file name</extracomment>
         <translation>usar el nombre predeterminado o configure un nombre personalizado</translation>
     </message>
     <message>
         <source>Change location..</source>
+        <extracomment>starts a file chooser to select destination for output file</extracomment>
         <translation>Cambiar ubicación...</translation>
-    </message>
-    <message>
-        <source>ISO Files (*.iso);;All Files (*)</source>
-        <translation>Archivos ISO (*.iso);;Todos los archivos (*)</translation>
-    </message>
-    <message>
-        <source>ISO Files (*.xdelta3);;All Files (*)</source>
-        <translation>Archivos ISO (*.xdelta3);;Todos los archivos (*)</translation>
-    </message>
-    <message>
-        <source>Select file</source>
-        <translation>Seleccionar archivo</translation>
-    </message>
-    <message>
-        <source>Path not found</source>
-        <translation>Ruta no encontrada</translation>
-    </message>
-    <message>
-        <source>Please select directory again.</source>
-        <translation>Por favor, seleccione de nuevo el directorio.</translation>
     </message>
     <message>
         <source>Error</source>
@@ -136,79 +99,15 @@
         <translation>El archivo ya existe</translation>
     </message>
     <message>
-        <source>Output file exists, do you want to overwrite?</source>
-        <translation>El archivo de salida existe, ¿desea sobrescribirlo?</translation>
-    </message>
-    <message>
-        <source>Success</source>
-        <translation>Éxito</translation>
-    </message>
-    <message>
-        <source>File was successfuly written.</source>
-        <translation type="vanished">El archivo se ha escrito correctamente.</translation>
-    </message>
-    <message>
-        <source>Error: Could not finish writing the file.</source>
-        <translation type="vanished">Error: No se pudo terminar de escribir el archivo.</translation>
-    </message>
-    <message>
-        <source>Please enter a name for the patch file.</source>
-        <translation type="vanished">Por favor, introduzca un nombre para el archivo de parche.</translation>
-    </message>
-    <message>
-        <source>File not found</source>
-        <translation>Archivo no encontrado</translation>
-    </message>
-    <message>
-        <source>File &apos;%1&apos; found, please double-check the input.</source>
-        <translation type="vanished">Archivo &apos;%1&apos; encontrado, por favor, compruebe la entrada.</translation>
-    </message>
-    <message>
-        <source>Patch file exists, do you want to overwrite?</source>
-        <translation type="vanished">El archivo de parche existe, ¿desea sobrescribirlo?</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation>Cancelar</translation>
-    </message>
-    <message>
-        <source>Please wait...</source>
-        <translation type="vanished">Por favor, espere...</translation>
-    </message>
-    <message>
-        <source>File was successfuly written to &apos;%1&apos; directory.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Took %1 to patch the file.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Error: Could not write the file.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>File &apos;%1&apos; found or not a file, please double-check the input.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>File &apos;%1&apos; was successfuly written.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Took %1 to create the patch.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>%1 elapsed</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Create delta</source>
+        <extracomment>meaning to create a delta file that bridges between the source and target file
+----------
+start process</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Create a binary difference between two files</source>
+        <extracomment>meaning to create a delta file that bridges between the source and target file</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -221,43 +120,152 @@
     </message>
     <message>
         <source>Apply delta</source>
+        <extracomment>meaning to apply a delta file to a input file to create a new output file
+----------
+start the process</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Create a new file applying a delta (difference) file to an original file</source>
+        <extracomment>meaning to apply a delta file to a input file to create a new output file</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Delta file</source>
+        <extracomment>the delta or diff file between the input and the output</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>select delta</source>
+        <extracomment>select the delta or patch file</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Select delta...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Please enter a name for the delta file.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Delta file exists, do you want to overwrite?</source>
+        <extracomment>starts a file chooser to select a file</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Higher number = better compression ratio, but takes more time to finish</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ISO Files (*.iso);;All Files (*)</source>
+        <comment>kinds of files to choose</comment>
+        <translation type="unfinished">Archivos ISO (*.iso);;Todos los archivos (*)</translation>
+    </message>
+    <message>
+        <source>ISO Files (*.xdelta3);;All Files (*)</source>
+        <comment>kinds of files to choose</comment>
+        <translation type="unfinished">Archivos ISO (*.xdelta3);;Todos los archivos (*)</translation>
+    </message>
+    <message>
+        <source>Select file</source>
+        <comment>choose a file</comment>
+        <translation type="unfinished">Seleccionar archivo</translation>
+    </message>
+    <message>
+        <source>Select directory to place the file in</source>
+        <comment>select a target directory</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Path not found</source>
+        <comment>warning about not finding the target directory</comment>
+        <translation type="unfinished">Ruta no encontrada</translation>
+    </message>
+    <message>
+        <source>Please select directory again.</source>
+        <comment>message to try again</comment>
+        <translation type="unfinished">Por favor, seleccione de nuevo el directorio.</translation>
+    </message>
+    <message>
+        <source>Output file exists, do you want to overwrite?</source>
+        <comment>warning about overwritting an existing file</comment>
+        <translation type="unfinished">El archivo de salida existe, ¿desea sobrescribirlo?</translation>
+    </message>
+    <message>
+        <source>Success</source>
+        <comment>information that file was successfully written</comment>
+        <translation type="unfinished">Éxito</translation>
+    </message>
+    <message>
+        <source>File was successfuly written to &apos;%1&apos; directory.</source>
+        <comment>information that file was successfully written</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Took %1 to patch the file.</source>
+        <comment>elapsed time, leave %1 untranslated</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error: Could not write the file.</source>
+        <comment>information that there was an error creating the file</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please enter a name for the delta file.</source>
+        <comment>name of delta file being created</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File not found</source>
+        <comment>warning about file not found</comment>
+        <translation type="unfinished">Archivo no encontrado</translation>
+    </message>
+    <message>
+        <source>File &apos;%1&apos; found or not a file, please double-check the input.</source>
+        <comment>warning about file not found</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File exists</source>
+        <comment>warning about overwritting file</comment>
+        <translation type="unfinished">El archivo ya existe</translation>
+    </message>
+    <message>
+        <source>Delta file exists, do you want to overwrite?</source>
+        <comment>warning about overwritting file</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Success</source>
+        <comment>information on file written succesfully</comment>
+        <translation type="unfinished">Éxito</translation>
+    </message>
+    <message>
+        <source>File &apos;%1&apos; was successfuly written.</source>
+        <comment>information on file written succesfully</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Took %1 to create the patch.</source>
+        <comment>elasped time, leave %1 untranslated</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error: Could not write the file.</source>
+        <comment>information that file was not written succsessfully</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <comment>stop an action in progress</comment>
+        <translation type="unfinished">Cancelar</translation>
+    </message>
+    <message>
+        <source>%1 elapsed</source>
+        <comment>elasped time, leave %1 untranslated</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QObject</name>
-    <message>
-        <source>You must run this program as normal user.</source>
-        <translation>Debe ejecutar este programa como un usuario normal.</translation>
-    </message>
     <message>
         <source>file</source>
         <translation type="unfinished"></translation>
@@ -267,12 +275,23 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>GUI for xdelta3 application. App for generating a binary difference between two files in the form of delta encoding</source>
+        <source>Name of the delta file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Name of the delta file</source>
+        <source>GUI for xdelta3 application.</source>
+        <comment>short description for --help and desktop file</comment>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>App for generating a binary difference between two files in the form of delta encoding</source>
+        <comment>extra description for --help</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You must run this program as normal user.</source>
+        <comment>warning about running application as root</comment>
+        <translation type="unfinished">Debe ejecutar este programa como un usuario normal.</translation>
     </message>
 </context>
 </TS>

@@ -95,10 +95,10 @@ void MainWindow::cmdDone()
 }
 
 void MainWindow::onSelectFile(QLineEdit *lineEdit)
-{
-    QString filter = lineEdit->objectName() != "textApplyPatch" ? tr("ISO Files (*.iso);;All Files (*)")
-                                                                : tr("ISO Files (*.xdelta3);;All Files (*)");
-    QString selected = QFileDialog::getOpenFileName(this, tr("Select file"), QDir::currentPath(), filter);
+{   QString filter = lineEdit->objectName() != "textApplyPatch" ? tr("ISO Files (*.iso);;All Files (*)","kinds of files to choose")
+                                                                : tr("ISO Files (*.xdelta3);;All Files (*)","kinds of files to choose");
+    //choosing a file
+    QString selected = QFileDialog::getOpenFileName(this, tr("Select file", "choose a file"), QDir::currentPath(), filter);
     if (checkFile(selected)) {
         lineEdit->setText(selected);
         QDir::setCurrent(QFileInfo(selected).absolutePath());
@@ -117,7 +117,7 @@ void MainWindow::onSelectDir()
     QString name = ui->tabWidget->currentWidget() == ui->tabCreatePatch ? QFileInfo(ui->textPatch->text()).fileName()
                                                                         : QFileInfo(ui->textOutput->text()).fileName();
     QString path
-        = QFileDialog::getExistingDirectory(this, "Select directory to place the file in", QDir::currentPath());
+        = QFileDialog::getExistingDirectory(this, tr("Select directory to place the file in","select a target directory"), QDir::currentPath());
     if (path.isEmpty()) {
         return;
     }
@@ -129,7 +129,7 @@ void MainWindow::onSelectDir()
             ui->textOutput->setText(path + "/" + name);
         }
     } else {
-        QMessageBox::warning(this, tr("Path not found"), tr("Please select directory again."));
+        QMessageBox::warning(this, tr("Path not found","warning about not finding the target directory"), tr("Please select directory again.","message to try again"));
     }
     checkAllinfo();
 }
@@ -146,7 +146,7 @@ void MainWindow::applyPatch()
 
     if (QFileInfo(ui->textOutput->text()).isFile()) {
         if (QMessageBox::No
-            == QMessageBox::question(this, tr("File exists"), tr("Output file exists, do you want to overwrite?"))) {
+            == QMessageBox::question(this, tr("File exists"), tr("Output file exists, do you want to overwrite?","warning about overwritting an existing file"))) {
             return;
         }
     }
@@ -162,11 +162,12 @@ void MainWindow::applyPatch()
                                         : QFileInfo(output).absolutePath().remove("\"");
 
     if (res) {
-        QMessageBox::information(this, tr("Success"),
-                                 tr("File was successfuly written to '%1' directory.").arg(location) + "\n"
-                                     + tr("Took %1 to patch the file.").arg(time.toString("mm:ss")));
+        QMessageBox::information(this, tr("Success","information that file was successfully written"),
+                                 tr("File was successfuly written to '%1' directory.","information that file was successfully written").arg(location) + "\n"
+                                     + tr("Took %1 to patch the file.","elapsed time, leave %1 untranslated").arg(time.toString("mm:ss")));
     } else {
-        QMessageBox::critical(this, tr("Error"), tr("Error: Could not write the file.") + "\n\n" + cmdout);
+
+        QMessageBox::critical(this, tr("Error"), tr("Error: Could not write the file.","information that there was an error creating the file") + "\n\n" + cmdout);
     }
 }
 
@@ -177,7 +178,7 @@ void MainWindow::checkAllinfo()
                                          || ui->textPatch->text().isEmpty());
         if (QFileInfo(ui->textPatch->text()).fileName().isEmpty()) {
             ui->pushCreatePatch->setDisabled(true);
-            QMessageBox::warning(this, tr("Error"), tr("Please enter a name for the delta file."));
+            QMessageBox::warning(this, tr("Error"), tr("Please enter a name for the delta file.","name of delta file being created"));
         }
     } else {
         ui->pushApplyPatch->setDisabled(ui->textInput->text().isEmpty() || ui->textApplyPatch->text().isEmpty());
@@ -190,8 +191,8 @@ bool MainWindow::checkFile(const QString &fileName)
         return false;
     }
     if (!QFileInfo(fileName).isFile()) {
-        QMessageBox::warning(this, tr("File not found"),
-                             tr("File '%1' found or not a file, please double-check the input.").arg(fileName));
+        QMessageBox::warning(this, tr("File not found","warning about file not found"),
+                             tr("File '%1' found or not a file, please double-check the input.","warning about file not found").arg(fileName));
         return false;
     } else {
         return true;
@@ -203,7 +204,7 @@ void MainWindow::createPatch()
     QString force;
     if (QFileInfo(ui->textPatch->text()).isFile()) {
         if (QMessageBox::No
-            == QMessageBox::question(this, tr("File exists"), tr("Delta file exists, do you want to overwrite?"))) {
+            == QMessageBox::question(this, tr("File exists","warning about overwritting file"), tr("Delta file exists, do you want to overwrite?","warning about overwritting file"))) {
             return;
         } else {
             force = "-f ";
@@ -219,12 +220,12 @@ void MainWindow::createPatch()
                        &cmdout);
     time = time.addMSecs(static_cast<int>(elapsedTimer.elapsed()));
     if (res) {
-        QMessageBox::information(this, tr("Success"),
-                                 tr("File '%1' was successfuly written.")
+        QMessageBox::information(this, tr("Success","information on file written succesfully"),
+                                 tr("File '%1' was successfuly written.","information on file written succesfully")
                                          .arg(QFileInfo(ui->textPatch->text()).absoluteFilePath().remove("\""))
-                                     + "\n" + tr("Took %1 to create the patch.").arg(time.toString("mm:ss")));
+                                     + "\n" + tr("Took %1 to create the patch.","elasped time, leave %1 untranslated").arg(time.toString("mm:ss")));
     } else {
-        QMessageBox::critical(this, tr("Error"), tr("Error: Could not write the file.") + "\n\n" + cmdout);
+        QMessageBox::critical(this, tr("Error"), tr("Error: Could not write the file.","information that file was not written succsessfully") + "\n\n" + cmdout);
     }
 }
 
@@ -280,7 +281,7 @@ void MainWindow::setProgressDialog()
 {
     progress = new QProgressDialog(this);
     bar = new QProgressBar(progress);
-    auto *pushCancel = new QPushButton(tr("Cancel"));
+    auto *pushCancel = new QPushButton(tr("Cancel","stop an action in progress"));
     connect(pushCancel, &QPushButton::clicked, this, [this] { cmd.terminate(); });
     bar->setMaximum(100);
     progress->setWindowModality(Qt::WindowModal);
@@ -316,5 +317,5 @@ void MainWindow::updateBar()
     }
     QTime time {0, 0};
     time = time.addMSecs(static_cast<int>(elapsedTimer.elapsed()));
-    progress->setLabelText(tr("%1 elapsed").arg(time.toString(QStringLiteral("mm:ss"))) + "\n" + output);
+    progress->setLabelText(tr("%1 elapsed","elasped time, leave %1 untranslated").arg(time.toString(QStringLiteral("mm:ss"))) + "\n" + output);
 }
