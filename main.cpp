@@ -41,8 +41,8 @@ int main(int argc, char *argv[])
     QApplication::setApplicationVersion(VERSION);
 
     QCommandLineParser parser;
-    parser.setApplicationDescription(QObject::tr("GUI for xdelta3 application. App for generating a binary difference "
-                                                 "between two files in the form of delta encoding"));
+    parser.setApplicationDescription(QObject::tr("GUI for xdelta3 application." , "short description for --help and desktop file")  + " " + QObject::tr("App for generating a binary difference "
+                                                 "between two files in the form of delta encoding" , "extra description for --help"));
     parser.addHelpOption();
     parser.addVersionOption();
     parser.addPositionalArgument(QObject::tr("file"), QObject::tr("Name of the delta file"), QObject::tr("[file]"));
@@ -72,7 +72,7 @@ int main(int argc, char *argv[])
         return QApplication::exec();
     } else {
         QApplication::beep();
-        QMessageBox::critical(nullptr, QString(), QObject::tr("You must run this program as normal user."));
+        QMessageBox::critical(nullptr, QString(), QObject::tr("You must run this program as normal user.", "warning about running application as root"));
         return EXIT_FAILURE;
     }
 }

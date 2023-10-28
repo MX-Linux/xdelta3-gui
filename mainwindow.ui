@@ -20,14 +20,14 @@
       <string/>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tabCreatePatch">
       <attribute name="title">
-       <string>Create delta</string>
+       <string extracomment="meaning to create a delta file that bridges between the source and target file">Create delta</string>
       </attribute>
       <attribute name="toolTip">
-       <string>Create a binary difference between two files</string>
+       <string extracomment="meaning to create a delta file that bridges between the source and target file">Create a binary difference between two files</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_2">
        <item row="3" column="0" colspan="2">
@@ -36,7 +36,7 @@
           <bool>false</bool>
          </property>
          <property name="text">
-          <string>Create delta</string>
+          <string extracomment="start process">Create delta</string>
          </property>
          <property name="autoDefault">
           <bool>false</bool>
@@ -46,14 +46,17 @@
        <item row="1" column="0" colspan="2">
         <widget class="QGroupBox" name="groupOption">
          <property name="title">
-          <string>Options</string>
+          <string extracomment="program options">Options</string>
          </property>
          <layout class="QGridLayout" name="gridLayout">
           <item row="1" column="1">
            <widget class="QComboBox" name="comboCompression">
+            <property name="currentText">
+             <string notr="true">None</string>
+            </property>
             <item>
              <property name="text">
-              <string notr="true">None</string>
+              <string>None</string>
              </property>
             </item>
             <item>
@@ -92,7 +95,7 @@
              <string>Higher number = better compression ratio, but takes more time to finish</string>
             </property>
             <property name="text">
-             <string>Compression level</string>
+             <string extracomment="level of compression the delta file will use">Compression level</string>
             </property>
            </widget>
           </item>
@@ -115,7 +118,7 @@
              <string>More compression using various compression algorithms</string>
             </property>
             <property name="text">
-             <string>Secondary compression</string>
+             <string extracomment="an extra layer of compression">Secondary compression</string>
             </property>
            </widget>
           </item>
@@ -137,17 +140,17 @@
              </size>
             </property>
             <property name="placeholderText">
-             <string>select target (new) file</string>
+             <string extracomment="select the new file from which to create a delta between it and the source.">select target (new) file</string>
             </property>
            </widget>
           </item>
           <item row="3" column="1">
            <widget class="QLineEdit" name="textPatch">
             <property name="text">
-             <string>patch.xdelta3</string>
+             <string notr="true">patch.xdelta3</string>
             </property>
             <property name="placeholderText">
-             <string notr="true"/>
+             <string notr="true" extracomment="name of the patch file"/>
             </property>
            </widget>
           </item>
@@ -175,7 +178,7 @@
           <item row="1" column="2">
            <widget class="QPushButton" name="pushSelectSource">
             <property name="text">
-             <string>Select source file...</string>
+             <string extracomment="starts a file chooser to select a file">Select source file...</string>
             </property>
            </widget>
           </item>
@@ -188,21 +191,21 @@
              </size>
             </property>
             <property name="placeholderText">
-             <string>select source (old) file</string>
+             <string extracomment="select the original or source file">select source (old) file</string>
             </property>
            </widget>
           </item>
           <item row="2" column="2">
            <widget class="QPushButton" name="pushSelectTarget">
             <property name="text">
-             <string>Select target file...</string>
+             <string extracomment="starts a file chooser to select a file">Select target file...</string>
             </property>
            </widget>
           </item>
           <item row="3" column="2">
            <widget class="QPushButton" name="pushPatchLocation">
             <property name="text">
-             <string>Change location...</string>
+             <string extracomment="starts a file chooser to select destination for output delta file">Change location...</string>
             </property>
            </widget>
           </item>
@@ -226,64 +229,64 @@
      </widget>
      <widget class="QWidget" name="tabApplyPatch">
       <attribute name="title">
-       <string>Apply delta</string>
+       <string extracomment="meaning to apply a delta file to a input file to create a new output file">Apply delta</string>
       </attribute>
       <attribute name="toolTip">
-       <string>Create a new file applying a delta (difference) file to an original file</string>
+       <string extracomment="meaning to apply a delta file to a input file to create a new output file">Create a new file applying a delta (difference) file to an original file</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
         <widget class="QGroupBox" name="groupSelectionPatch">
          <property name="title">
-          <string>File selection</string>
+          <string extracomment="area for selecting input and output files">File selection</string>
          </property>
          <layout class="QGridLayout" name="gridLayout_3">
           <item row="0" column="0">
            <widget class="QLabel" name="labelInputFile">
             <property name="text">
-             <string>Input file</string>
+             <string extracomment="a file to start with as the source or input">Input file</string>
             </property>
            </widget>
           </item>
           <item row="0" column="1">
            <widget class="QLineEdit" name="textInput">
             <property name="placeholderText">
-             <string>select input file</string>
+             <string extracomment="select the input or older file">select input file</string>
             </property>
            </widget>
           </item>
           <item row="0" column="2">
            <widget class="QPushButton" name="pushSelectInput">
             <property name="text">
-             <string>Select input file...</string>
+             <string extracomment="starts a file chooser to select a file">Select input file...</string>
             </property>
            </widget>
           </item>
           <item row="1" column="0">
            <widget class="QLabel" name="labelPatchFile">
             <property name="text">
-             <string>Delta file</string>
+             <string extracomment="the delta or diff file between the input and the output">Delta file</string>
             </property>
            </widget>
           </item>
           <item row="1" column="1">
            <widget class="QLineEdit" name="textApplyPatch">
             <property name="placeholderText">
-             <string>select delta</string>
+             <string extracomment="select the delta or patch file">select delta</string>
             </property>
            </widget>
           </item>
           <item row="1" column="2">
            <widget class="QPushButton" name="pushSelectPatch">
             <property name="text">
-             <string>Select delta...</string>
+             <string extracomment="starts a file chooser to select a file">Select delta...</string>
             </property>
            </widget>
           </item>
           <item row="2" column="0">
            <widget class="QLabel" name="labelOutputFile">
             <property name="text">
-             <string>Output file</string>
+             <string extracomment="the final patched output file">Output file</string>
             </property>
            </widget>
           </item>
@@ -293,14 +296,14 @@
              <string/>
             </property>
             <property name="placeholderText">
-             <string>use default, or set up a custom name</string>
+             <string extracomment="create the new file name">use default, or set up a custom name</string>
             </property>
            </widget>
           </item>
           <item row="2" column="2">
            <widget class="QPushButton" name="pushSelectOutput">
             <property name="text">
-             <string>Change location..</string>
+             <string extracomment="starts a file chooser to select destination for output file">Change location..</string>
             </property>
            </widget>
           </item>
@@ -326,7 +329,7 @@
           <bool>false</bool>
          </property>
          <property name="text">
-          <string>Apply delta</string>
+          <string extracomment="start the process">Apply delta</string>
          </property>
         </widget>
        </item>
