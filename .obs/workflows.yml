@@ -1,5 +1,9 @@
 workflow:
   steps:
+    - branch_package:
+        source_project: home:mx-packaging
+        source_package: %{SCM_REPOSITORY_NAME} 
+        target_project: home:mx-packaging:releases
     - rebuild_package:
         project: home:mx-packaging
         package: %{SCM_REPOSITORY_NAME} 
