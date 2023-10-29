@@ -1,0 +1,7 @@
+workflow:
+  steps:
+    - rebuild_package:
+        project: home:mx-packaging
+        package: xdelta3-gui
+  filters:
+    event: push
