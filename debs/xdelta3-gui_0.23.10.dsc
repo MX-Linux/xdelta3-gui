@@ -12,20 +12,20 @@ Build-Depends: debhelper (>= 10), qtbase5-dev, qttools5-dev-tools
 Package-List:
  xdelta3-gui deb admin optional arch=any
 Checksums-Sha1:
- 93c85575b18afe027cabce5ee013a40e021ad2bd 1366280 xdelta3-gui_0.23.10.tar.xz
+ 36351251ceade11d822ba154a68cd4108f035a32 1367552 xdelta3-gui_0.23.10.tar.xz
 Checksums-Sha256:
- 45467221b62a768d58bae25273069790c37ef8ec0570f1f350269985a5c0f503 1366280 xdelta3-gui_0.23.10.tar.xz
+ 4db1bc72af3a64e048d9b6b42eeddd504a897a0453dc1680bc931e4f8c8c4072 1367552 xdelta3-gui_0.23.10.tar.xz
 Files:
- 3ee6fe941428b2be74d421606383d4b9 1366280 xdelta3-gui_0.23.10.tar.xz
+ c1c2315f4f2c5bf2b40e4c0fb25b7bbd 1367552 xdelta3-gui_0.23.10.tar.xz
 
 -----BEGIN PGP SIGNATURE-----
 
-iQFHBAEBCgAxFiEE8ndToY6S45N+YzXncJOMeAZ57pgFAmU+nEsTHGFkcmlhbkBt
-eGxpbnV4Lm9yZwAKCRBwk4x4BnnumDpjCADR76Hm5kpufbhtN/uQnCiWuSKIF5Oq
-+fC0XoK90IW5bWNiZR1GiHGgfVuJpDe9+vG2F+LLnC17ms271J3PpYtUUw6CN933
-MiSAfyw1XE1V1tq4lnaKXbhPRYGqHnoazXmy3d+Y0H0MwW1I5Ol109Bzu98hzJnU
-GqjuQW4YHSx+Os1VskVRw3cCKszm608mgKXcuv61ahH5LoEHa7OALK1DY4Na141w
-jFMtxB/C5CRRK38crK9pSSUxx45pwhJvYStorTI5WkZF3nhevBmUFPy258QmCsaJ
-283tDDUB4CpgZfre52+YdAW+HwxbqMtLsqh2XH6WabDeW5cOV1/zPE0P
-=2Fsr
+iQFHBAEBCgAxFiEE8ndToY6S45N+YzXncJOMeAZ57pgFAmU+npUTHGFkcmlhbkBt
+eGxpbnV4Lm9yZwAKCRBwk4x4BnnumAY2CACFK5iGu4iZOgJXwsr0U+YgsBB3mHyD
+WzUUhiYturp/gD+9vmP9VEtCQOodOVFOmfDtPLtCfPE4X9n861+OG1iLWYz6gc2j
+3ooxC2Ybegk1nT4NkjpBqN/NTp0Gg5GNDta4a733BvLfV9N4JqTpAF7tIJMlJSGI
+O09Z3mG0CuZvZrzv9DYzHxw8PQm4/OHuXQk7M2EXjYkzFomxba/y5zZm5UU1Dyc/
+mSaHpPiI3yQPtz3BMwPaxruTCJ4F8rNKrjxqL7wp3IfHZTaoEbTDsgtjvO0Qq+Lg
+3W1O+4DkIuNBUucmSE6twRiTIElXFl8KLVAZnDZ9lFF/aO/JV6Aaw8DM
+=EGVi
 -----END PGP SIGNATURE-----
