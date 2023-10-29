@@ -2,6 +2,9 @@ workflow:
   steps:
     - rebuild_package:
         project: home:mx-packaging
-        package: xdelta3-gui
+        package: %{SCM_REPOSITORY_NAME} 
   filters:
     event: push
+    branches: 
+        only:
+            - main
