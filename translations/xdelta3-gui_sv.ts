@@ -25,6 +25,16 @@ start process</extracomment>
         <translation>Alternativ</translation>
     </message>
     <message>
+        <location filename="../mainwindow.ui" line="59"/>
+        <source>None</source>
+        <translation>Ingen</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="95"/>
+        <source>Higher number = better compression ratio, but takes more time to finish</source>
+        <translation>Högre nummerr = bättre kompressionsgrad, men tar längre tid att slutföra</translation>
+    </message>
+    <message>
         <location filename="../mainwindow.ui" line="98"/>
         <source>Compression level</source>
         <extracomment>level of compression the delta file will use</extracomment>
@@ -70,53 +80,10 @@ start process</extracomment>
         <translation>Deltafilsnamn</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="232"/>
-        <location filename="../mainwindow.ui" line="332"/>
-        <source>Apply delta</source>
-        <extracomment>meaning to apply a delta file to a input file to create a new output file
-----------
-start the process</extracomment>
-        <translation>Tillämpa delta</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="235"/>
-        <source>Create a new file applying a delta (difference) file to an original file</source>
-        <extracomment>meaning to apply a delta file to a input file to create a new output file</extracomment>
-        <translation>Skapa en ny fil genom att applicera en delta (skillnads) fil på en orginalfil.</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="268"/>
-        <source>Delta file</source>
-        <extracomment>the delta or diff file between the input and the output</extracomment>
-        <translation>Deltafil</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="275"/>
-        <source>select delta</source>
-        <extracomment>select the delta or patch file</extracomment>
-        <translation>välj delta</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="282"/>
-        <source>Select delta...</source>
-        <extracomment>starts a file chooser to select a file</extracomment>
-        <translation>Välj delta...</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.ui" line="181"/>
         <source>Select source file...</source>
         <extracomment>starts a file chooser to select a file</extracomment>
         <translation>Välj källfil...</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="59"/>
-        <source>None</source>
-        <translation>Ingen</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="95"/>
-        <source>Higher number = better compression ratio, but takes more time to finish</source>
-        <translation>Högre nummerr = bättre kompressionsgrad, men tar längre tid att slutföra</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="194"/>
@@ -137,6 +104,21 @@ start the process</extracomment>
         <translation>Byt plats...</translation>
     </message>
     <message>
+        <location filename="../mainwindow.ui" line="232"/>
+        <location filename="../mainwindow.ui" line="332"/>
+        <source>Apply delta</source>
+        <extracomment>meaning to apply a delta file to a input file to create a new output file
+----------
+start the process</extracomment>
+        <translation>Tillämpa delta</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="235"/>
+        <source>Create a new file applying a delta (difference) file to an original file</source>
+        <extracomment>meaning to apply a delta file to a input file to create a new output file</extracomment>
+        <translation>Skapa en ny fil genom att applicera en delta (skillnads) fil på en orginalfil.</translation>
+    </message>
+    <message>
         <location filename="../mainwindow.ui" line="247"/>
         <source>Input file</source>
         <extracomment>a file to start with as the source or input</extracomment>
@@ -153,6 +135,24 @@ start the process</extracomment>
         <source>Select input file...</source>
         <extracomment>starts a file chooser to select a file</extracomment>
         <translation>Välj inmatningsfil...</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="268"/>
+        <source>Delta file</source>
+        <extracomment>the delta or diff file between the input and the output</extracomment>
+        <translation>Deltafil</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="275"/>
+        <source>select delta</source>
+        <extracomment>select the delta or patch file</extracomment>
+        <translation>välj delta</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="282"/>
+        <source>Select delta...</source>
+        <extracomment>starts a file chooser to select a file</extracomment>
+        <translation>Välj delta...</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="289"/>
@@ -326,11 +326,6 @@ start the process</extracomment>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../main.cpp" line="48"/>
-        <source>file</source>
-        <translation>fil</translation>
-    </message>
-    <message>
         <location filename="../main.cpp" line="44"/>
         <source>GUI for xdelta3 application.</source>
         <comment>short description for --help and desktop file</comment>
@@ -344,13 +339,18 @@ start the process</extracomment>
     </message>
     <message>
         <location filename="../main.cpp" line="48"/>
-        <source>[file]</source>
-        <translation>[fil]</translation>
+        <source>file</source>
+        <translation>fil</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="48"/>
         <source>Name of the delta file</source>
         <translation>Namn på deltafilen</translation>
+    </message>
+    <message>
+        <location filename="../main.cpp" line="48"/>
+        <source>[file]</source>
+        <translation>[fil]</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="75"/>

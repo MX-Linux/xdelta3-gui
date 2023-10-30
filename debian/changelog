@@ -1,3 +1,9 @@
+xdelta3-gui (0.23.10.02) mx; urgency=medium
+
+  * Add svg icon
+
+ -- Adrian <adrian@mxlinux.org>  Mon, 30 Oct 2023 18:13:17 -0400
+
 xdelta3-gui (0.23.10.01) mx; urgency=medium
 
   * Change icon

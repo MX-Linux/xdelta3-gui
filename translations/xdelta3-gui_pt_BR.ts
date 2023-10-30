@@ -25,6 +25,16 @@ start process</extracomment>
         <translation>Opções</translation>
     </message>
     <message>
+        <location filename="../mainwindow.ui" line="59"/>
+        <source>None</source>
+        <translation>Nenhum</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="95"/>
+        <source>Higher number = better compression ratio, but takes more time to finish</source>
+        <translation>O número maior corresponde a melhor taxa de compactação, contudo, demora mais para terminar</translation>
+    </message>
+    <message>
         <location filename="../mainwindow.ui" line="98"/>
         <source>Compression level</source>
         <extracomment>level of compression the delta file will use</extracomment>
@@ -70,53 +80,10 @@ start process</extracomment>
         <translation>Nome do arquivo delta</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="232"/>
-        <location filename="../mainwindow.ui" line="332"/>
-        <source>Apply delta</source>
-        <extracomment>meaning to apply a delta file to a input file to create a new output file
-----------
-start the process</extracomment>
-        <translation>Aplicar o delta</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="235"/>
-        <source>Create a new file applying a delta (difference) file to an original file</source>
-        <extracomment>meaning to apply a delta file to a input file to create a new output file</extracomment>
-        <translation>Criar um novo arquivo a partir de um arquivo delta (da diferença ou da variação) de um arquivo original</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="268"/>
-        <source>Delta file</source>
-        <extracomment>the delta or diff file between the input and the output</extracomment>
-        <translation>Arquivo delta</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="275"/>
-        <source>select delta</source>
-        <extracomment>select the delta or patch file</extracomment>
-        <translation>selecionar o arquivo delta</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="282"/>
-        <source>Select delta...</source>
-        <extracomment>starts a file chooser to select a file</extracomment>
-        <translation>Selecionar o arquivo delta...</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.ui" line="181"/>
         <source>Select source file...</source>
         <extracomment>starts a file chooser to select a file</extracomment>
         <translation>Selecionar o arquivo de origem...</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="59"/>
-        <source>None</source>
-        <translation>Nenhum</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.ui" line="95"/>
-        <source>Higher number = better compression ratio, but takes more time to finish</source>
-        <translation>O número maior corresponde a melhor taxa de compactação, contudo, demora mais para terminar</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="194"/>
@@ -137,6 +104,21 @@ start the process</extracomment>
         <translation>Alterar a localização...</translation>
     </message>
     <message>
+        <location filename="../mainwindow.ui" line="232"/>
+        <location filename="../mainwindow.ui" line="332"/>
+        <source>Apply delta</source>
+        <extracomment>meaning to apply a delta file to a input file to create a new output file
+----------
+start the process</extracomment>
+        <translation>Aplicar o delta</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="235"/>
+        <source>Create a new file applying a delta (difference) file to an original file</source>
+        <extracomment>meaning to apply a delta file to a input file to create a new output file</extracomment>
+        <translation>Criar um novo arquivo a partir de um arquivo delta (da diferença ou da variação) de um arquivo original</translation>
+    </message>
+    <message>
         <location filename="../mainwindow.ui" line="247"/>
         <source>Input file</source>
         <extracomment>a file to start with as the source or input</extracomment>
@@ -153,6 +135,24 @@ start the process</extracomment>
         <source>Select input file...</source>
         <extracomment>starts a file chooser to select a file</extracomment>
         <translation>Selecionar o arquivo de entrada...</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="268"/>
+        <source>Delta file</source>
+        <extracomment>the delta or diff file between the input and the output</extracomment>
+        <translation>Arquivo delta</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="275"/>
+        <source>select delta</source>
+        <extracomment>select the delta or patch file</extracomment>
+        <translation>selecionar o arquivo delta</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="282"/>
+        <source>Select delta...</source>
+        <extracomment>starts a file chooser to select a file</extracomment>
+        <translation>Selecionar o arquivo delta...</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="289"/>
@@ -326,11 +326,6 @@ start the process</extracomment>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../main.cpp" line="48"/>
-        <source>file</source>
-        <translation>arquivo</translation>
-    </message>
-    <message>
         <location filename="../main.cpp" line="44"/>
         <source>GUI for xdelta3 application.</source>
         <comment>short description for --help and desktop file</comment>
@@ -345,13 +340,18 @@ O ‘Xdelta3’ é um conjunto de ferramentas projetadas para calcular as altera
     </message>
     <message>
         <location filename="../main.cpp" line="48"/>
-        <source>[file]</source>
-        <translation>[arquivo]</translation>
+        <source>file</source>
+        <translation>arquivo</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="48"/>
         <source>Name of the delta file</source>
         <translation>Nome do arquivo delta</translation>
+    </message>
+    <message>
+        <location filename="../main.cpp" line="48"/>
+        <source>[file]</source>
+        <translation>[arquivo]</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="75"/>
