@@ -22,7 +22,7 @@ start process</extracomment>
         <location filename="../mainwindow.ui" line="49"/>
         <source>Options</source>
         <extracomment>program options</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Alternativer</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="98"/>
@@ -214,7 +214,7 @@ start the process</extracomment>
         <location filename="../mainwindow.cpp" line="181"/>
         <location filename="../mainwindow.cpp" line="228"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Feil</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="141"/>
@@ -314,7 +314,7 @@ start the process</extracomment>
         <location filename="../mainwindow.cpp" line="284"/>
         <source>Cancel</source>
         <comment>stop an action in progress</comment>
-        <translation type="unfinished"></translation>
+        <translation>Avbryt</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="320"/>

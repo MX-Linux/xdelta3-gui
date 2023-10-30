@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="hi_IN">
+<TS version="2.1" language="hi">
 <context>
     <name>MainWindow</name>
     <message>
@@ -22,7 +22,7 @@ start process</extracomment>
         <location filename="../mainwindow.ui" line="49"/>
         <source>Options</source>
         <extracomment>program options</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>विकल्प</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="98"/>
@@ -111,7 +111,7 @@ start the process</extracomment>
     <message>
         <location filename="../mainwindow.ui" line="59"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>कोई नहीं</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="95"/>
@@ -214,7 +214,7 @@ start the process</extracomment>
         <location filename="../mainwindow.cpp" line="181"/>
         <location filename="../mainwindow.cpp" line="228"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>त्रुटि</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="141"/>
@@ -236,7 +236,7 @@ start the process</extracomment>
         <location filename="../mainwindow.cpp" line="165"/>
         <source>Success</source>
         <comment>information that file was successfully written</comment>
-        <translation type="unfinished"></translation>
+        <translation>सफल</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="166"/>
@@ -290,7 +290,7 @@ start the process</extracomment>
         <location filename="../mainwindow.cpp" line="223"/>
         <source>Success</source>
         <comment>information on file written succesfully</comment>
-        <translation type="unfinished"></translation>
+        <translation>सफल</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="224"/>
@@ -314,7 +314,7 @@ start the process</extracomment>
         <location filename="../mainwindow.cpp" line="284"/>
         <source>Cancel</source>
         <comment>stop an action in progress</comment>
-        <translation type="unfinished"></translation>
+        <translation>रद्द करें</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="320"/>
@@ -328,7 +328,7 @@ start the process</extracomment>
     <message>
         <location filename="../main.cpp" line="48"/>
         <source>file</source>
-        <translation type="unfinished"></translation>
+        <translation>फाइल</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="44"/>
@@ -356,7 +356,7 @@ start the process</extracomment>
         <location filename="../main.cpp" line="75"/>
         <source>You must run this program as normal user.</source>
         <comment>warning about running application as root</comment>
-        <translation type="unfinished"></translation>
+        <translation>प्रोग्राम निष्पादन हेतु आपका रुट उपयोक्ता होना आवश्यक है।</translation>
     </message>
 </context>
 </TS>

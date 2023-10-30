@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="vi_VN">
+<TS version="2.1" language="vi">
 <context>
     <name>MainWindow</name>
     <message>
@@ -214,7 +214,7 @@ start the process</extracomment>
         <location filename="../mainwindow.cpp" line="181"/>
         <location filename="../mainwindow.cpp" line="228"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Lỗi</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="141"/>
@@ -314,7 +314,7 @@ start the process</extracomment>
         <location filename="../mainwindow.cpp" line="284"/>
         <source>Cancel</source>
         <comment>stop an action in progress</comment>
-        <translation type="unfinished"></translation>
+        <translation>Hủy bỏ</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="320"/>
@@ -356,7 +356,7 @@ start the process</extracomment>
         <location filename="../main.cpp" line="75"/>
         <source>You must run this program as normal user.</source>
         <comment>warning about running application as root</comment>
-        <translation type="unfinished"></translation>
+        <translation>Bạn phải chạy ứng dụng này với tư cách người dùng bình thường.</translation>
     </message>
 </context>
 </TS>

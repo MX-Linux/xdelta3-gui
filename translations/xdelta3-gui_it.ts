@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="it_IT">
+<TS version="2.1" language="it">
 <context>
     <name>MainWindow</name>
     <message>
@@ -22,13 +22,13 @@ start process</extracomment>
         <location filename="../mainwindow.ui" line="49"/>
         <source>Options</source>
         <extracomment>program options</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Opzioni</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="98"/>
         <source>Compression level</source>
         <extracomment>level of compression the delta file will use</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Livello di compressione</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="118"/>
@@ -39,30 +39,30 @@ start process</extracomment>
         <location filename="../mainwindow.ui" line="121"/>
         <source>Secondary compression</source>
         <extracomment>an extra layer of compression</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Compressione secondaria</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="131"/>
         <location filename="../mainwindow.ui" line="241"/>
         <source>File selection</source>
         <extracomment>area for selecting input and output files</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Selezione file</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="143"/>
         <source>select target (new) file</source>
         <extracomment>select the new file from which to create a delta between it and the source.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>seleziona (nuovo) file di destinazione</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="160"/>
         <source>Target file</source>
-        <translation type="unfinished"></translation>
+        <translation>File di destinazione</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="167"/>
         <source>Source file</source>
-        <translation type="unfinished"></translation>
+        <translation>File sorgente</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="174"/>
@@ -106,12 +106,12 @@ start the process</extracomment>
         <location filename="../mainwindow.ui" line="181"/>
         <source>Select source file...</source>
         <extracomment>starts a file chooser to select a file</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Seleziona file sorgente...</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="59"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Nessuno</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="95"/>
@@ -122,73 +122,73 @@ start the process</extracomment>
         <location filename="../mainwindow.ui" line="194"/>
         <source>select source (old) file</source>
         <extracomment>select the original or source file</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Seleziona (vecchio) file sorgente</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="201"/>
         <source>Select target file...</source>
         <extracomment>starts a file chooser to select a file</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Seleziona file di destinazione...</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="208"/>
         <source>Change location...</source>
         <extracomment>starts a file chooser to select destination for output delta file</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Cambia posizione...</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="247"/>
         <source>Input file</source>
         <extracomment>a file to start with as the source or input</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>File di input</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="254"/>
         <source>select input file</source>
         <extracomment>select the input or older file</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>seleziona file di input</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="261"/>
         <source>Select input file...</source>
         <extracomment>starts a file chooser to select a file</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Seleziona file di input...</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="289"/>
         <source>Output file</source>
         <extracomment>the final patched output file</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>File di output</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="299"/>
         <source>use default, or set up a custom name</source>
         <extracomment>create the new file name</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>utilizza quello predefinito, o imposta un nome personalizzato</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="306"/>
         <source>Change location..</source>
         <extracomment>starts a file chooser to select destination for output file</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Cambia posizione...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="98"/>
         <source>ISO Files (*.iso);;All Files (*)</source>
         <comment>kinds of files to choose</comment>
-        <translation type="unfinished"></translation>
+        <translation>File ISO (*.iso); Tutti i file (*)</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="99"/>
         <source>ISO Files (*.xdelta3);;All Files (*)</source>
         <comment>kinds of files to choose</comment>
-        <translation type="unfinished"></translation>
+        <translation>File ISO (*.xdelta3); Tutti i file (*)</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="101"/>
         <source>Select file</source>
         <comment>choose a file</comment>
-        <translation type="unfinished"></translation>
+        <translation>Seleziona file</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="120"/>
@@ -200,13 +200,13 @@ start the process</extracomment>
         <location filename="../mainwindow.cpp" line="132"/>
         <source>Path not found</source>
         <comment>warning about not finding the target directory</comment>
-        <translation type="unfinished"></translation>
+        <translation>Percorso non trovato</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="132"/>
         <source>Please select directory again.</source>
         <comment>message to try again</comment>
-        <translation type="unfinished"></translation>
+        <translation>Seleziona di nuovo la directory.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="141"/>
@@ -214,29 +214,29 @@ start the process</extracomment>
         <location filename="../mainwindow.cpp" line="181"/>
         <location filename="../mainwindow.cpp" line="228"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Errore</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="141"/>
         <source>Please enter a name for the output file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Digita un nome per il file di output.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="149"/>
         <source>File exists</source>
-        <translation type="unfinished"></translation>
+        <translation>Il file esiste</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="149"/>
         <source>Output file exists, do you want to overwrite?</source>
         <comment>warning about overwritting an existing file</comment>
-        <translation type="unfinished"></translation>
+        <translation>Il file di output esiste, vuoi sovrascrivere?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="165"/>
         <source>Success</source>
         <comment>information that file was successfully written</comment>
-        <translation type="unfinished"></translation>
+        <translation>Operazione riuscita</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="166"/>
@@ -266,7 +266,7 @@ start the process</extracomment>
         <location filename="../mainwindow.cpp" line="194"/>
         <source>File not found</source>
         <comment>warning about file not found</comment>
-        <translation type="unfinished"></translation>
+        <translation>File non trovato</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="195"/>
@@ -278,7 +278,7 @@ start the process</extracomment>
         <location filename="../mainwindow.cpp" line="207"/>
         <source>File exists</source>
         <comment>warning about overwritting file</comment>
-        <translation type="unfinished"></translation>
+        <translation>Il file esiste</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="207"/>
@@ -290,7 +290,7 @@ start the process</extracomment>
         <location filename="../mainwindow.cpp" line="223"/>
         <source>Success</source>
         <comment>information on file written succesfully</comment>
-        <translation type="unfinished"></translation>
+        <translation>Operazione riuscita</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="224"/>
@@ -314,7 +314,7 @@ start the process</extracomment>
         <location filename="../mainwindow.cpp" line="284"/>
         <source>Cancel</source>
         <comment>stop an action in progress</comment>
-        <translation type="unfinished"></translation>
+        <translation>Annulla</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="320"/>
@@ -328,7 +328,7 @@ start the process</extracomment>
     <message>
         <location filename="../main.cpp" line="48"/>
         <source>file</source>
-        <translation type="unfinished"></translation>
+        <translation>file</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="44"/>
@@ -356,7 +356,7 @@ start the process</extracomment>
         <location filename="../main.cpp" line="75"/>
         <source>You must run this program as normal user.</source>
         <comment>warning about running application as root</comment>
-        <translation type="unfinished"></translation>
+        <translation>Devi eseguire questo programma come utente normale.</translation>
     </message>
 </context>
 </TS>

@@ -22,7 +22,7 @@ start process</extracomment>
         <location filename="../mainwindow.ui" line="49"/>
         <source>Options</source>
         <extracomment>program options</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>אפשרויות</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="98"/>
@@ -214,7 +214,7 @@ start the process</extracomment>
         <location filename="../mainwindow.cpp" line="181"/>
         <location filename="../mainwindow.cpp" line="228"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>שגיאה</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="141"/>
@@ -236,7 +236,7 @@ start the process</extracomment>
         <location filename="../mainwindow.cpp" line="165"/>
         <source>Success</source>
         <comment>information that file was successfully written</comment>
-        <translation type="unfinished"></translation>
+        <translation>הצלחה</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="166"/>
@@ -290,7 +290,7 @@ start the process</extracomment>
         <location filename="../mainwindow.cpp" line="223"/>
         <source>Success</source>
         <comment>information on file written succesfully</comment>
-        <translation type="unfinished"></translation>
+        <translation>הצלחה</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="224"/>
@@ -314,7 +314,7 @@ start the process</extracomment>
         <location filename="../mainwindow.cpp" line="284"/>
         <source>Cancel</source>
         <comment>stop an action in progress</comment>
-        <translation type="unfinished"></translation>
+        <translation>ביטול</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="320"/>
@@ -356,7 +356,7 @@ start the process</extracomment>
         <location filename="../main.cpp" line="75"/>
         <source>You must run this program as normal user.</source>
         <comment>warning about running application as root</comment>
-        <translation type="unfinished"></translation>
+        <translation>חובה את התכנית הזו כמשתמש רגיל.</translation>
     </message>
 </context>
 </TS>

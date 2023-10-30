@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="mr_IN">
+<TS version="2.1" language="mr">
 <context>
     <name>MainWindow</name>
     <message>
@@ -214,7 +214,7 @@ start the process</extracomment>
         <location filename="../mainwindow.cpp" line="181"/>
         <location filename="../mainwindow.cpp" line="228"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>त्रुटी</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="141"/>
@@ -314,7 +314,7 @@ start the process</extracomment>
         <location filename="../mainwindow.cpp" line="284"/>
         <source>Cancel</source>
         <comment>stop an action in progress</comment>
-        <translation type="unfinished"></translation>
+        <translation>रद्द करा</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="320"/>

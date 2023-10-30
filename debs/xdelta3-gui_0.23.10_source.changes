@@ -1,0 +1,40 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Format: 1.8
+Date: Mon, 23 Oct 2023 02:00:02 -0400
+Source: xdelta3-gui
+Architecture: source
+Version: 0.23.10
+Distribution: mx
+Urgency: medium
+Maintainer: Adrian <adrian@mxlinux.org>
+Changed-By: Adrian <adrian@mxlinux.org>
+Changes:
+ xdelta3-gui (0.23.10) mx; urgency=medium
+ .
+   * Initial release
+Checksums-Sha1:
+ b37dde19f1c34e59f120f8793913edc9092385c2 1132 xdelta3-gui_0.23.10.dsc
+ afadaac7b4c49d1346a562300ef5883333395f29 1380292 xdelta3-gui_0.23.10.tar.xz
+ ed7837bc341b937a2ea2c6aab58d749cf3772ccf 11008 xdelta3-gui_0.23.10_source.buildinfo
+Checksums-Sha256:
+ dc8a2036a0ab57afd8d6e97c73b49bad7cccc02f96388ae19235359698772e22 1132 xdelta3-gui_0.23.10.dsc
+ f9236e4ac157d86a45b5847a5d162422bb71d303f0cc750b3d6ed7edd3eb3877 1380292 xdelta3-gui_0.23.10.tar.xz
+ 448f1996ba20e04848c8cfd8cc0418df2beb93614238449bd81644eedf4d850f 11008 xdelta3-gui_0.23.10_source.buildinfo
+Files:
+ a321044dcf455d9939f9c4b631004315 1132 admin optional xdelta3-gui_0.23.10.dsc
+ 92ff216802a3ab308a99bf096f303076 1380292 admin optional xdelta3-gui_0.23.10.tar.xz
+ b6828f8d50bcc5227c39c194c80660f1 11008 admin optional xdelta3-gui_0.23.10_source.buildinfo
+
+-----BEGIN PGP SIGNATURE-----
+
+iQFHBAEBCgAxFiEE8ndToY6S45N+YzXncJOMeAZ57pgFAmU/44oTHGFkcmlhbkBt
+eGxpbnV4Lm9yZwAKCRBwk4x4BnnumLRvB/4wVS2jh4LF24coKLeM+c+SvTXP6Gl0
++tQhQJZqlR7wBga6UpmbW+/0rR9sxds+rGbuvXMWoSMf7IpfOpGmuWJ3O2KrbJQo
+SxFIBJrBUkqIkd/Uo5i16V/fxWQ1F5ics7yhob+wX8Lg+E/HVevbVEWCKCVW+7dL
+IN5vRnrwGBFXKx1j/HQDknTsUUoLTQp38zO6AxpNcwGrmZDbyNibRhWcBF5kXrtF
+ukFehQAmWAU+6qmhJMKIDW+lyD1etSTRR88LkfFXQqwgKj65+eqOOSgN4Q0lUp7U
+X8q7Ah1o9VcAFeegIPb9noZfiB9dgLQe25j6ZpjjJ9bp8YA2ijob94Mo
+=lzVM
+-----END PGP SIGNATURE-----

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="th_TH">
+<TS version="2.1" language="th">
 <context>
     <name>MainWindow</name>
     <message>
@@ -22,7 +22,7 @@ start process</extracomment>
         <location filename="../mainwindow.ui" line="49"/>
         <source>Options</source>
         <extracomment>program options</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>ตัวเลือก</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="98"/>
@@ -214,7 +214,7 @@ start the process</extracomment>
         <location filename="../mainwindow.cpp" line="181"/>
         <location filename="../mainwindow.cpp" line="228"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>ข้อผิดพลาด</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="141"/>
@@ -236,7 +236,7 @@ start the process</extracomment>
         <location filename="../mainwindow.cpp" line="165"/>
         <source>Success</source>
         <comment>information that file was successfully written</comment>
-        <translation type="unfinished"></translation>
+        <translation>สำเร็จ</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="166"/>
@@ -290,7 +290,7 @@ start the process</extracomment>
         <location filename="../mainwindow.cpp" line="223"/>
         <source>Success</source>
         <comment>information on file written succesfully</comment>
-        <translation type="unfinished"></translation>
+        <translation>สำเร็จ</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="224"/>
@@ -314,7 +314,7 @@ start the process</extracomment>
         <location filename="../mainwindow.cpp" line="284"/>
         <source>Cancel</source>
         <comment>stop an action in progress</comment>
-        <translation type="unfinished"></translation>
+        <translation>ยกเลิก</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="320"/>
@@ -328,7 +328,7 @@ start the process</extracomment>
     <message>
         <location filename="../main.cpp" line="48"/>
         <source>file</source>
-        <translation type="unfinished"></translation>
+        <translation>ไฟล์</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="44"/>
