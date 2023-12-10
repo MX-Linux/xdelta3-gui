@@ -10,13 +10,13 @@
         <extracomment>meaning to create a delta file that bridges between the source and target file
 ----------
 start process</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Crea delta</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="30"/>
         <source>Create a binary difference between two files</source>
         <extracomment>meaning to create a delta file that bridges between the source and target file</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Crea una differenza binaria tra due file</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="49"/>
@@ -32,7 +32,7 @@ start process</extracomment>
     <message>
         <location filename="../mainwindow.ui" line="95"/>
         <source>Higher number = better compression ratio, but takes more time to finish</source>
-        <translation type="unfinished"></translation>
+        <translation>Numero più alto = miglior rapporto di compressione, ma richiede più tempo per finire</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="98"/>
@@ -43,7 +43,7 @@ start process</extracomment>
     <message>
         <location filename="../mainwindow.ui" line="118"/>
         <source>More compression using various compression algorithms</source>
-        <translation type="unfinished"></translation>
+        <translation>Maggiore compressione utilizzando vari algoritmi di compressione</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="121"/>
@@ -77,7 +77,7 @@ start process</extracomment>
     <message>
         <location filename="../mainwindow.ui" line="174"/>
         <source>Delta file name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nome del file delta</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="181"/>
@@ -110,13 +110,13 @@ start process</extracomment>
         <extracomment>meaning to apply a delta file to a input file to create a new output file
 ----------
 start the process</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Applica delta</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="235"/>
         <source>Create a new file applying a delta (difference) file to an original file</source>
         <extracomment>meaning to apply a delta file to a input file to create a new output file</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Crea un nuovo file applicando un file (differenza) delta a un file originale</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="247"/>
@@ -140,19 +140,19 @@ start the process</extracomment>
         <location filename="../mainwindow.ui" line="268"/>
         <source>Delta file</source>
         <extracomment>the delta or diff file between the input and the output</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>File delta</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="275"/>
         <source>select delta</source>
         <extracomment>select the delta or patch file</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>seleziona delta</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="282"/>
         <source>Select delta...</source>
         <extracomment>starts a file chooser to select a file</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Seleziona delta...</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="289"/>
@@ -194,7 +194,7 @@ start the process</extracomment>
         <location filename="../mainwindow.cpp" line="120"/>
         <source>Select directory to place the file in</source>
         <comment>select a target directory</comment>
-        <translation type="unfinished"></translation>
+        <translation>Seleziona la directory in cui inserire il file</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="132"/>
@@ -242,25 +242,25 @@ start the process</extracomment>
         <location filename="../mainwindow.cpp" line="166"/>
         <source>File was successfuly written to &apos;%1&apos; directory.</source>
         <comment>information that file was successfully written</comment>
-        <translation type="unfinished"></translation>
+        <translation>Il file è stato scritto correttamente nella directory &apos;%1&apos;.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="167"/>
         <source>Took %1 to patch the file.</source>
         <comment>elapsed time, leave %1 untranslated</comment>
-        <translation type="unfinished"></translation>
+        <translation>È servito %1 per patchare il file.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="170"/>
         <source>Error: Could not write the file.</source>
         <comment>information that there was an error creating the file</comment>
-        <translation type="unfinished"></translation>
+        <translation>Errore: impossibile scrivere il file.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="181"/>
         <source>Please enter a name for the delta file.</source>
         <comment>name of delta file being created</comment>
-        <translation type="unfinished"></translation>
+        <translation>Digita un nome per il file delta.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="194"/>
@@ -272,7 +272,7 @@ start the process</extracomment>
         <location filename="../mainwindow.cpp" line="195"/>
         <source>File &apos;%1&apos; found or not a file, please double-check the input.</source>
         <comment>warning about file not found</comment>
-        <translation type="unfinished"></translation>
+        <translation>File &apos;%1&apos; trovato o non un file, ricontrolla l&apos;input.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="207"/>
@@ -284,7 +284,7 @@ start the process</extracomment>
         <location filename="../mainwindow.cpp" line="207"/>
         <source>Delta file exists, do you want to overwrite?</source>
         <comment>warning about overwritting file</comment>
-        <translation type="unfinished"></translation>
+        <translation>Il file delta esiste, vuoi sovrascrivere?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="223"/>
@@ -296,19 +296,19 @@ start the process</extracomment>
         <location filename="../mainwindow.cpp" line="224"/>
         <source>File &apos;%1&apos; was successfuly written.</source>
         <comment>information on file written succesfully</comment>
-        <translation type="unfinished"></translation>
+        <translation>Il file &apos;%1&apos; è stato scritto correttamente.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="226"/>
         <source>Took %1 to create the patch.</source>
         <comment>elasped time, leave %1 untranslated</comment>
-        <translation type="unfinished"></translation>
+        <translation>È servito %1 per creare la patch.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="228"/>
         <source>Error: Could not write the file.</source>
         <comment>information that file was not written succsessfully</comment>
-        <translation type="unfinished"></translation>
+        <translation>Errore: impossibile scrivere il file.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="284"/>
@@ -320,7 +320,7 @@ start the process</extracomment>
         <location filename="../mainwindow.cpp" line="320"/>
         <source>%1 elapsed</source>
         <comment>elasped time, leave %1 untranslated</comment>
-        <translation type="unfinished"></translation>
+        <translation>%1 trascorso</translation>
     </message>
 </context>
 <context>
@@ -329,13 +329,13 @@ start the process</extracomment>
         <location filename="../main.cpp" line="44"/>
         <source>GUI for xdelta3 application.</source>
         <comment>short description for --help and desktop file</comment>
-        <translation type="unfinished"></translation>
+        <translation>GUI per l&apos;applicazione xdelta3.</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="44"/>
         <source>App for generating a binary difference between two files in the form of delta encoding</source>
         <comment>extra description for --help</comment>
-        <translation type="unfinished"></translation>
+        <translation>App per generare una differenza binaria tra due file sotto forma di codifica delta</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="48"/>
@@ -345,12 +345,12 @@ start the process</extracomment>
     <message>
         <location filename="../main.cpp" line="48"/>
         <source>Name of the delta file</source>
-        <translation type="unfinished"></translation>
+        <translation>Nome del file delta</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="48"/>
         <source>[file]</source>
-        <translation type="unfinished"></translation>
+        <translation>[file]</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="75"/>

@@ -1,3 +1,9 @@
+xdelta3-gui (23.12) mx; urgency=medium
+
+  * New translations
+
+ -- Adrian <adrian@mxlinux.org>  Sun, 10 Dec 2023 09:50:00 -0500
+
 xdelta3-gui (0.23.10.02) mx; urgency=medium
 
   * Add svg icon
