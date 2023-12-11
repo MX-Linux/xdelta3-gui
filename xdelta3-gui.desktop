@@ -10,4 +10,4 @@ Categories=System;MX-Utilities;
 NoDisplay=false
 MimeType=application/x-xdelta3;application/x-xdelta;
 StartupNotify=true
-Keywords=xdelta,patch
+Keywords=xdelta;patch;
