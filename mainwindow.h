@@ -19,8 +19,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this package. If not, see <http://www.gnu.org/licenses/>.
  **********************************************************************/
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#pragma once
 
 #include <QApplication>
 #include <QDialog>
@@ -75,4 +74,3 @@ private:
     void setProgressDialog();
     static QString findCommonPrefix(const QString &str1, const QString &str2);
 };
-#endif // MAINWINDOW_H

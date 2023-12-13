@@ -1,5 +1,4 @@
-#ifndef CMD_H
-#define CMD_H
+#pragma once
 
 #include <QProcess>
 
