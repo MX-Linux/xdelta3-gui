@@ -21,5 +21,3 @@ signals:
 private:
     QString out_buffer;
 };
-
-#endif // CMD_H
