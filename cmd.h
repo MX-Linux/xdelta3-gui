@@ -14,7 +14,7 @@ public:
     [[nodiscard]] QString getCmdOut(const QString &cmd, bool quiet = false);
 
 signals:
-    void finished();
+    void done();
     void errorAvailable(const QString &err);
     void outputAvailable(const QString &out);
 

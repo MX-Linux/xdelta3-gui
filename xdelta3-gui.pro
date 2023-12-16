@@ -38,8 +38,7 @@ SOURCES += \
 
 HEADERS += \
     cmd.h \
-    mainwindow.h \
-    version.h
+    mainwindow.h
 
 FORMS += \
     mainwindow.ui

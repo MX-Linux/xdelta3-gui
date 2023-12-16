@@ -42,7 +42,7 @@ MainWindow::MainWindow(const QString &patchFile, QWidget *parent)
     ui->setupUi(this);
     setConnections();
     adjustSize();
-    const QSize size = size();
+    const QSize size = this->size();
     if (settings.contains("geometry")) {
         restoreGeometry(settings.value("geometry").toByteArray());
         if (isMaximized()) { // add option to resize if maximized
@@ -283,7 +283,7 @@ void MainWindow::setConnections()
     setProgressDialog();
     connect(&timer, &QTimer::timeout, this, &MainWindow::updateBar);
     connect(&cmd, &Cmd::started, this, &MainWindow::cmdStart);
-    connect(&cmd, &Cmd::finished, this, &MainWindow::cmdDone);
+    connect(&cmd, &Cmd::done, this, &MainWindow::cmdDone);
 }
 
 void MainWindow::setPatchName()
