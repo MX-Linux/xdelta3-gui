@@ -38,7 +38,7 @@ bool Cmd::run(const QString &cmd, QString *output, bool quiet)
     }
     QEventLoop loop;
     connect(this, &Cmd::done, &loop, &QEventLoop::quit);
-    start(QStringLiteral("/bin/bash"), {QStringLiteral("-c"), cmd});
+    start("/bin/bash", {"-c", cmd});
     loop.exec();
     *output = out_buffer.trimmed();
     return (exitStatus() == QProcess::NormalExit && exitCode() == 0);

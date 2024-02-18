@@ -99,7 +99,7 @@ void MainWindow::onSelectFile(QLineEdit *lineEdit)
     QString filter = lineEdit->objectName() != "textApplyPatch"
                          ? tr("ISO Files (*.iso);;All Files (*)", "kinds of files to choose")
                          : tr("ISO Files (*.xdelta3);;All Files (*)", "kinds of files to choose");
-    // choosing a file
+    // Choosing a file
     QString selected
         = QFileDialog::getOpenFileName(this, tr("Select file", "choose a file"), QDir::currentPath(), filter);
     if (checkFile(selected)) {
@@ -146,7 +146,10 @@ void MainWindow::applyPatch()
         return;
     }
 
-    QString output = ui->textOutput->text().isEmpty() ? "" : " \"" + ui->textOutput->text() + "\"";
+    QString output;
+    if (!ui->textOutput->text().isEmpty()) {
+        output = " \"" + ui->textOutput->text() + '"';
+    }
 
     if (QFileInfo(ui->textOutput->text()).isFile()) {
         if (QMessageBox::No
@@ -160,7 +163,7 @@ void MainWindow::applyPatch()
     QTime time {0, 0};
     elapsedTimer.restart();
     QString cmdout;
-    bool res = cmd.run("xdelta3 -f decode -s \"" + ui->textInput->text() + "\" \"" + ui->textApplyPatch->text() + "\""
+    bool res = cmd.run("xdelta3 -f decode -s \"" + ui->textInput->text() + "\" \"" + ui->textApplyPatch->text() + '"'
                            + output,
                        &cmdout);
     time = time.addMSecs(static_cast<int>(elapsedTimer.elapsed()));
@@ -172,7 +175,7 @@ void MainWindow::applyPatch()
             this, tr("Success", "information that file was successfully written"),
             tr("File was successfuly written to '%1' directory.", "information that file was successfully written")
                     .arg(location)
-                + "\n"
+                + '\n'
                 + tr("Took %1 to patch the file.", "elapsed time, leave %1 untranslated").arg(time.toString("mm:ss")));
     } else {
 
@@ -233,14 +236,14 @@ void MainWindow::createPatch()
     QString cmdout;
     bool res = cmd.run("xdelta3 " + force + "encode -" + ui->spinCompressionLevel->cleanText() + " -S "
                            + ui->comboCompression->currentText().toLower() + " -s \"" + ui->textSource->text() + "\" \""
-                           + ui->textTarget->text() + "\" \"" + ui->textPatch->text() + "\"",
+                           + ui->textTarget->text() + "\" \"" + ui->textPatch->text() + '"',
                        &cmdout);
     time = time.addMSecs(static_cast<int>(elapsedTimer.elapsed()));
     if (res) {
         QMessageBox::information(this, tr("Success", "information on file written succesfully"),
                                  tr("File '%1' was successfuly written.", "information on file written succesfully")
-                                         .arg(QFileInfo(ui->textPatch->text()).absoluteFilePath().remove("\""))
-                                     + "\n"
+                                         .arg(QFileInfo(ui->textPatch->text()).absoluteFilePath().remove('"'))
+                                     + '\n'
                                      + tr("Took %1 to create the patch.", "elasped time, leave %1 untranslated")
                                            .arg(time.toString("mm:ss")));
     } else {
@@ -339,7 +342,6 @@ void MainWindow::updateBar()
     }
     QTime time {0, 0};
     time = time.addMSecs(static_cast<int>(elapsedTimer.elapsed()));
-    progress->setLabelText(
-        tr("%1 elapsed", "elasped time, leave %1 untranslated").arg(time.toString(QStringLiteral("mm:ss"))) + "\n"
-        + output);
+    progress->setLabelText(tr("%1 elapsed", "elasped time, leave %1 untranslated").arg(time.toString("mm:ss")) + '\n'
+                           + output);
 }

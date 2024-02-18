@@ -36,21 +36,23 @@
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
-    QApplication::setApplicationDisplayName(QStringLiteral("xdelta3 GUI"));
+    QApplication::setApplicationDisplayName("xdelta3 GUI");
     QApplication::setWindowIcon(QIcon::fromTheme(QApplication::applicationName()));
     QApplication::setApplicationVersion(VERSION);
 
     QCommandLineParser parser;
-    parser.setApplicationDescription(QObject::tr("GUI for xdelta3 application." , "short description for --help and desktop file")  + " " + QObject::tr("App for generating a binary difference "
-                                                 "between two files in the form of delta encoding" , "extra description for --help"));
+    parser.setApplicationDescription(
+        QObject::tr("GUI for xdelta3 application.", "short description for --help and desktop file") + " "
+        + QObject::tr("App for generating a binary difference "
+                      "between two files in the form of delta encoding",
+                      "extra description for --help"));
     parser.addHelpOption();
     parser.addVersionOption();
     parser.addPositionalArgument(QObject::tr("file"), QObject::tr("Name of the delta file"), QObject::tr("[file]"));
     parser.process(app);
 
     QTranslator qtTran;
-    if (qtTran.load(QLocale::system(), QStringLiteral("qt"), QStringLiteral("_"),
-                    QLibraryInfo::location(QLibraryInfo::TranslationsPath))) {
+    if (qtTran.load(QLocale::system(), "qt", "_", QLibraryInfo::location(QLibraryInfo::TranslationsPath))) {
         QApplication::installTranslator(&qtTran);
     }
 
@@ -72,7 +74,9 @@ int main(int argc, char *argv[])
         return QApplication::exec();
     } else {
         QApplication::beep();
-        QMessageBox::critical(nullptr, QString(), QObject::tr("You must run this program as normal user.", "warning about running application as root"));
+        QMessageBox::critical(
+            nullptr, QString(),
+            QObject::tr("You must run this program as normal user.", "warning about running application as root"));
         return EXIT_FAILURE;
     }
 }
