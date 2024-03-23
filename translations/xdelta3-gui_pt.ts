@@ -173,151 +173,151 @@ start the process</extracomment>
         <translation>Alterar localização...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="98"/>
+        <location filename="../mainwindow.cpp" line="100"/>
         <source>ISO Files (*.iso);;All Files (*)</source>
         <comment>kinds of files to choose</comment>
         <translation>Ficheiros ISO (*.iso);;Todos os ficheiros (*)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="99"/>
+        <location filename="../mainwindow.cpp" line="101"/>
         <source>ISO Files (*.xdelta3);;All Files (*)</source>
         <comment>kinds of files to choose</comment>
         <translation>Ficheiros ISO (*..xdelta3);;Todos os ficheiros (*)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="101"/>
+        <location filename="../mainwindow.cpp" line="104"/>
         <source>Select file</source>
         <comment>choose a file</comment>
         <translation>Selecionar ficheiro</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="120"/>
+        <location filename="../mainwindow.cpp" line="123"/>
         <source>Select directory to place the file in</source>
         <comment>select a target directory</comment>
         <translation>Selecionar a pasta onde colocar o ficheiro</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="132"/>
+        <location filename="../mainwindow.cpp" line="135"/>
         <source>Path not found</source>
         <comment>warning about not finding the target directory</comment>
         <translation>Patch não encontrado</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="132"/>
+        <location filename="../mainwindow.cpp" line="136"/>
         <source>Please select directory again.</source>
         <comment>message to try again</comment>
         <translation>Selecionar novamente o diretório.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="141"/>
-        <location filename="../mainwindow.cpp" line="170"/>
-        <location filename="../mainwindow.cpp" line="181"/>
-        <location filename="../mainwindow.cpp" line="228"/>
+        <location filename="../mainwindow.cpp" line="145"/>
+        <location filename="../mainwindow.cpp" line="183"/>
+        <location filename="../mainwindow.cpp" line="196"/>
+        <location filename="../mainwindow.cpp" line="251"/>
         <source>Error</source>
         <translation>Erro</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="141"/>
+        <location filename="../mainwindow.cpp" line="145"/>
         <source>Please enter a name for the output file.</source>
         <translation>Insira o nome para o ficheiro de saída.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="149"/>
+        <location filename="../mainwindow.cpp" line="157"/>
         <source>File exists</source>
         <translation>Ficheiro existe</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="149"/>
+        <location filename="../mainwindow.cpp" line="158"/>
         <source>Output file exists, do you want to overwrite?</source>
         <comment>warning about overwritting an existing file</comment>
         <translation>Ficheiro já existente. Gravar por cima?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="165"/>
+        <location filename="../mainwindow.cpp" line="175"/>
         <source>Success</source>
         <comment>information that file was successfully written</comment>
         <translation>Sucesso</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="166"/>
+        <location filename="../mainwindow.cpp" line="176"/>
         <source>File was successfuly written to &apos;%1&apos; directory.</source>
         <comment>information that file was successfully written</comment>
         <translation>Ficheiro gravado com sucesso na pasta &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="167"/>
+        <location filename="../mainwindow.cpp" line="179"/>
         <source>Took %1 to patch the file.</source>
         <comment>elapsed time, leave %1 untranslated</comment>
         <translation>Demorou %1 para aplicar o patch.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="170"/>
+        <location filename="../mainwindow.cpp" line="184"/>
         <source>Error: Could not write the file.</source>
         <comment>information that there was an error creating the file</comment>
         <translation>Erro: Impossível escrever ficheiro</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="181"/>
+        <location filename="../mainwindow.cpp" line="197"/>
         <source>Please enter a name for the delta file.</source>
         <comment>name of delta file being created</comment>
         <translation>Insira o nome para o ficheiro delta.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="194"/>
+        <location filename="../mainwindow.cpp" line="211"/>
         <source>File not found</source>
         <comment>warning about file not found</comment>
         <translation>Ficheiro não encontrado</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="195"/>
+        <location filename="../mainwindow.cpp" line="212"/>
         <source>File &apos;%1&apos; found or not a file, please double-check the input.</source>
         <comment>warning about file not found</comment>
         <translation>Ficheiro &apos;%1&apos; não encontrado ou não é um ficheiro. Confirme a sua seleção.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="207"/>
+        <location filename="../mainwindow.cpp" line="226"/>
         <source>File exists</source>
         <comment>warning about overwritting file</comment>
         <translation>Ficheiro existe</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="207"/>
+        <location filename="../mainwindow.cpp" line="227"/>
         <source>Delta file exists, do you want to overwrite?</source>
         <comment>warning about overwritting file</comment>
         <translation>Ficheiro delta já existe. Gravar por cima dele?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="223"/>
+        <location filename="../mainwindow.cpp" line="243"/>
         <source>Success</source>
         <comment>information on file written succesfully</comment>
         <translation>Sucesso</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="224"/>
+        <location filename="../mainwindow.cpp" line="244"/>
         <source>File &apos;%1&apos; was successfuly written.</source>
         <comment>information on file written succesfully</comment>
         <translation>Ficheiro &apos;%1&apos; gravado com sucesso.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="226"/>
+        <location filename="../mainwindow.cpp" line="247"/>
         <source>Took %1 to create the patch.</source>
         <comment>elasped time, leave %1 untranslated</comment>
         <translation>Demorou %1 a criar o patch.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="228"/>
+        <location filename="../mainwindow.cpp" line="252"/>
         <source>Error: Could not write the file.</source>
         <comment>information that file was not written succsessfully</comment>
         <translation>Erro: Impossível escrever ficheiro</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="284"/>
+        <location filename="../mainwindow.cpp" line="309"/>
         <source>Cancel</source>
         <comment>stop an action in progress</comment>
         <translation>Cancelar</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="320"/>
+        <location filename="../mainwindow.cpp" line="345"/>
         <source>%1 elapsed</source>
         <comment>elasped time, leave %1 untranslated</comment>
         <translation>%1 passados</translation>
@@ -326,34 +326,34 @@ start the process</extracomment>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../main.cpp" line="44"/>
+        <location filename="../main.cpp" line="45"/>
         <source>GUI for xdelta3 application.</source>
         <comment>short description for --help and desktop file</comment>
         <translation>Interface Gráfico para a aplicação xdelta3</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="44"/>
+        <location filename="../main.cpp" line="46"/>
         <source>App for generating a binary difference between two files in the form of delta encoding</source>
         <comment>extra description for --help</comment>
         <translation>Gera um ficheiro de diferenças binário entre dois ficheiros, na forma de codificação delta</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="48"/>
+        <location filename="../main.cpp" line="51"/>
         <source>file</source>
         <translation>ficheiro</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="48"/>
+        <location filename="../main.cpp" line="51"/>
         <source>Name of the delta file</source>
         <translation>Nome do ficheiro delta</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="48"/>
+        <location filename="../main.cpp" line="51"/>
         <source>[file]</source>
         <translation>[file]</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="75"/>
+        <location filename="../main.cpp" line="79"/>
         <source>You must run this program as normal user.</source>
         <comment>warning about running application as root</comment>
         <translation>Este programa tem que ser executado como utilizador normal.</translation>

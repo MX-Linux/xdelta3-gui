@@ -28,5 +28,5 @@ msgid "GUI for xdelta3 application"
 msgstr ""
 
 #: desktop-in/xdelta3-gui.desktop.in:16
-msgid "xdelta,patch"
+msgid "xdelta;patch"
 msgstr ""
