@@ -21,7 +21,7 @@
 # *****************************************************************************/
 
 QT          += core gui widgets
-CONFIG      += c++1z
+CONFIG      += c++17
 TARGET      = xdelta3-gui
 TEMPLATE    = app
 
