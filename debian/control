@@ -2,12 +2,24 @@ Source: xdelta3-gui
 Section: admin
 Priority: optional
 Maintainer: Adrian <adrian@mxlinux.org>
-Build-Depends: debhelper (>=10), qt6-base-dev, qt6-base-dev-tools, qt6-tools-dev, qt6-tools-dev-tools
+Build-Depends: debhelper-compat (= 13),
+               qt6-base-dev,
+               qt6-base-dev-tools,
+               qt6-tools-dev,
+               qt6-tools-dev-tools
 Standards-Version: 3.9.8
+Vcs-Git: https://github.com/mx-linux/xdelta3-gui
+Homepage: https://mxlinux.org
 
 Package: xdelta3-gui
 Architecture: any
-Depends: ${misc:Depends}, ${shlibs:Depends}, xdelta3, progress
-Description: xdelta3-gui
- GUI for xdelta3 application
- xdelta3 - VCDIFF (RFC 3284) binary diff tool
+Depends: xdelta3,
+         progress,
+         xdg-utils | mx-viewer,
+         ${misc:Depends},
+         ${shlibs:Depends}
+Description: Graphical interface for xdelta3
+ A user-friendly GUI for the xdelta3 application, which is a
+ VCDIFF (RFC 3284) binary diff tool. This application allows users
+ to create, apply, and manage binary patches through an intuitive
+ interface. Designed for MX Linux, but may work on other systems.
