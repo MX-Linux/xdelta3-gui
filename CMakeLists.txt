@@ -155,6 +155,7 @@ endif()
 # Handle translations
 qt6_add_translations(xdelta3-gui
     TS_FILES ${TRANSLATION_FILES}
+    LRELEASE_OPTIONS -compress -nounfinished -removeidentical -silent
     QM_FILES_OUTPUT_VARIABLE qm_files
 )
 
