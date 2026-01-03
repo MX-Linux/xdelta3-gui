@@ -291,14 +291,15 @@ void MainWindow::setConnections()
 
 void MainWindow::setPatchName()
 {
-    QString input = QFileInfo(ui->textSource->text()).fileName();
-    int lastDotIndex = input.lastIndexOf('.');
-    input = input.left(lastDotIndex);
-    QString output = QFileInfo(ui->textTarget->text()).fileName();
-    lastDotIndex = output.lastIndexOf('.');
-    output = output.left(lastDotIndex);
-    QString prefix = findCommonPrefix(input, output);
-    QString patchName = prefix + input.mid(prefix.length()) + "_to_" + output.mid(prefix.length()) + ".xdelta3";
+    QString sourceBase = QFileInfo(ui->textSource->text()).baseName();
+    QString targetBase = QFileInfo(ui->textTarget->text()).baseName();
+    QString prefix = findCommonPrefix(sourceBase, targetBase);
+    QString patchName;
+    if (prefix.length() < 3) {
+        patchName = sourceBase + "_to_" + targetBase + ".xdelta3";
+    } else {
+        patchName = prefix + sourceBase.mid(prefix.length()) + "_to_" + targetBase.mid(prefix.length()) + ".xdelta3";
+    }
     ui->textPatch->setText(patchName);
 }
 
