@@ -27,6 +27,7 @@
 #include <QElapsedTimer>
 #include <QFile>
 #include <QFileDialog>
+#include <QLocale>
 #include <QMessageBox>
 #include <QScreen>
 #include <QTime>
@@ -160,13 +161,12 @@ void MainWindow::applyPatch()
         }
     }
     progress->show();
-    QTime time {0, 0};
     elapsedTimer.restart();
     QString cmdout;
     bool res = cmd.run("xdelta3 -f decode -s \"" + ui->textInput->text() + "\" \"" + ui->textApplyPatch->text() + '"'
-                           + output,
-                       &cmdout);
-    time = time.addMSecs(static_cast<int>(elapsedTimer.elapsed()));
+                            + output,
+                        &cmdout);
+    QString elapsedStr = formatElapsedTime(elapsedTimer.elapsed());
     QString location = output.isEmpty() ? QFileInfo(ui->textInput->text()).absolutePath().remove("\"")
                                         : QFileInfo(output).absolutePath().remove("\"");
 
@@ -176,7 +176,7 @@ void MainWindow::applyPatch()
             tr("File was successfuly written to '%1' directory.", "information that file was successfully written")
                     .arg(location)
                 + '\n'
-                + tr("Took %1 to patch the file.", "elapsed time, leave %1 untranslated").arg(time.toString("mm:ss")));
+                + tr("Took %1 to patch the file.", "elapsed time, leave %1 untranslated").arg(elapsedStr));
     } else {
 
         QMessageBox::critical(
@@ -231,21 +231,20 @@ void MainWindow::createPatch()
         }
     }
     progress->show();
-    QTime time {0, 0};
     elapsedTimer.restart();
     QString cmdout;
     bool res = cmd.run("xdelta3 " + force + "encode -" + ui->spinCompressionLevel->cleanText() + " -S "
-                           + ui->comboCompression->currentText().toLower() + " -s \"" + ui->textSource->text() + "\" \""
-                           + ui->textTarget->text() + "\" \"" + ui->textPatch->text() + '"',
-                       &cmdout);
-    time = time.addMSecs(static_cast<int>(elapsedTimer.elapsed()));
+                            + ui->comboCompression->currentText().toLower() + " -s \"" + ui->textSource->text() + "\" \""
+                            + ui->textTarget->text() + "\" \"" + ui->textPatch->text() + '"',
+                        &cmdout);
+    QString elapsedStr = formatElapsedTime(elapsedTimer.elapsed());
     if (res) {
         QMessageBox::information(this, tr("Success", "information on file written succesfully"),
-                                 tr("File '%1' was successfuly written.", "information on file written succesfully")
-                                         .arg(QFileInfo(ui->textPatch->text()).absoluteFilePath().remove('"'))
-                                     + '\n'
-                                     + tr("Took %1 to create the patch.", "elasped time, leave %1 untranslated")
-                                           .arg(time.toString("mm:ss")));
+                                  tr("File '%1' was successfuly written.", "information on file written succesfully")
+                                          .arg(QFileInfo(ui->textPatch->text()).absoluteFilePath().remove('"'))
+                                      + '\n'
+                                      + tr("Took %1 to create the patch.", "elapsed time, leave %1 untranslated")
+                                            .arg(elapsedStr));
     } else {
         QMessageBox::critical(
             this, tr("Error"),
@@ -329,6 +328,13 @@ QString MainWindow::findCommonPrefix(const QString &str1, const QString &str2)
     return str1.left(i);
 }
 
+QString MainWindow::formatElapsedTime(qint64 ms)
+{
+    QTime time {0, 0};
+    time = time.addMSecs(static_cast<int>(ms));
+    return QLocale().toString(time, "mm:ss");
+}
+
 void MainWindow::updateBar()
 {
     Cmd cmd2;
@@ -341,8 +347,6 @@ void MainWindow::updateBar()
             bar->setValue(prog);
         }
     }
-    QTime time {0, 0};
-    time = time.addMSecs(static_cast<int>(elapsedTimer.elapsed()));
-    progress->setLabelText(tr("%1 elapsed", "elasped time, leave %1 untranslated").arg(time.toString("mm:ss")) + '\n'
-                           + output);
+    QString elapsedStr = formatElapsedTime(elapsedTimer.elapsed());
+    progress->setLabelText(tr("%1 elapsed", "elapsed time, leave %1 untranslated").arg(elapsedStr) + '\n' + output);
 }
