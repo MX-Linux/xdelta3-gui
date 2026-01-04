@@ -1,3 +1,10 @@
+xdelta3-gui (26.01) mx; urgency=medium
+
+  * Localize elapsed time display
+  * Add guidelines and improve patch naming
+
+ -- Adrian <adrian@mxlinux.org>  Sat, 03 Jan 2026 19:52:28 -0500
+
 xdelta3-gui (25.4) mx; urgency=medium
 
   * Update to Qt6
