@@ -32,7 +32,17 @@ execute_process(
 )
 
 if(NOT DPKG_RESULT EQUAL 0)
-    message(FATAL_ERROR "Failed to get version from debian/changelog using dpkg-parsechangelog")
+    # Fallback: parse changelog manually
+    execute_process(
+        COMMAND head -n 1 debian/changelog
+        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+        OUTPUT_VARIABLE FIRST_LINE
+        OUTPUT_STRIP_TRAILING_WHITESPACE
+    )
+    string(REGEX REPLACE ".*\\(([^)]+)\\).*" "\\1" PROJECT_VERSION_FROM_CHANGELOG "${FIRST_LINE}")
+    if(NOT PROJECT_VERSION_FROM_CHANGELOG)
+        message(FATAL_ERROR "Failed to parse version from debian/changelog")
+    endif()
 endif()
 
 project(xdelta3-gui
