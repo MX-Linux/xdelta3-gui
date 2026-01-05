@@ -184,3 +184,10 @@ set_target_properties(xdelta3-gui PROPERTIES
 install(TARGETS xdelta3-gui
     RUNTIME DESTINATION bin
 )
+
+# Shared data for desktop integration and translations
+install(FILES xdelta3-gui.desktop DESTINATION share/applications)
+install(FILES xdelta3-gui.png DESTINATION share/pixmaps)
+install(FILES xdelta3-gui.svg DESTINATION share/icons/hicolor/scalable/apps)
+install(FILES x-xdelta3.xml DESTINATION share/mime/packages)
+install(FILES ${qm_files} DESTINATION share/xdelta3-gui/locale)
