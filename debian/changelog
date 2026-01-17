@@ -1,3 +1,11 @@
+xdelta3-gui (26.01.3) mx; urgency=medium
+
+  * Handle final target patch naming
+  * Default patch path to target directory
+  * Show patch size on success
+
+ -- Adrian <adrian@mxlinux.org>  Sat, 17 Jan 2026 14:17:03 -0500
+
 xdelta3-gui (26.01.2) mx; urgency=medium
 
   * Enable drag and drop into the input fields
