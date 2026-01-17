@@ -1,4 +1,4 @@
-xdelta3-gui (26.01.1) mx; urgency=medium
+xdelta3-gui (26.01.2) mx; urgency=medium
 
   * Enable drag and drop into the input fields
   * Refine patch name construction
