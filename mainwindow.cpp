@@ -335,6 +335,7 @@ void MainWindow::setPatchName()
 {
     QString sourceBase = QFileInfo(ui->textSource->text()).completeBaseName();
     QString targetBase = QFileInfo(ui->textTarget->text()).completeBaseName();
+    QString targetDir = QFileInfo(ui->textTarget->text()).absolutePath();
     QString patchName;
     if (sourceBase == targetBase) {
         patchName = sourceBase + "-patch.xdelta3";
@@ -346,7 +347,7 @@ void MainWindow::setPatchName()
             patchName = prefix + sourceBase.mid(prefix.length()) + "_to_" + targetBase.mid(prefix.length()) + ".xdelta3";
         }
     }
-    ui->textPatch->setText(patchName);
+    ui->textPatch->setText(targetDir + "/" + patchName);
 }
 
 void MainWindow::setProgressDialog()
