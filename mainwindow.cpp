@@ -322,12 +322,16 @@ void MainWindow::setPatchName()
 {
     QString sourceBase = QFileInfo(ui->textSource->text()).baseName();
     QString targetBase = QFileInfo(ui->textTarget->text()).baseName();
-    QString prefix = findCommonPrefix(sourceBase, targetBase);
     QString patchName;
-    if (prefix.length() < 3) {
-        patchName = sourceBase + "_to_" + targetBase + ".xdelta3";
+    if (sourceBase == targetBase) {
+        patchName = sourceBase + "-patch.xdelta3";
     } else {
-        patchName = prefix + sourceBase.mid(prefix.length()) + "_to_" + targetBase.mid(prefix.length()) + ".xdelta3";
+        QString prefix = findCommonPrefix(sourceBase, targetBase);
+        if (prefix.length() < 3) {
+            patchName = sourceBase + "_to_" + targetBase + ".xdelta3";
+        } else {
+            patchName = prefix + sourceBase.mid(prefix.length()) + "_to_" + targetBase.mid(prefix.length()) + ".xdelta3";
+        }
     }
     ui->textPatch->setText(patchName);
 }
