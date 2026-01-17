@@ -243,9 +243,13 @@ void MainWindow::createPatch()
                         &cmdout);
     QString elapsedStr = formatElapsedTime(elapsedTimer.elapsed());
     if (res) {
+        QString patchPath = QFileInfo(ui->textPatch->text()).absoluteFilePath().remove('"');
+        QString patchSize = formatFileSize(QFileInfo(patchPath).size());
         QMessageBox::information(this, tr("Success", "information on file written succesfully"),
                                   tr("File '%1' was successfuly written.", "information on file written succesfully")
-                                          .arg(QFileInfo(ui->textPatch->text()).absoluteFilePath().remove('"'))
+                                          .arg(patchPath)
+                                      + '\n'
+                                      + tr("Patch size: %1", "size of the created patch file").arg(patchSize)
                                       + '\n'
                                       + tr("Took %1 to create the patch.", "elapsed time, leave %1 untranslated")
                                             .arg(elapsedStr));
@@ -376,6 +380,20 @@ QString MainWindow::formatElapsedTime(qint64 ms)
     QTime time {0, 0};
     time = time.addMSecs(static_cast<int>(ms));
     return QLocale().toString(time, "mm:ss");
+}
+
+QString MainWindow::formatFileSize(qint64 bytes)
+{
+    QLocale locale;
+    if (bytes < 1024) {
+        return locale.toString(bytes) + " B";
+    } else if (bytes < 1024 * 1024) {
+        return locale.toString(bytes / 1024.0, 'f', 1) + " KiB";
+    } else if (bytes < 1024 * 1024 * 1024) {
+        return locale.toString(bytes / (1024.0 * 1024.0), 'f', 1) + " MiB";
+    } else {
+        return locale.toString(bytes / (1024.0 * 1024.0 * 1024.0), 'f', 2) + " GiB";
+    }
 }
 
 void MainWindow::updateBar()
