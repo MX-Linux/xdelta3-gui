@@ -339,6 +339,10 @@ void MainWindow::setPatchName()
     QString patchName;
     if (sourceBase == targetBase) {
         patchName = sourceBase + "-patch.xdelta3";
+    } else if (sourceBase.startsWith(targetBase + "_")) {
+        // Source has a suffix (e.g., Blah_blah_beta1) and target is final (e.g., Blah_blah)
+        QString suffix = sourceBase.mid(targetBase.length() + 1); // Remove targetBase and underscore
+        patchName = targetBase + "-" + suffix + "_to_final.xdelta3";
     } else {
         QString prefix = findCommonPrefix(sourceBase, targetBase);
         if (prefix.length() < 3) {
