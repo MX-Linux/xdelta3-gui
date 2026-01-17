@@ -191,9 +191,11 @@ void MainWindow::applyPatch()
 void MainWindow::checkAllinfo()
 {
     if (ui->tabWidget->currentWidget() == ui->tabCreatePatch) {
-        ui->pushCreatePatch->setDisabled(ui->textSource->text().isEmpty() || ui->textTarget->text().isEmpty()
-                                         || ui->textPatch->text().isEmpty());
-        if (QFileInfo(ui->textPatch->text()).fileName().isEmpty()) {
+        bool sourceSet = !ui->textSource->text().isEmpty();
+        bool targetSet = !ui->textTarget->text().isEmpty();
+        bool patchSet = !ui->textPatch->text().isEmpty();
+        ui->pushCreatePatch->setDisabled(!sourceSet || !targetSet || !patchSet);
+        if (sourceSet && targetSet && QFileInfo(ui->textPatch->text()).fileName().isEmpty()) {
             ui->pushCreatePatch->setDisabled(true);
             QMessageBox::warning(this, tr("Error"),
                                  tr("Please enter a name for the delta file.", "name of delta file being created"));
@@ -267,11 +269,13 @@ void MainWindow::setConnections()
     connect(ui->pushSelectTarget, &QPushButton::pressed, this, [this] { onSelectFile(ui->textTarget); });
     connect(ui->textPatch, &QLineEdit::editingFinished, this, [this] { checkAllinfo(); });
     connect(ui->textSource, &QLineEdit::editingFinished, this, [this] {
-        checkFile(ui->textSource->text());
+        if (checkFile(ui->textSource->text()) && !ui->textTarget->text().isEmpty()) {
+            setPatchName();
+        }
         checkAllinfo();
     });
     connect(ui->textTarget, &QLineEdit::editingFinished, this, [this] {
-        if (checkFile(ui->textTarget->text())) {
+        if (checkFile(ui->textTarget->text()) && !ui->textSource->text().isEmpty()) {
             setPatchName();
         }
         checkAllinfo();
@@ -289,13 +293,18 @@ void MainWindow::setConnections()
     connect(ui->textSource, &DropLineEdit::fileDropped, this, [this](const QString &filePath) {
         if (checkFile(filePath)) {
             QDir::setCurrent(QFileInfo(filePath).absolutePath());
+            if (!ui->textTarget->text().isEmpty()) {
+                setPatchName();
+            }
         }
         checkAllinfo();
     });
     connect(ui->textTarget, &DropLineEdit::fileDropped, this, [this](const QString &filePath) {
         if (checkFile(filePath)) {
             QDir::setCurrent(QFileInfo(filePath).absolutePath());
-            setPatchName();
+            if (!ui->textSource->text().isEmpty()) {
+                setPatchName();
+            }
         }
         checkAllinfo();
     });
@@ -320,8 +329,8 @@ void MainWindow::setConnections()
 
 void MainWindow::setPatchName()
 {
-    QString sourceBase = QFileInfo(ui->textSource->text()).baseName();
-    QString targetBase = QFileInfo(ui->textTarget->text()).baseName();
+    QString sourceBase = QFileInfo(ui->textSource->text()).completeBaseName();
+    QString targetBase = QFileInfo(ui->textTarget->text()).completeBaseName();
     QString patchName;
     if (sourceBase == targetBase) {
         patchName = sourceBase + "-patch.xdelta3";
