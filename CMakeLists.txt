@@ -95,11 +95,13 @@ set(SOURCES
     main.cpp
     mainwindow.cpp
     cmd.cpp
+    droplineedit.cpp
 )
 
 set(HEADERS
     mainwindow.h
     cmd.h
+    droplineedit.h
 )
 
 set(UI_FILES
@@ -122,6 +124,9 @@ target_link_libraries(xdelta3-gui
     Qt6::Gui
     Qt6::Widgets
 )
+
+# Include source directory for promoted widgets
+target_include_directories(xdelta3-gui PRIVATE ${CMAKE_SOURCE_DIR})
 
 # Set compiler flags
 target_compile_options(xdelta3-gui PRIVATE

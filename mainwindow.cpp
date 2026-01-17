@@ -23,6 +23,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include "droplineedit.h"
+
 #include <QDebug>
 #include <QElapsedTimer>
 #include <QFile>
@@ -282,6 +284,34 @@ void MainWindow::setConnections()
         checkFile(ui->textApplyPatch->text());
         checkAllinfo();
     });
+
+    // Drag and drop connections
+    connect(ui->textSource, &DropLineEdit::fileDropped, this, [this](const QString &filePath) {
+        if (checkFile(filePath)) {
+            QDir::setCurrent(QFileInfo(filePath).absolutePath());
+        }
+        checkAllinfo();
+    });
+    connect(ui->textTarget, &DropLineEdit::fileDropped, this, [this](const QString &filePath) {
+        if (checkFile(filePath)) {
+            QDir::setCurrent(QFileInfo(filePath).absolutePath());
+            setPatchName();
+        }
+        checkAllinfo();
+    });
+    connect(ui->textInput, &DropLineEdit::fileDropped, this, [this](const QString &filePath) {
+        if (checkFile(filePath)) {
+            QDir::setCurrent(QFileInfo(filePath).absolutePath());
+        }
+        checkAllinfo();
+    });
+    connect(ui->textApplyPatch, &DropLineEdit::fileDropped, this, [this](const QString &filePath) {
+        if (checkFile(filePath)) {
+            QDir::setCurrent(QFileInfo(filePath).absolutePath());
+        }
+        checkAllinfo();
+    });
+
     setProgressDialog();
     connect(&timer, &QTimer::timeout, this, &MainWindow::updateBar);
     connect(&cmd, &Cmd::started, this, &MainWindow::cmdStart);
