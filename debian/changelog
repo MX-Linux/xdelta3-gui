@@ -1,3 +1,10 @@
+xdelta3-gui (26.01.1) mx; urgency=medium
+
+  * Enable drag and drop into the input fields
+  * Refine patch name construction
+
+ -- Adrian <adrian@mxlinux.org>  Sat, 17 Jan 2026 12:05:31 -0500
+
 xdelta3-gui (26.01) mx; urgency=medium
 
   * Localize elapsed time display
