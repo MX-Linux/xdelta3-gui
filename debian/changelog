@@ -1,3 +1,13 @@
+xdelta3-gui (26.02) mx; urgency=medium
+
+  * Improve patch creation/apply reliability for file paths with spaces and special characters
+  * Fall back to a valid default compression option when the saved setting is unavailable
+  * Make file pickers clearer with dedicated ISO/Delta filters and smoother directory selection
+  * Correct user-facing wording in status and error messages
+  * Improve default patch naming for version upgrades
+
+ -- Adrian <adrian@mxlinux.org>  Sun, 15 Feb 2026 23:49:55 -0500
+
 xdelta3-gui (26.01.3) mx; urgency=medium
 
   * Handle final target patch naming
