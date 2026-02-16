@@ -55,8 +55,8 @@ MainWindow::MainWindow(const QString &patchFile, QWidget *parent)
     }
     ui->tabWidget->setCurrentWidget(ui->tabCreatePatch);
     ui->spinCompressionLevel->setValue(settings.value("compression_level", 4).toInt());
-    ui->comboCompression->setCurrentIndex(
-        ui->comboCompression->findText((settings.value("secondary_compression", "None").toString())));
+    int compIdx = ui->comboCompression->findText(settings.value("secondary_compression", "None").toString());
+    ui->comboCompression->setCurrentIndex(compIdx != -1 ? compIdx : 0);
     if (QFile::exists(patchFile)) {
         ui->tabWidget->setCurrentWidget(ui->tabApplyPatch);
         ui->textApplyPatch->setText(patchFile);
