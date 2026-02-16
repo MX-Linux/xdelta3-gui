@@ -174,7 +174,7 @@ void MainWindow::applyPatch()
     if (res) {
         QMessageBox::information(
             this, tr("Success", "information that file was successfully written"),
-            tr("File was successfuly written to '%1' directory.", "information that file was successfully written")
+            tr("File was successfully written to '%1' directory.", "information that file was successfully written")
                     .arg(location)
                 + '\n'
                 + tr("Took %1 to patch the file.", "elapsed time, leave %1 untranslated").arg(elapsedStr));
@@ -212,7 +212,7 @@ bool MainWindow::checkFile(const QString &fileName)
     if (!QFileInfo(fileName).isFile()) {
         QMessageBox::warning(
             this, tr("File not found", "warning about file not found"),
-            tr("File '%1' found or not a file, please double-check the input.", "warning about file not found")
+            tr("File '%1' not found or not a file, please double-check the input.", "warning about file not found")
                 .arg(fileName));
         return false;
     } else {
@@ -248,8 +248,8 @@ void MainWindow::createPatch()
     if (res) {
         QString patchPath = QFileInfo(ui->textPatch->text()).absoluteFilePath();
         QString patchSize = formatFileSize(QFileInfo(patchPath).size());
-        QMessageBox::information(this, tr("Success", "information on file written succesfully"),
-                                  tr("File '%1' was successfuly written.", "information on file written succesfully")
+        QMessageBox::information(this, tr("Success", "information on file written successfully"),
+                                  tr("File '%1' was successfully written.", "information on file written successfully")
                                           .arg(patchPath)
                                       + '\n'
                                       + tr("Patch size: %1", "size of the created patch file").arg(patchSize)
@@ -259,7 +259,7 @@ void MainWindow::createPatch()
     } else {
         QMessageBox::critical(
             this, tr("Error"),
-            tr("Error: Could not write the file.", "information that file was not written succsessfully") + "\n\n"
+            tr("Error: Could not write the file.", "information that file was not written successfully") + "\n\n"
                 + cmdout);
     }
 }
