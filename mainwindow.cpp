@@ -124,15 +124,10 @@ void MainWindow::onSelectDir()
         return;
     }
 
-    if (QFile::exists(path)) {
-        if (ui->tabWidget->currentWidget() == ui->tabCreatePatch) {
-            ui->textPatch->setText(path + "/" + name);
-        } else {
-            ui->textOutput->setText(path + "/" + name);
-        }
+    if (ui->tabWidget->currentWidget() == ui->tabCreatePatch) {
+        ui->textPatch->setText(path + "/" + name);
     } else {
-        QMessageBox::warning(this, tr("Path not found", "warning about not finding the target directory"),
-                             tr("Please select directory again.", "message to try again"));
+        ui->textOutput->setText(path + "/" + name);
     }
     checkAllinfo();
 }
