@@ -149,11 +149,6 @@ void MainWindow::applyPatch()
         return;
     }
 
-    QString output;
-    if (!ui->textOutput->text().isEmpty()) {
-        output = " \"" + ui->textOutput->text() + '"';
-    }
-
     if (QFileInfo(ui->textOutput->text()).isFile()) {
         if (QMessageBox::No
             == QMessageBox::question(
@@ -165,12 +160,16 @@ void MainWindow::applyPatch()
     progress->show();
     elapsedTimer.restart();
     QString cmdout;
-    bool res = cmd.run("xdelta3 -f decode -s \"" + ui->textInput->text() + "\" \"" + ui->textApplyPatch->text() + '"'
-                            + output,
-                        &cmdout);
+    QStringList args;
+    args << "-f" << "decode" << "-s" << ui->textInput->text() << ui->textApplyPatch->text();
+    if (!ui->textOutput->text().isEmpty()) {
+        args << ui->textOutput->text();
+    }
+    bool res = cmd.run("xdelta3", args, &cmdout);
     QString elapsedStr = formatElapsedTime(elapsedTimer.elapsed());
-    QString location = output.isEmpty() ? QFileInfo(ui->textInput->text()).absolutePath().remove("\"")
-                                        : QFileInfo(output).absolutePath().remove("\"");
+    QString location = ui->textOutput->text().isEmpty()
+                           ? QFileInfo(ui->textInput->text()).absolutePath()
+                           : QFileInfo(ui->textOutput->text()).absolutePath();
 
     if (res) {
         QMessageBox::information(
@@ -223,7 +222,7 @@ bool MainWindow::checkFile(const QString &fileName)
 
 void MainWindow::createPatch()
 {
-    QString force;
+    bool force = false;
     if (QFileInfo(ui->textPatch->text()).isFile()) {
         if (QMessageBox::No
             == QMessageBox::question(
@@ -231,19 +230,23 @@ void MainWindow::createPatch()
                 tr("Delta file exists, do you want to overwrite?", "warning about overwritting file"))) {
             return;
         } else {
-            force = "-f ";
+            force = true;
         }
     }
     progress->show();
     elapsedTimer.restart();
     QString cmdout;
-    bool res = cmd.run("xdelta3 " + force + "encode -" + ui->spinCompressionLevel->cleanText() + " -S "
-                            + ui->comboCompression->currentText().toLower() + " -s \"" + ui->textSource->text() + "\" \""
-                            + ui->textTarget->text() + "\" \"" + ui->textPatch->text() + '"',
-                        &cmdout);
+    QStringList args;
+    if (force) {
+        args << "-f";
+    }
+    args << "encode" << ("-" + ui->spinCompressionLevel->cleanText()) << "-S"
+         << ui->comboCompression->currentText().toLower() << "-s" << ui->textSource->text()
+         << ui->textTarget->text() << ui->textPatch->text();
+    bool res = cmd.run("xdelta3", args, &cmdout);
     QString elapsedStr = formatElapsedTime(elapsedTimer.elapsed());
     if (res) {
-        QString patchPath = QFileInfo(ui->textPatch->text()).absoluteFilePath().remove('"');
+        QString patchPath = QFileInfo(ui->textPatch->text()).absoluteFilePath();
         QString patchSize = formatFileSize(QFileInfo(patchPath).size());
         QMessageBox::information(this, tr("Success", "information on file written succesfully"),
                                   tr("File '%1' was successfuly written.", "information on file written succesfully")
