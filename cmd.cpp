@@ -13,51 +13,51 @@ Cmd::Cmd(QObject *parent)
     connect(this, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), this, &Cmd::done);
 }
 
-bool Cmd::run(const QString &cmd, bool quiet)
+bool Cmd::run(const QString &cmd, Output output)
 {
-    QString output;
-    return run(cmd, &output, quiet);
+    QString out;
+    return run(cmd, &out, output);
 }
 
-QString Cmd::getCmdOut(const QString &cmd, bool quiet)
+QString Cmd::getCmdOut(const QString &cmd, Output output)
 {
-    QString output;
-    run(cmd, &output, quiet);
-    return output;
+    QString out;
+    run(cmd, &out, output);
+    return out;
 }
 
-bool Cmd::run(const QString &cmd, QString *output, bool quiet)
+bool Cmd::run(const QString &cmd, QString *out, Output output)
 {
     out_buffer.clear();
     if (state() != QProcess::NotRunning) {
         qDebug() << "Process already running:" << program() << arguments();
         return false;
     }
-    if (!quiet) {
+    if (output == Verbose) {
         qDebug().noquote() << cmd;
     }
     QEventLoop loop;
     connect(this, &Cmd::done, &loop, &QEventLoop::quit);
     start("/bin/bash", {"-c", cmd});
     loop.exec();
-    *output = out_buffer.trimmed();
+    *out = out_buffer.trimmed();
     return (exitStatus() == QProcess::NormalExit && exitCode() == 0);
 }
 
-bool Cmd::run(const QString &program, const QStringList &args, QString *output, bool quiet)
+bool Cmd::run(const QString &program, const QStringList &args, QString *out, Output output)
 {
     out_buffer.clear();
     if (state() != QProcess::NotRunning) {
         qDebug() << "Process already running:" << this->program() << arguments();
         return false;
     }
-    if (!quiet) {
+    if (output == Verbose) {
         qDebug().noquote() << program << args;
     }
     QEventLoop loop;
     connect(this, &Cmd::done, &loop, &QEventLoop::quit);
     start(program, args);
     loop.exec();
-    *output = out_buffer.trimmed();
+    *out = out_buffer.trimmed();
     return (exitStatus() == QProcess::NormalExit && exitCode() == 0);
 }

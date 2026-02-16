@@ -405,7 +405,7 @@ void MainWindow::updateBar()
 {
     Cmd cmd2;
     QString output;
-    if (cmd2.run("progress -c xdelta3 | tail -n2", &output, true)) {
+    if (cmd2.run("progress -c xdelta3 | tail -n2", &output, Cmd::Quiet)) {
         bool ok {false};
         QString percentage = output.trimmed().section("%", 0, 0);
         int prog = static_cast<int>(percentage.toDouble(&ok));
