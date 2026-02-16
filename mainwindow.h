@@ -52,7 +52,7 @@ private slots:
     void cmdDone();
     void cmdStart();
     void updateBar();
-    void onSelectFile(QLineEdit *lineEdit);
+    void onSelectFile(QLineEdit *lineEdit, const QString &filter);
     void onSelectDir();
 
 private:

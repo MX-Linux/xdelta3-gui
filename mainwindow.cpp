@@ -97,12 +97,8 @@ void MainWindow::cmdDone()
     progress->close();
 }
 
-void MainWindow::onSelectFile(QLineEdit *lineEdit)
+void MainWindow::onSelectFile(QLineEdit *lineEdit, const QString &filter)
 {
-    QString filter = lineEdit->objectName() != "textApplyPatch"
-                         ? tr("ISO Files (*.iso);;All Files (*)", "kinds of files to choose")
-                         : tr("ISO Files (*.xdelta3);;All Files (*)", "kinds of files to choose");
-    // Choosing a file
     QString selected
         = QFileDialog::getOpenFileName(this, tr("Select file", "choose a file"), QDir::currentPath(), filter);
     if (checkFile(selected)) {
@@ -112,7 +108,7 @@ void MainWindow::onSelectFile(QLineEdit *lineEdit)
         checkAllinfo();
         return;
     }
-    if (lineEdit->objectName() == "textTarget") {
+    if (lineEdit == ui->textTarget) {
         setPatchName();
     }
     checkAllinfo();
@@ -269,11 +265,17 @@ void MainWindow::setConnections()
     connect(ui->pushApplyPatch, &QPushButton::pressed, this, &MainWindow::applyPatch);
     connect(ui->pushCreatePatch, &QPushButton::pressed, this, &MainWindow::createPatch);
     connect(ui->pushPatchLocation, &QPushButton::pressed, this, &MainWindow::onSelectDir);
-    connect(ui->pushSelectInput, &QPushButton::pressed, this, [this] { onSelectFile(ui->textInput); });
+    const QString isoFilter = tr("ISO Files (*.iso);;All Files (*)", "kinds of files to choose");
+    const QString deltaFilter = tr("Delta Files (*.xdelta3);;All Files (*)", "kinds of files to choose");
+    connect(ui->pushSelectInput, &QPushButton::pressed, this,
+            [this, isoFilter] { onSelectFile(ui->textInput, isoFilter); });
     connect(ui->pushSelectOutput, &QPushButton::pressed, this, &MainWindow::onSelectDir);
-    connect(ui->pushSelectPatch, &QPushButton::pressed, this, [this] { onSelectFile(ui->textApplyPatch); });
-    connect(ui->pushSelectSource, &QPushButton::pressed, this, [this] { onSelectFile(ui->textSource); });
-    connect(ui->pushSelectTarget, &QPushButton::pressed, this, [this] { onSelectFile(ui->textTarget); });
+    connect(ui->pushSelectPatch, &QPushButton::pressed, this,
+            [this, deltaFilter] { onSelectFile(ui->textApplyPatch, deltaFilter); });
+    connect(ui->pushSelectSource, &QPushButton::pressed, this,
+            [this, isoFilter] { onSelectFile(ui->textSource, isoFilter); });
+    connect(ui->pushSelectTarget, &QPushButton::pressed, this,
+            [this, isoFilter] { onSelectFile(ui->textTarget, isoFilter); });
     connect(ui->textPatch, &QLineEdit::editingFinished, this, [this] { checkAllinfo(); });
     connect(ui->textSource, &QLineEdit::editingFinished, this, [this] {
         if (checkFile(ui->textSource->text()) && !ui->textTarget->text().isEmpty()) {
