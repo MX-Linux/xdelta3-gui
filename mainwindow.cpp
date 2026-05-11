@@ -551,12 +551,11 @@ void MainWindow::setOutputName()
 
 void MainWindow::updateBar()
 {
-    QString output;
+    QString statsLine;
     QString rawOutput;
     int prog = -1;
     if (Cmd::run("progress -c xdelta3", &rawOutput, Cmd::Quiet)) {
         const QStringList lines = rawOutput.split('\n', Qt::SkipEmptyParts);
-        output = lines.mid(qMax(0, lines.size() - 2)).join('\n');
         bool ok {false};
         for (const QString &line : lines) {
             int pctIdx = line.indexOf('%');
@@ -564,6 +563,7 @@ void MainWindow::updateBar()
                 prog = static_cast<int>(line.left(pctIdx).trimmed().toDouble(&ok));
                 if (ok) {
                     bar->setValue(prog);
+                    statsLine = line.trimmed();
                 } else {
                     prog = -1;
                 }
@@ -585,6 +585,9 @@ void MainWindow::updateBar()
     }
     etaTick++;
 
+    QString outputPath = (currentOp == Operation::CreatePatch) ? ui->textPatch->text() : ui->textOutput->text();
+    QString fileName = QFileInfo(outputPath).fileName();
+
     QString label;
     if (etaMs >= 0) {
         label = tr("~%1 remaining", "estimated time remaining, leave %1 untranslated")
@@ -597,8 +600,11 @@ void MainWindow::updateBar()
         label += tr(" · ~%1 estimated size", "estimated output file size, leave %1 untranslated")
                      .arg(etaSizeStr);
     }
-    if (!output.isEmpty()) {
-        label += '\n' + output;
+    if (!fileName.isEmpty()) {
+        label += '\n' + tr("Creating file: %1").arg(fileName);
+    }
+    if (!statsLine.isEmpty()) {
+        label += '\n' + statsLine;
     }
     progress->setLabelText(label);
 }
