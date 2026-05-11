@@ -186,7 +186,7 @@ void MainWindow::onSelectDir()
 
 void MainWindow::applyPatch()
 {
-    if (!ui->textOutput->text().isEmpty() && QFileInfo(ui->textOutput->text()).baseName().isEmpty()) {
+    if (ui->textOutput->text().isEmpty()) {
         ui->pushApplyPatch->setDisabled(true);
         QMessageBox::warning(this, tr("Error"), tr("Please enter a name for the output file."));
         return;
@@ -204,15 +204,10 @@ void MainWindow::applyPatch()
     elapsedTimer.restart();
     QString cmdout;
     QStringList args;
-    args << "-f" << "decode" << "-s" << ui->textInput->text() << ui->textApplyPatch->text();
-    if (!ui->textOutput->text().isEmpty()) {
-        args << ui->textOutput->text();
-    }
+    args << "-f" << "decode" << "-s" << ui->textInput->text() << ui->textApplyPatch->text() << ui->textOutput->text();
     bool res = cmd.run("xdelta3", args, &cmdout);
     QString elapsedStr = formatElapsedTime(elapsedTimer.elapsed());
-    QString location = ui->textOutput->text().isEmpty()
-                           ? QFileInfo(ui->textInput->text()).absolutePath()
-                           : QFileInfo(ui->textOutput->text()).absolutePath();
+    QString location = QFileInfo(ui->textOutput->text()).absolutePath();
 
     if (res) {
         QMessageBox::information(
@@ -222,7 +217,9 @@ void MainWindow::applyPatch()
                 + '\n'
                 + tr("Took %1 to patch the file.", "elapsed time, leave %1 untranslated").arg(elapsedStr));
     } else {
-
+        if (QFile::exists(ui->textOutput->text())) {
+            QFile::remove(ui->textOutput->text());
+        }
         QMessageBox::critical(
             this, tr("Error"),
             tr("Error: Could not write the file.", "information that there was an error creating the file") + "\n\n"
@@ -379,6 +376,7 @@ void MainWindow::setConnections()
     connect(ui->textApplyPatch, &DropLineEdit::fileDropped, this, [this](const QString &filePath) {
         if (checkFile(filePath)) {
             QDir::setCurrent(QFileInfo(filePath).absolutePath());
+            setOutputName();
         }
         checkAllinfo();
     });
@@ -423,7 +421,21 @@ void MainWindow::setProgressDialog()
     progress = new QProgressDialog(this);
     bar = new QProgressBar(progress);
     auto *pushCancel = new QPushButton(tr("Cancel", "stop an action in progress"));
-    connect(pushCancel, &QPushButton::clicked, this, [this] { cmd.terminate(); });
+    connect(pushCancel, &QPushButton::clicked, this, [this] {
+        cmd.terminate();
+        // Give it a moment to terminate before attempting to delete
+        QTimer::singleShot(500, this, [this] {
+            if (ui->tabWidget->currentWidget() == ui->tabCreatePatch) {
+                if (QFile::exists(ui->textPatch->text())) {
+                    QFile::remove(ui->textPatch->text());
+                }
+            } else {
+                if (QFile::exists(ui->textOutput->text())) {
+                    QFile::remove(ui->textOutput->text());
+                }
+            }
+        });
+    });
     bar->setMaximum(100);
     progress->setWindowModality(Qt::WindowModal);
     progress->setWindowFlags(Qt::Dialog | Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowSystemMenuHint
