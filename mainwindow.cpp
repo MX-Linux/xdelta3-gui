@@ -466,18 +466,6 @@ void MainWindow::setProgressDialog()
     connect(pushCancel, &QPushButton::clicked, this, [this] {
         cancelled = true;
         cmd.terminate();
-        // Give it a moment to terminate before attempting to delete
-        QTimer::singleShot(500, this, [this] {
-            if (ui->tabWidget->currentWidget() == ui->tabCreatePatch) {
-                if (QFile::exists(ui->textPatch->text())) {
-                    QFile::remove(ui->textPatch->text());
-                }
-            } else {
-                if (QFile::exists(ui->textOutput->text())) {
-                    QFile::remove(ui->textOutput->text());
-                }
-            }
-        });
     });
     bar->setMaximum(100);
     progress->setWindowModality(Qt::WindowModal);
