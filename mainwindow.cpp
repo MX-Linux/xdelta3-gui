@@ -553,11 +553,10 @@ void MainWindow::setOutputName()
 
 void MainWindow::updateBar()
 {
-    Cmd cmd2;
     QString output;
     QString rawOutput;
     int prog = -1;
-    if (cmd2.run("progress -c xdelta3", &rawOutput, Cmd::Quiet)) {
+    if (Cmd::run("progress -c xdelta3", &rawOutput, Cmd::Quiet)) {
         const QStringList lines = rawOutput.split('\n', Qt::SkipEmptyParts);
         output = lines.mid(qMax(0, lines.size() - 2)).join('\n');
         bool ok {false};
