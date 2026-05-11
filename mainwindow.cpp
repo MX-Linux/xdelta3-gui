@@ -34,59 +34,22 @@
 #include <QScreen>
 #include <QTime>
 
+#include <algorithm>
 #include <chrono>
 
 using namespace std::chrono_literals;
 
 namespace
 {
-bool isNumericVersion(const QString &value, QStringList *parts = nullptr)
+bool isNumericVersion(const QString &value)
 {
-    if (value.isEmpty()) {
+    if (value.isEmpty())
         return false;
-    }
-
-    QStringList splitParts = value.split('.', Qt::KeepEmptyParts);
-    if (splitParts.isEmpty()) {
-        return false;
-    }
-
-    for (const QString &part : splitParts) {
-        if (part.isEmpty()) {
+    for (const QString &part : value.split('.', Qt::KeepEmptyParts)) {
+        if (part.isEmpty() || !std::all_of(part.cbegin(), part.cend(), [](QChar c) { return c.isDigit(); }))
             return false;
-        }
-        for (QChar c : part) {
-            if (!c.isDigit()) {
-                return false;
-            }
-        }
-    }
-
-    if (parts != nullptr) {
-        *parts = splitParts;
     }
     return true;
-}
-
-bool useCompactTargetVersion(const QString &sourceBase, const QString &targetBase)
-{
-    QStringList sourceParts;
-    QStringList targetParts;
-    if (!isNumericVersion(sourceBase, &sourceParts) || !isNumericVersion(targetBase, &targetParts)) {
-        return false;
-    }
-
-    if (sourceParts.size() != targetParts.size() || sourceParts.size() < 2) {
-        return false;
-    }
-
-    for (qsizetype i = 0; i < sourceParts.size() - 1; ++i) {
-        if (sourceParts.at(i) != targetParts.at(i)) {
-            return false;
-        }
-    }
-
-    return sourceParts.last() != targetParts.last();
 }
 } // namespace
 
@@ -438,26 +401,12 @@ void MainWindow::setPatchName()
     QString targetBase = QFileInfo(ui->textTarget->text()).completeBaseName();
     QString targetDir = QFileInfo(ui->textTarget->text()).absolutePath();
     QString patchName;
-    if (sourceBase == targetBase) {
+    if (sourceBase == targetBase)
         patchName = sourceBase + "-patch.xdelta3";
-    } else if (sourceBase.startsWith(targetBase + "_")) {
-        // Source has a suffix (e.g., Blah_blah_beta1) and target is final (e.g., Blah_blah)
-        QString suffix = sourceBase.mid(targetBase.length() + 1); // Remove targetBase and underscore
-        patchName = targetBase + "-" + suffix + "_to_final.xdelta3";
-    } else if (isNumericVersion(sourceBase) && isNumericVersion(targetBase)) {
-        if (useCompactTargetVersion(sourceBase, targetBase)) {
-            patchName = sourceBase + "_to_" + targetBase.section('.', -1) + ".xdelta3";
-        } else {
-            patchName = sourceBase + "_to_" + targetBase + ".xdelta3";
-        }
-    } else {
-        QString prefix = findCommonPrefix(sourceBase, targetBase);
-        if (prefix.length() < 3) {
-            patchName = sourceBase + "_to_" + targetBase + ".xdelta3";
-        } else {
-            patchName = prefix + sourceBase.mid(prefix.length()) + "_to_" + targetBase.mid(prefix.length()) + ".xdelta3";
-        }
-    }
+    else if (sourceBase.startsWith(targetBase + "_"))
+        patchName = targetBase + "-" + sourceBase.mid(targetBase.length() + 1) + "_to_final.xdelta3";
+    else
+        patchName = sourceBase + "_to_" + targetBase + ".xdelta3";
     ui->textPatch->setText(targetDir + "/" + patchName);
 }
 
@@ -490,15 +439,6 @@ void MainWindow::setProgressDialog()
     progress->setBar(bar);
     bar->setTextVisible(false);
     progress->reset();
-}
-
-QString MainWindow::findCommonPrefix(const QString &str1, const QString &str2)
-{
-    int i = 0;
-    while (i < str1.length() && i < str2.length() && str1.at(i) == str2.at(i)) {
-        i++;
-    }
-    return str1.left(i);
 }
 
 QString MainWindow::formatElapsedTime(qint64 ms)
