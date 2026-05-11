@@ -31,6 +31,7 @@
 #include <QFileDialog>
 #include <QLocale>
 #include <QMessageBox>
+#include <QProcess>
 #include <QScreen>
 #include <QTime>
 
@@ -100,6 +101,7 @@ void MainWindow::cmdStart()
     etaMs = -1;
     etaTick = 0;
     etaSizeStr.clear();
+    targetFileSize = -1;
     progress->setLabelText(tr("Calculating..."));
     if (!timer.isActive()) {
         timer.start(1s);
@@ -245,6 +247,25 @@ void MainWindow::applyPatch()
     QStringList args;
     args << "-f" << "decode" << "-s" << ui->textInput->text() << ui->textApplyPatch->text() << ui->textOutput->text();
     cmd.runAsync("xdelta3", args);
+
+    auto *proc = new QProcess(this);
+    connect(proc, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), this,
+            [this, proc](int, QProcess::ExitStatus) {
+                qint64 total = 0;
+                const QString out = proc->readAllStandardOutput() + proc->readAllStandardError();
+                for (const QString &line : out.split('\n', Qt::SkipEmptyParts)) {
+                    if (line.contains("VCDIFF target window length:")) {
+                        bool ok;
+                        qint64 n = line.section(':', -1).trimmed().toLongLong(&ok);
+                        if (ok)
+                            total += n;
+                    }
+                }
+                if (total > 0)
+                    targetFileSize = total;
+                proc->deleteLater();
+            });
+    proc->start("xdelta3", {"printhdrs", ui->textApplyPatch->text()});
 }
 
 void MainWindow::checkAllinfo()
@@ -566,15 +587,15 @@ void MainWindow::updateBar()
         }
     }
 
-    // Recalculate ETA and estimated output size every 5 seconds
+    // Recalculate ETA every 5 seconds; estimate output size only for CreatePatch
     if (etaTick % 5 == 0 && etaTick > 0 && prog > 0) {
         qint64 elapsed = elapsedTimer.elapsed();
         etaMs = qMax(0LL, elapsed * (100 - prog) / prog);
 
-        QString outputPath = (currentOp == Operation::CreatePatch) ? ui->textPatch->text() : ui->textOutput->text();
-        qint64 currentSize = QFileInfo(outputPath).size();
-        if (currentSize > 0) {
-            etaSizeStr = formatFileSize(currentSize * 100LL / prog);
+        if (currentOp == Operation::CreatePatch) {
+            qint64 currentSize = QFileInfo(ui->textPatch->text()).size();
+            if (currentSize > 0)
+                etaSizeStr = formatFileSize(currentSize * 100LL / prog);
         }
     }
     etaTick++;
@@ -583,12 +604,15 @@ void MainWindow::updateBar()
     if (etaMs >= 0) {
         label = tr("~%1 remaining", "estimated time remaining, leave %1 untranslated")
                     .arg(formatElapsedTime(etaMs));
-        if (!etaSizeStr.isEmpty()) {
-            label += tr(" · ~%1 estimated size", "estimated output file size, leave %1 untranslated")
-                         .arg(etaSizeStr);
-        }
     } else {
         label = tr("Calculating...");
+    }
+    if (currentOp == Operation::ApplyPatch && targetFileSize >= 0) {
+        label += tr(" · %1 output size", "exact output file size from delta, leave %1 untranslated")
+                     .arg(formatFileSize(targetFileSize));
+    } else if (!etaSizeStr.isEmpty()) {
+        label += tr(" · ~%1 estimated size", "estimated output file size, leave %1 untranslated")
+                     .arg(etaSizeStr);
     }
     if (!output.isEmpty()) {
         label += '\n' + output;

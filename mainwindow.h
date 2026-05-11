@@ -70,6 +70,7 @@ private:
     qint64 etaMs = -1;
     int etaTick = 0;
     QString etaSizeStr;
+    qint64 targetFileSize = -1;
 
     void applyPatch();
     void centerWindow();
