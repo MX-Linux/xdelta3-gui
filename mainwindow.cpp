@@ -348,6 +348,29 @@ void MainWindow::setConnections()
     });
     connect(ui->textOutput, &QLineEdit::editingFinished, this, [this] { checkAllinfo(); });
 
+    auto validate = [this](QLineEdit *le) {
+        bool ok = false;
+        QString text = le->text();
+        if (text.isEmpty()) {
+            le->setStyleSheet("");
+            return;
+        }
+        if (le == ui->textPatch || le == ui->textOutput) {
+            QFileInfo info(text);
+            ok = info.absoluteDir().exists() && !info.fileName().isEmpty();
+        } else {
+            ok = QFileInfo(text).isFile();
+        }
+        le->setStyleSheet(ok ? "" : "QLineEdit { color: red; }");
+    };
+
+    connect(ui->textSource, &QLineEdit::textChanged, this, [this, validate] { validate(ui->textSource); });
+    connect(ui->textTarget, &QLineEdit::textChanged, this, [this, validate] { validate(ui->textTarget); });
+    connect(ui->textPatch, &QLineEdit::textChanged, this, [this, validate] { validate(ui->textPatch); });
+    connect(ui->textInput, &QLineEdit::textChanged, this, [this, validate] { validate(ui->textInput); });
+    connect(ui->textApplyPatch, &QLineEdit::textChanged, this, [this, validate] { validate(ui->textApplyPatch); });
+    connect(ui->textOutput, &QLineEdit::textChanged, this, [this, validate] { validate(ui->textOutput); });
+
     // Drag and drop connections
     connect(ui->textSource, &DropLineEdit::fileDropped, this, [this](const QString &filePath) {
         if (checkFile(filePath)) {
