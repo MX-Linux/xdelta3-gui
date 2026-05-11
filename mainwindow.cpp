@@ -188,7 +188,7 @@ void MainWindow::onSelectFile(QLineEdit *lineEdit, const QString &filter)
     if (checkFile(selected)) {
         lineEdit->setText(selected);
         QString path = QFileInfo(selected).absolutePath();
-        QDir::setCurrent(path);
+
         settings.setValue(key, path);
     } else {
         checkAllinfo();
@@ -399,7 +399,7 @@ void MainWindow::setConnections()
     connect(ui->textSource, &DropLineEdit::fileDropped, this, [this](const QString &filePath) {
         if (checkFile(filePath)) {
             QString path = QFileInfo(filePath).absolutePath();
-            QDir::setCurrent(path);
+    
             settings.setValue(dirSettingsKey(ui->textSource), path);
             if (!ui->textTarget->text().isEmpty()) {
                 setPatchName();
@@ -410,7 +410,7 @@ void MainWindow::setConnections()
     connect(ui->textTarget, &DropLineEdit::fileDropped, this, [this](const QString &filePath) {
         if (checkFile(filePath)) {
             QString path = QFileInfo(filePath).absolutePath();
-            QDir::setCurrent(path);
+    
             settings.setValue(dirSettingsKey(ui->textTarget), path);
             if (!ui->textSource->text().isEmpty()) {
                 setPatchName();
@@ -421,7 +421,7 @@ void MainWindow::setConnections()
     connect(ui->textInput, &DropLineEdit::fileDropped, this, [this](const QString &filePath) {
         if (checkFile(filePath)) {
             QString path = QFileInfo(filePath).absolutePath();
-            QDir::setCurrent(path);
+    
             settings.setValue(dirSettingsKey(ui->textInput), path);
             setOutputName();
         }
@@ -430,7 +430,7 @@ void MainWindow::setConnections()
     connect(ui->textApplyPatch, &DropLineEdit::fileDropped, this, [this](const QString &filePath) {
         if (checkFile(filePath)) {
             QString path = QFileInfo(filePath).absolutePath();
-            QDir::setCurrent(path);
+    
             settings.setValue(dirSettingsKey(ui->textApplyPatch), path);
             setOutputName();
         }
@@ -519,7 +519,7 @@ void MainWindow::setOutputName()
             QString targetVersion = patchBase.section("_to_", -1);
             // Remove .xdelta3 if it's there (shouldn't be in completeBaseName but just in case)
             if (targetVersion.endsWith(".xdelta3")) {
-                targetVersion.chop(8);
+                targetVersion.chop(QStringLiteral(".xdelta3").size());
             }
 
             // Try to find if inputBase ends with a version we should replace
