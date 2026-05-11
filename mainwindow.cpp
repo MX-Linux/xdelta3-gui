@@ -283,8 +283,11 @@ void MainWindow::createPatch()
     if (force) {
         args << "-f";
     }
-    args << "encode" << ("-" + ui->spinCompressionLevel->cleanText()) << "-S"
-         << ui->comboCompression->currentText().toLower() << "-s" << ui->textSource->text()
+    args << "encode" << ("-" + ui->spinCompressionLevel->cleanText());
+    if (ui->comboCompression->currentText() != "None") {
+        args << "-S" << ui->comboCompression->currentText().toLower();
+    }
+    args << "-s" << ui->textSource->text()
          << ui->textTarget->text() << ui->textPatch->text();
     bool res = cmd.run("xdelta3", args, &cmdout);
     QString elapsedStr = formatElapsedTime(elapsedTimer.elapsed());
