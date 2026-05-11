@@ -1,6 +1,7 @@
 #include "cmd.h"
 
 #include <QDebug>
+#include <QStandardPaths>
 
 Cmd::Cmd(QObject *parent)
     : QProcess(parent)
@@ -44,7 +45,7 @@ void Cmd::runAsync(const QString &cmd, Output output)
     if (output == Verbose) {
         qDebug().noquote() << cmd;
     }
-    start("/bin/bash", {"-c", cmd});
+    start(QStandardPaths::findExecutable("bash"), {"-c", cmd});
 }
 
 bool Cmd::run(const QString &cmd, QString *out, Output output)
@@ -57,6 +58,6 @@ bool Cmd::run(const QString &cmd, QString *out, Output output)
     if (!p.waitForFinished(5000)) {
         return false;
     }
-    *out = p.readAllStandardOutput().trimmed();
+    *out = (p.readAllStandardOutput() + p.readAllStandardError()).trimmed();
     return (p.exitStatus() == QProcess::NormalExit && p.exitCode() == 0);
 }
