@@ -66,6 +66,9 @@ private:
     QSettings settings {QApplication::applicationName()};
     QTimer timer;
     QElapsedTimer elapsedTimer;
+    qint64 etaMs = -1;
+    int etaTick = 0;
+    QString etaSizeStr;
 
     void applyPatch();
     void centerWindow();

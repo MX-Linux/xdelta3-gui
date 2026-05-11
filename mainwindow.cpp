@@ -97,7 +97,10 @@ void MainWindow::centerWindow()
 void MainWindow::cmdStart()
 {
     bar->setValue(0);
-    progress->setLabelText("");
+    etaMs = -1;
+    etaTick = 0;
+    etaSizeStr.clear();
+    progress->setLabelText(tr("Calculating..."));
     if (!timer.isActive()) {
         timer.start(1s);
     }
@@ -519,6 +522,7 @@ void MainWindow::updateBar()
     Cmd cmd2;
     QString output;
     QString rawOutput;
+    int prog = -1;
     if (cmd2.run("progress -c xdelta3", &rawOutput, Cmd::Quiet)) {
         const QStringList lines = rawOutput.split('\n', Qt::SkipEmptyParts);
         output = lines.mid(qMax(0, lines.size() - 2)).join('\n');
@@ -526,14 +530,43 @@ void MainWindow::updateBar()
         for (const QString &line : lines) {
             int pctIdx = line.indexOf('%');
             if (pctIdx != -1) {
-                int prog = static_cast<int>(line.left(pctIdx).trimmed().toDouble(&ok));
+                prog = static_cast<int>(line.left(pctIdx).trimmed().toDouble(&ok));
                 if (ok) {
                     bar->setValue(prog);
+                } else {
+                    prog = -1;
                 }
                 break;
             }
         }
     }
-    QString elapsedStr = formatElapsedTime(elapsedTimer.elapsed());
-    progress->setLabelText(tr("%1 elapsed", "elapsed time, leave %1 untranslated").arg(elapsedStr) + '\n' + output);
+
+    // Recalculate ETA and estimated output size every 5 seconds
+    if (etaTick % 5 == 0 && etaTick > 0 && prog > 0) {
+        qint64 elapsed = elapsedTimer.elapsed();
+        etaMs = qMax(0LL, elapsed * (100 - prog) / prog);
+
+        QString outputPath = (currentOp == Operation::CreatePatch) ? ui->textPatch->text() : ui->textOutput->text();
+        qint64 currentSize = QFileInfo(outputPath).size();
+        if (currentSize > 0) {
+            etaSizeStr = formatFileSize(currentSize * 100LL / prog);
+        }
+    }
+    etaTick++;
+
+    QString label;
+    if (etaMs >= 0) {
+        label = tr("~%1 remaining", "estimated time remaining, leave %1 untranslated")
+                    .arg(formatElapsedTime(etaMs));
+        if (!etaSizeStr.isEmpty()) {
+            label += tr(" · ~%1 estimated size", "estimated output file size, leave %1 untranslated")
+                         .arg(etaSizeStr);
+        }
+    } else {
+        label = tr("Calculating...");
+    }
+    if (!output.isEmpty()) {
+        label += '\n' + output;
+    }
+    progress->setLabelText(label);
 }
