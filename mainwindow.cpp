@@ -102,7 +102,7 @@ void MainWindow::cmdStart()
     etaTick = 0;
     etaSizeStr.clear();
     targetFileSize = -1;
-    progress->setLabelText(tr("Calculating..."));
+    progress->setLabelText("");
     if (!timer.isActive()) {
         timer.start(1s);
     }
@@ -591,8 +591,6 @@ void MainWindow::updateBar()
     if (etaMs >= 0) {
         label = tr("~%1 remaining", "estimated time remaining, leave %1 untranslated")
                     .arg(formatElapsedTime(etaMs));
-    } else {
-        label = tr("Calculating...");
     }
     if (currentOp == Operation::ApplyPatch && targetFileSize >= 0) {
         label += tr(" · %1 output size", "exact output file size from delta, leave %1 untranslated")
