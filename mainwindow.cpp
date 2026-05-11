@@ -323,7 +323,7 @@ void MainWindow::createPatch()
         args << "-f";
     }
     args << "encode" << ("-" + QString::number(ui->spinCompressionLevel->value()));
-    if (ui->comboCompression->currentText() != "None") {
+    if (ui->comboCompression->currentIndex() != 0) {
         args << "-S" << ui->comboCompression->currentText().toLower();
     }
     args << "-s" << ui->textSource->text()
