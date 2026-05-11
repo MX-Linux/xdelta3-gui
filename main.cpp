@@ -72,9 +72,19 @@ int main(int argc, char *argv[])
     }
 
     QTranslator appTran;
-    if (appTran.load(QApplication::applicationName() + "_" + QLocale::system().name(),
-                     "/usr/share/" + QApplication::applicationName() + "/locale")) {
-        QApplication::installTranslator(&appTran);
+    const QString translationName = QApplication::applicationName() + "_" + QLocale::system().name();
+    const QStringList searchPaths = {
+        QCoreApplication::applicationDirPath() + "/locale",
+        QCoreApplication::applicationDirPath() + "/../share/" + QApplication::applicationName() + "/locale",
+        "/usr/share/" + QApplication::applicationName() + "/locale",
+        "/usr/local/share/" + QApplication::applicationName() + "/locale"
+    };
+
+    for (const QString &path : searchPaths) {
+        if (appTran.load(translationName, path)) {
+            QApplication::installTranslator(&appTran);
+            break;
+        }
     }
 
     if (getuid() != 0) {
