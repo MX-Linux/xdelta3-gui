@@ -451,8 +451,6 @@ void MainWindow::setPatchName()
     QString patchName;
     if (sourceBase == targetBase)
         patchName = sourceBase + "-patch.xdelta3";
-    else if (sourceBase.startsWith(targetBase + "_"))
-        patchName = targetBase + "-" + sourceBase.mid(targetBase.length() + 1) + "_to_final.xdelta3";
     else
         patchName = sourceBase + "_to_" + targetBase + ".xdelta3";
     ui->textPatch->setText(targetDir + "/" + patchName);
