@@ -1,3 +1,18 @@
+xdelta3-gui (26.05) mx; urgency=medium
+
+  * Calculate and show live estimated time to completion and estimated size for the patch
+  * Show a clear error message at startup if xdelta3 is not installed
+  * Fields now turn red immediately when a file path does not exist
+  * Fix: selecting "None" for secondary compression now correctly disables it
+  * Automatically suggest an output filename when applying a patch
+  * Show the patch file size in the success message after creating a patch
+  * Remember the last used folder between file selections
+  * Automatically remove incomplete output files if an operation fails or is cancelled
+  * Elapsed time now shows hours for operations that take longer than an hour
+  * Patch filenames are now always fully descriptive (e.g. 1.0_to_1.1 instead of 1.0_to_1)
+
+ -- Adrian <adrian@mxlinux.org>  Sun, 10 May 2026 20:42:54 -0400
+
 xdelta3-gui (26.02) mx; urgency=medium
 
   * Improve patch creation/apply reliability for file paths with spaces and special characters
