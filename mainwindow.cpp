@@ -523,10 +523,15 @@ void MainWindow::updateBar()
         const QStringList lines = rawOutput.split('\n', Qt::SkipEmptyParts);
         output = lines.mid(qMax(0, lines.size() - 2)).join('\n');
         bool ok {false};
-        QString percentage = output.trimmed().section("%", 0, 0);
-        int prog = static_cast<int>(percentage.toDouble(&ok));
-        if (ok) {
-            bar->setValue(prog);
+        for (const QString &line : lines) {
+            int pctIdx = line.indexOf('%');
+            if (pctIdx != -1) {
+                int prog = static_cast<int>(line.left(pctIdx).trimmed().toDouble(&ok));
+                if (ok) {
+                    bar->setValue(prog);
+                }
+                break;
+            }
         }
     }
     QString elapsedStr = formatElapsedTime(elapsedTimer.elapsed());
