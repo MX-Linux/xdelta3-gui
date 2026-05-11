@@ -11,13 +11,13 @@ public:
     enum Output { Verbose, Quiet };
 
     explicit Cmd(QObject *parent = nullptr);
-    bool run(const QString &cmd, Output output = Verbose);
+    void runAsync(const QString &program, const QStringList &args, Output output = Verbose);
+    void runAsync(const QString &cmd, Output output = Verbose);
     bool run(const QString &cmd, QString *out, Output output = Verbose);
-    bool run(const QString &program, const QStringList &args, QString *out, Output output = Verbose);
-    [[nodiscard]] QString getCmdOut(const QString &cmd, Output output = Verbose);
+    [[nodiscard]] QString getOutput() const { return out_buffer.trimmed(); }
 
 signals:
-    void done();
+    void commandFinished(bool success, const QString &output);
     void errorAvailable(const QString &err);
     void outputAvailable(const QString &out);
 

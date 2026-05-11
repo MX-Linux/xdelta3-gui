@@ -49,13 +49,16 @@ public:
     ~MainWindow() override;
 
 private slots:
-    void cmdDone();
+    void cmdFinished(bool success, const QString &output);
     void cmdStart();
     void updateBar();
     void onSelectFile(QLineEdit *lineEdit, const QString &filter);
     void onSelectDir();
 
 private:
+    enum class Operation { None, CreatePatch, ApplyPatch };
+    Operation currentOp = Operation::None;
+
     Ui::MainWindow *ui;
     Cmd cmd;
     QProgressBar *bar {};

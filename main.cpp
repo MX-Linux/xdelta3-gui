@@ -26,6 +26,7 @@
 #include <QLibraryInfo>
 #include <QLocale>
 #include <QMessageBox>
+#include <QStandardPaths>
 #include <QTranslator>
 
 #include "mainwindow.h"
@@ -46,6 +47,14 @@ int main(int argc, char *argv[])
     }
 
     QApplication app(argc, argv);
+
+    // Check for xdelta3 binary
+    if (QStandardPaths::findExecutable("xdelta3").isEmpty()) {
+        QMessageBox::critical(nullptr, QObject::tr("Error"),
+                              QObject::tr("xdelta3 binary not found. Please install xdelta3 package."));
+        return EXIT_FAILURE;
+    }
+
     QApplication::setApplicationDisplayName("xdelta3 GUI");
     QApplication::setWindowIcon(QIcon::fromTheme(QApplication::applicationName()));
     QApplication::setApplicationVersion(VERSION);

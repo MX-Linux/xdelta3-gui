@@ -118,7 +118,7 @@ MainWindow::MainWindow(const QString &patchFile, QWidget *parent)
 MainWindow::~MainWindow()
 {
     settings.setValue("geometry", saveGeometry());
-    settings.setValue("compression_level", ui->spinCompressionLevel->cleanText());
+    settings.setValue("compression_level", ui->spinCompressionLevel->value());
     settings.setValue("secondary_compression", ui->comboCompression->currentText());
     delete ui;
 }
@@ -139,29 +139,77 @@ void MainWindow::cmdStart()
         timer.start(1s);
     }
     setCursor(QCursor(Qt::BusyCursor));
+    ui->tabWidget->setEnabled(false);
 }
 
-void MainWindow::cmdDone()
+void MainWindow::cmdFinished(bool success, const QString &output)
 {
     timer.stop();
     setCursor(QCursor(Qt::ArrowCursor));
     bar->setValue(bar->maximum());
     progress->close();
+    ui->tabWidget->setEnabled(true);
+
+    QString elapsedStr = formatElapsedTime(elapsedTimer.elapsed());
+
+    if (currentOp == Operation::ApplyPatch) {
+        QString location = QFileInfo(ui->textOutput->text()).absolutePath();
+        if (success) {
+            QMessageBox::information(
+                this, tr("Success", "information that file was successfully written"),
+                tr("File was successfully written to '%1' directory.", "information that file was successfully written")
+                        .arg(location)
+                    + '\n'
+                    + tr("Took %1 to patch the file.", "elapsed time, leave %1 untranslated").arg(elapsedStr));
+        } else {
+            if (QFile::exists(ui->textOutput->text())) {
+                QFile::remove(ui->textOutput->text());
+            }
+            QMessageBox::critical(
+                this, tr("Error"),
+                tr("Error: Could not write the file.", "information that there was an error creating the file") + "\n\n"
+                    + output);
+        }
+    } else if (currentOp == Operation::CreatePatch) {
+        if (success) {
+            QString patchPath = QFileInfo(ui->textPatch->text()).absoluteFilePath();
+            QString patchSize = formatFileSize(QFileInfo(patchPath).size());
+            QMessageBox::information(
+                this, tr("Success", "information on file written successfully"),
+                tr("File '%1' was successfully written.", "information on file written successfully").arg(patchPath)
+                    + '\n'
+                    + tr("Patch size: %1", "size of the created patch file").arg(patchSize) + '\n'
+                    + tr("Took %1 to create the patch.", "elapsed time, leave %1 untranslated").arg(elapsedStr));
+        } else {
+            if (QFile::exists(ui->textPatch->text())) {
+                QFile::remove(ui->textPatch->text());
+            }
+            QMessageBox::critical(
+                this, tr("Error"),
+                tr("Error: Could not write the file.", "information that file was not written successfully") + "\n\n"
+                    + output);
+        }
+    }
+    currentOp = Operation::None;
 }
 
 void MainWindow::onSelectFile(QLineEdit *lineEdit, const QString &filter)
 {
-    QString selected
-        = QFileDialog::getOpenFileName(this, tr("Select file", "choose a file"), QDir::currentPath(), filter);
+    QString lastDir = settings.value("last_dir", QDir::homePath()).toString();
+    QString selected = QFileDialog::getOpenFileName(this, tr("Select file", "choose a file"), lastDir, filter);
     if (checkFile(selected)) {
         lineEdit->setText(selected);
-        QDir::setCurrent(QFileInfo(selected).absolutePath());
+        QString path = QFileInfo(selected).absolutePath();
+        QDir::setCurrent(path);
+        settings.setValue("last_dir", path);
     } else {
         checkAllinfo();
         return;
     }
     if (lineEdit == ui->textTarget) {
         setPatchName();
+    } else if (lineEdit == ui->textInput || lineEdit == ui->textApplyPatch) {
+        setOutputName();
     }
     checkAllinfo();
 }
@@ -170,12 +218,14 @@ void MainWindow::onSelectDir()
 {
     QString name = ui->tabWidget->currentWidget() == ui->tabCreatePatch ? QFileInfo(ui->textPatch->text()).fileName()
                                                                         : QFileInfo(ui->textOutput->text()).fileName();
+    QString lastDir = settings.value("last_dir", QDir::homePath()).toString();
     QString path = QFileDialog::getExistingDirectory(
-        this, tr("Select directory to place the file in", "select a target directory"), QDir::currentPath());
+        this, tr("Select directory to place the file in", "select a target directory"), lastDir);
     if (path.isEmpty()) {
         return;
     }
 
+    settings.setValue("last_dir", path);
     if (ui->tabWidget->currentWidget() == ui->tabCreatePatch) {
         ui->textPatch->setText(path + "/" + name);
     } else {
@@ -202,29 +252,10 @@ void MainWindow::applyPatch()
     }
     progress->show();
     elapsedTimer.restart();
-    QString cmdout;
+    currentOp = Operation::ApplyPatch;
     QStringList args;
     args << "-f" << "decode" << "-s" << ui->textInput->text() << ui->textApplyPatch->text() << ui->textOutput->text();
-    bool res = cmd.run("xdelta3", args, &cmdout);
-    QString elapsedStr = formatElapsedTime(elapsedTimer.elapsed());
-    QString location = QFileInfo(ui->textOutput->text()).absolutePath();
-
-    if (res) {
-        QMessageBox::information(
-            this, tr("Success", "information that file was successfully written"),
-            tr("File was successfully written to '%1' directory.", "information that file was successfully written")
-                    .arg(location)
-                + '\n'
-                + tr("Took %1 to patch the file.", "elapsed time, leave %1 untranslated").arg(elapsedStr));
-    } else {
-        if (QFile::exists(ui->textOutput->text())) {
-            QFile::remove(ui->textOutput->text());
-        }
-        QMessageBox::critical(
-            this, tr("Error"),
-            tr("Error: Could not write the file.", "information that there was an error creating the file") + "\n\n"
-                + cmdout);
-    }
+    cmd.runAsync("xdelta3", args);
 }
 
 void MainWindow::checkAllinfo()
@@ -275,7 +306,7 @@ void MainWindow::createPatch()
     }
     progress->show();
     elapsedTimer.restart();
-    QString cmdout;
+    currentOp = Operation::CreatePatch;
     QStringList args;
     if (force) {
         args << "-f";
@@ -286,25 +317,7 @@ void MainWindow::createPatch()
     }
     args << "-s" << ui->textSource->text()
          << ui->textTarget->text() << ui->textPatch->text();
-    bool res = cmd.run("xdelta3", args, &cmdout);
-    QString elapsedStr = formatElapsedTime(elapsedTimer.elapsed());
-    if (res) {
-        QString patchPath = QFileInfo(ui->textPatch->text()).absoluteFilePath();
-        QString patchSize = formatFileSize(QFileInfo(patchPath).size());
-        QMessageBox::information(this, tr("Success", "information on file written successfully"),
-                                  tr("File '%1' was successfully written.", "information on file written successfully")
-                                          .arg(patchPath)
-                                      + '\n'
-                                      + tr("Patch size: %1", "size of the created patch file").arg(patchSize)
-                                      + '\n'
-                                      + tr("Took %1 to create the patch.", "elapsed time, leave %1 untranslated")
-                                            .arg(elapsedStr));
-    } else {
-        QMessageBox::critical(
-            this, tr("Error"),
-            tr("Error: Could not write the file.", "information that file was not written successfully") + "\n\n"
-                + cmdout);
-    }
+    cmd.runAsync("xdelta3", args);
 }
 
 void MainWindow::setConnections()
@@ -374,7 +387,9 @@ void MainWindow::setConnections()
     // Drag and drop connections
     connect(ui->textSource, &DropLineEdit::fileDropped, this, [this](const QString &filePath) {
         if (checkFile(filePath)) {
-            QDir::setCurrent(QFileInfo(filePath).absolutePath());
+            QString path = QFileInfo(filePath).absolutePath();
+            QDir::setCurrent(path);
+            settings.setValue("last_dir", path);
             if (!ui->textTarget->text().isEmpty()) {
                 setPatchName();
             }
@@ -383,7 +398,9 @@ void MainWindow::setConnections()
     });
     connect(ui->textTarget, &DropLineEdit::fileDropped, this, [this](const QString &filePath) {
         if (checkFile(filePath)) {
-            QDir::setCurrent(QFileInfo(filePath).absolutePath());
+            QString path = QFileInfo(filePath).absolutePath();
+            QDir::setCurrent(path);
+            settings.setValue("last_dir", path);
             if (!ui->textSource->text().isEmpty()) {
                 setPatchName();
             }
@@ -392,13 +409,18 @@ void MainWindow::setConnections()
     });
     connect(ui->textInput, &DropLineEdit::fileDropped, this, [this](const QString &filePath) {
         if (checkFile(filePath)) {
-            QDir::setCurrent(QFileInfo(filePath).absolutePath());
+            QString path = QFileInfo(filePath).absolutePath();
+            QDir::setCurrent(path);
+            settings.setValue("last_dir", path);
+            setOutputName();
         }
         checkAllinfo();
     });
     connect(ui->textApplyPatch, &DropLineEdit::fileDropped, this, [this](const QString &filePath) {
         if (checkFile(filePath)) {
-            QDir::setCurrent(QFileInfo(filePath).absolutePath());
+            QString path = QFileInfo(filePath).absolutePath();
+            QDir::setCurrent(path);
+            settings.setValue("last_dir", path);
             setOutputName();
         }
         checkAllinfo();
@@ -407,7 +429,7 @@ void MainWindow::setConnections()
     setProgressDialog();
     connect(&timer, &QTimer::timeout, this, &MainWindow::updateBar);
     connect(&cmd, &Cmd::started, this, &MainWindow::cmdStart);
-    connect(&cmd, &Cmd::done, this, &MainWindow::cmdDone);
+    connect(&cmd, &Cmd::commandFinished, this, &MainWindow::cmdFinished);
 }
 
 void MainWindow::setPatchName()
@@ -501,26 +523,55 @@ QString MainWindow::formatFileSize(qint64 bytes)
 
 void MainWindow::setOutputName()
 {
-    if (!ui->textOutput->text().isEmpty())
-        return;
-
-    QString patchPath = ui->textApplyPatch->text();
-    QString patchBase = QFileInfo(patchPath).completeBaseName();
-
-    int toIdx = patchBase.indexOf("_to_");
-    if (toIdx == -1)
-        return;
-
-    QString targetPart = patchBase.mid(toIdx + 4);
-    if (targetPart.isEmpty())
-        return;
-
     QString inputPath = ui->textInput->text();
-    QString dir = inputPath.isEmpty() ? QFileInfo(patchPath).absolutePath()
-                                      : QFileInfo(inputPath).absolutePath();
-    QString ext = inputPath.isEmpty() ? QString() : "." + QFileInfo(inputPath).suffix();
+    QString patchPath = ui->textApplyPatch->text();
 
-    ui->textOutput->setText(dir + "/" + targetPart + ext);
+    if (inputPath.isEmpty()) {
+        return;
+    }
+
+    QString inputBase = QFileInfo(inputPath).completeBaseName();
+    QString inputSuffix = QFileInfo(inputPath).suffix();
+    QString inputDir = QFileInfo(inputPath).absolutePath();
+    QString outputName;
+
+    if (!patchPath.isEmpty()) {
+        QString patchBase = QFileInfo(patchPath).completeBaseName();
+        // If patch name contains "_to_VERSION", try to extract that version
+        if (patchBase.contains("_to_")) {
+            QString targetVersion = patchBase.section("_to_", -1);
+            // Remove .xdelta3 if it's there (shouldn't be in completeBaseName but just in case)
+            if (targetVersion.endsWith(".xdelta3")) {
+                targetVersion.chop(8);
+            }
+
+            // Try to find if inputBase ends with a version we should replace
+            // e.g. app-1.0 -> app-1.1. Only '-' and '_' are valid separators;
+            // dots are part of version numbers, not separators.
+            int lastSep = qMax(inputBase.lastIndexOf('-'), inputBase.lastIndexOf('_'));
+
+            if (lastSep != -1 && isNumericVersion(inputBase.mid(lastSep + 1))) {
+                outputName = inputBase.left(lastSep + 1) + targetVersion;
+            } else if (isNumericVersion(inputBase)) {
+                outputName = targetVersion;
+            } else {
+                outputName = inputBase + "." + targetVersion;
+            }
+
+            if (!inputSuffix.isEmpty()) {
+                outputName += "." + inputSuffix;
+            }
+        }
+    }
+
+    if (outputName.isEmpty()) {
+        outputName = inputBase + ".patched";
+        if (!inputSuffix.isEmpty()) {
+            outputName += "." + inputSuffix;
+        }
+    }
+
+    ui->textOutput->setText(inputDir + "/" + outputName);
 }
 
 void MainWindow::updateBar()
