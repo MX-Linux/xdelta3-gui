@@ -58,6 +58,7 @@ private slots:
 private:
     enum class Operation { None, CreatePatch, ApplyPatch };
     Operation currentOp = Operation::None;
+    bool cancelled = false;
 
     Ui::MainWindow *ui;
     Cmd cmd;
@@ -79,6 +80,7 @@ private:
     void setPatchName();
     void setOutputName();
     void setProgressDialog();
+    QString dirSettingsKey(QLineEdit *lineEdit) const;
     static QString formatElapsedTime(qint64 ms);
     static QString formatFileSize(qint64 bytes);
 };

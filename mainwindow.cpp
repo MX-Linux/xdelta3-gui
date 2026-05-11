@@ -131,10 +131,14 @@ void MainWindow::cmdFinished(bool success, const QString &output)
             if (QFile::exists(ui->textOutput->text())) {
                 QFile::remove(ui->textOutput->text());
             }
-            QMessageBox::critical(
-                this, tr("Error"),
-                tr("Error: Could not write the file.", "information that there was an error creating the file") + "\n\n"
-                    + output);
+            if (cancelled) {
+                QMessageBox::information(this, tr("Cancelled"), tr("Operation was cancelled."));
+            } else {
+                QMessageBox::critical(
+                    this, tr("Error"),
+                    tr("Error: Could not write the file.", "information that there was an error creating the file")
+                        + "\n\n" + output);
+            }
         }
     } else if (currentOp == Operation::CreatePatch) {
         if (success) {
@@ -150,24 +154,40 @@ void MainWindow::cmdFinished(bool success, const QString &output)
             if (QFile::exists(ui->textPatch->text())) {
                 QFile::remove(ui->textPatch->text());
             }
-            QMessageBox::critical(
-                this, tr("Error"),
-                tr("Error: Could not write the file.", "information that file was not written successfully") + "\n\n"
-                    + output);
+            if (cancelled) {
+                QMessageBox::information(this, tr("Cancelled"), tr("Operation was cancelled."));
+            } else {
+                QMessageBox::critical(
+                    this, tr("Error"),
+                    tr("Error: Could not write the file.", "information that file was not written successfully")
+                        + "\n\n" + output);
+            }
         }
     }
     currentOp = Operation::None;
 }
 
+QString MainWindow::dirSettingsKey(QLineEdit *lineEdit) const
+{
+    if (lineEdit == ui->textSource)     return "last_dir_source";
+    if (lineEdit == ui->textTarget)     return "last_dir_target";
+    if (lineEdit == ui->textPatch)      return "last_dir_patch";
+    if (lineEdit == ui->textInput)      return "last_dir_input";
+    if (lineEdit == ui->textApplyPatch) return "last_dir_apply_patch";
+    if (lineEdit == ui->textOutput)     return "last_dir_output";
+    return "last_dir";
+}
+
 void MainWindow::onSelectFile(QLineEdit *lineEdit, const QString &filter)
 {
-    QString lastDir = settings.value("last_dir", QDir::homePath()).toString();
+    QString key = dirSettingsKey(lineEdit);
+    QString lastDir = settings.value(key, QDir::homePath()).toString();
     QString selected = QFileDialog::getOpenFileName(this, tr("Select file", "choose a file"), lastDir, filter);
     if (checkFile(selected)) {
         lineEdit->setText(selected);
         QString path = QFileInfo(selected).absolutePath();
         QDir::setCurrent(path);
-        settings.setValue("last_dir", path);
+        settings.setValue(key, path);
     } else {
         checkAllinfo();
         return;
@@ -182,17 +202,19 @@ void MainWindow::onSelectFile(QLineEdit *lineEdit, const QString &filter)
 
 void MainWindow::onSelectDir()
 {
-    QString name = ui->tabWidget->currentWidget() == ui->tabCreatePatch ? QFileInfo(ui->textPatch->text()).fileName()
-                                                                        : QFileInfo(ui->textOutput->text()).fileName();
-    QString lastDir = settings.value("last_dir", QDir::homePath()).toString();
+    bool isCreatePatch = ui->tabWidget->currentWidget() == ui->tabCreatePatch;
+    QString name = isCreatePatch ? QFileInfo(ui->textPatch->text()).fileName()
+                                 : QFileInfo(ui->textOutput->text()).fileName();
+    QString key = isCreatePatch ? dirSettingsKey(ui->textPatch) : dirSettingsKey(ui->textOutput);
+    QString lastDir = settings.value(key, QDir::homePath()).toString();
     QString path = QFileDialog::getExistingDirectory(
         this, tr("Select directory to place the file in", "select a target directory"), lastDir);
     if (path.isEmpty()) {
         return;
     }
 
-    settings.setValue("last_dir", path);
-    if (ui->tabWidget->currentWidget() == ui->tabCreatePatch) {
+    settings.setValue(key, path);
+    if (isCreatePatch) {
         ui->textPatch->setText(path + "/" + name);
     } else {
         ui->textOutput->setText(path + "/" + name);
@@ -218,6 +240,7 @@ void MainWindow::applyPatch()
     }
     progress->show();
     elapsedTimer.restart();
+    cancelled = false;
     currentOp = Operation::ApplyPatch;
     QStringList args;
     args << "-f" << "decode" << "-s" << ui->textInput->text() << ui->textApplyPatch->text() << ui->textOutput->text();
@@ -272,6 +295,7 @@ void MainWindow::createPatch()
     }
     progress->show();
     elapsedTimer.restart();
+    cancelled = false;
     currentOp = Operation::CreatePatch;
     QStringList args;
     if (force) {
@@ -355,7 +379,7 @@ void MainWindow::setConnections()
         if (checkFile(filePath)) {
             QString path = QFileInfo(filePath).absolutePath();
             QDir::setCurrent(path);
-            settings.setValue("last_dir", path);
+            settings.setValue(dirSettingsKey(ui->textSource), path);
             if (!ui->textTarget->text().isEmpty()) {
                 setPatchName();
             }
@@ -366,7 +390,7 @@ void MainWindow::setConnections()
         if (checkFile(filePath)) {
             QString path = QFileInfo(filePath).absolutePath();
             QDir::setCurrent(path);
-            settings.setValue("last_dir", path);
+            settings.setValue(dirSettingsKey(ui->textTarget), path);
             if (!ui->textSource->text().isEmpty()) {
                 setPatchName();
             }
@@ -377,7 +401,7 @@ void MainWindow::setConnections()
         if (checkFile(filePath)) {
             QString path = QFileInfo(filePath).absolutePath();
             QDir::setCurrent(path);
-            settings.setValue("last_dir", path);
+            settings.setValue(dirSettingsKey(ui->textInput), path);
             setOutputName();
         }
         checkAllinfo();
@@ -386,7 +410,7 @@ void MainWindow::setConnections()
         if (checkFile(filePath)) {
             QString path = QFileInfo(filePath).absolutePath();
             QDir::setCurrent(path);
-            settings.setValue("last_dir", path);
+            settings.setValue(dirSettingsKey(ui->textApplyPatch), path);
             setOutputName();
         }
         checkAllinfo();
@@ -419,6 +443,7 @@ void MainWindow::setProgressDialog()
     bar = new QProgressBar(progress);
     auto *pushCancel = new QPushButton(tr("Cancel", "stop an action in progress"));
     connect(pushCancel, &QPushButton::clicked, this, [this] {
+        cancelled = true;
         cmd.terminate();
         // Give it a moment to terminate before attempting to delete
         QTimer::singleShot(500, this, [this] {
