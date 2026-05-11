@@ -481,23 +481,22 @@ QString MainWindow::findCommonPrefix(const QString &str1, const QString &str2)
 
 QString MainWindow::formatElapsedTime(qint64 ms)
 {
-    QTime time {0, 0};
-    time = time.addMSecs(static_cast<int>(ms));
-    return QLocale().toString(time, "mm:ss");
+    int seconds = static_cast<int>(ms / 1000) % 60;
+    int minutes = static_cast<int>(ms / (1000 * 60)) % 60;
+    int hours = static_cast<int>(ms / (1000 * 60 * 60));
+
+    if (hours > 0) {
+        return QString("%1:%2:%3")
+            .arg(hours)
+            .arg(minutes, 2, 10, QChar('0'))
+            .arg(seconds, 2, 10, QChar('0'));
+    }
+    return QLocale().toString(QTime(0, minutes, seconds), "mm:ss");
 }
 
 QString MainWindow::formatFileSize(qint64 bytes)
 {
-    QLocale locale;
-    if (bytes < 1024) {
-        return locale.toString(bytes) + " B";
-    } else if (bytes < 1024 * 1024) {
-        return locale.toString(bytes / 1024.0, 'f', 1) + " KiB";
-    } else if (bytes < 1024 * 1024 * 1024) {
-        return locale.toString(bytes / (1024.0 * 1024.0), 'f', 1) + " MiB";
-    } else {
-        return locale.toString(bytes / (1024.0 * 1024.0 * 1024.0), 'f', 2) + " GiB";
-    }
+    return QLocale().formattedDataSize(bytes);
 }
 
 void MainWindow::setOutputName()
