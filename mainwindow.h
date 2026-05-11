@@ -71,6 +71,7 @@ private:
     void createPatch();
     void setConnections();
     void setPatchName();
+    void setOutputName();
     void setProgressDialog();
     static QString findCommonPrefix(const QString &str1, const QString &str2);
     static QString formatElapsedTime(qint64 ms);

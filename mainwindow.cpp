@@ -341,9 +341,12 @@ void MainWindow::setConnections()
         checkAllinfo();
     });
     connect(ui->textApplyPatch, &QLineEdit::editingFinished, this, [this] {
-        checkFile(ui->textApplyPatch->text());
+        if (checkFile(ui->textApplyPatch->text())) {
+            setOutputName();
+        }
         checkAllinfo();
     });
+    connect(ui->textOutput, &QLineEdit::editingFinished, this, [this] { checkAllinfo(); });
 
     // Drag and drop connections
     connect(ui->textSource, &DropLineEdit::fileDropped, this, [this](const QString &filePath) {
@@ -457,6 +460,30 @@ QString MainWindow::formatFileSize(qint64 bytes)
     } else {
         return locale.toString(bytes / (1024.0 * 1024.0 * 1024.0), 'f', 2) + " GiB";
     }
+}
+
+void MainWindow::setOutputName()
+{
+    if (!ui->textOutput->text().isEmpty())
+        return;
+
+    QString patchPath = ui->textApplyPatch->text();
+    QString patchBase = QFileInfo(patchPath).completeBaseName();
+
+    int toIdx = patchBase.indexOf("_to_");
+    if (toIdx == -1)
+        return;
+
+    QString targetPart = patchBase.mid(toIdx + 4);
+    if (targetPart.isEmpty())
+        return;
+
+    QString inputPath = ui->textInput->text();
+    QString dir = inputPath.isEmpty() ? QFileInfo(patchPath).absolutePath()
+                                      : QFileInfo(inputPath).absolutePath();
+    QString ext = inputPath.isEmpty() ? QString() : "." + QFileInfo(inputPath).suffix();
+
+    ui->textOutput->setText(dir + "/" + targetPart + ext);
 }
 
 void MainWindow::updateBar()
