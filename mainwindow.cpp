@@ -239,14 +239,27 @@ void MainWindow::applyPatch()
         return;
     }
 
-    if (QFileInfo(ui->textOutput->text()).isFile()) {
+    if (!checkFile(ui->textInput->text()) || !checkFile(ui->textApplyPatch->text())) {
+        return;
+    }
+
+    QFileInfo outInfo(ui->textOutput->text());
+    if (outInfo.exists()) {
+        if (!outInfo.isWritable()) {
+            QMessageBox::critical(this, tr("Error"), tr("Output file is not writable."));
+            return;
+        }
         if (QMessageBox::No
             == QMessageBox::question(
                 this, tr("File exists"),
                 tr("Output file exists, do you want to overwrite?", "warning about overwritting an existing file"))) {
             return;
         }
+    } else if (!QFileInfo(outInfo.absolutePath()).isWritable()) {
+        QMessageBox::critical(this, tr("Error"), tr("Output directory is not writable."));
+        return;
     }
+
     progress->show();
     elapsedTimer.restart();
     cancelled = false;
@@ -297,21 +310,36 @@ bool MainWindow::checkFile(const QString &fileName)
     if (fileName.isEmpty()) {
         return false;
     }
-    if (!QFileInfo(fileName).isFile()) {
+    QFileInfo info(fileName);
+    if (!info.isFile()) {
         QMessageBox::warning(
             this, tr("File not found", "warning about file not found"),
             tr("File '%1' not found or not a file, please double-check the input.", "warning about file not found")
                 .arg(fileName));
         return false;
-    } else {
-        return true;
     }
+    if (!info.isReadable()) {
+        QMessageBox::warning(
+            this, tr("Permission denied"),
+            tr("File '%1' is not readable. Please check your permissions.").arg(fileName));
+        return false;
+    }
+    return true;
 }
 
 void MainWindow::createPatch()
 {
+    if (!checkFile(ui->textSource->text()) || !checkFile(ui->textTarget->text())) {
+        return;
+    }
+
     bool force = false;
-    if (QFileInfo(ui->textPatch->text()).isFile()) {
+    QFileInfo patchInfo(ui->textPatch->text());
+    if (patchInfo.exists()) {
+        if (!patchInfo.isWritable()) {
+            QMessageBox::critical(this, tr("Error"), tr("Delta file is not writable."));
+            return;
+        }
         if (QMessageBox::No
             == QMessageBox::question(
                 this, tr("File exists", "warning about overwritting file"),
@@ -320,7 +348,11 @@ void MainWindow::createPatch()
         } else {
             force = true;
         }
+    } else if (!QFileInfo(patchInfo.absolutePath()).isWritable()) {
+        QMessageBox::critical(this, tr("Error"), tr("Output directory is not writable."));
+        return;
     }
+
     progress->show();
     elapsedTimer.restart();
     cancelled = false;
@@ -386,11 +418,15 @@ void MainWindow::setConnections()
             le->setStyleSheet("");
             return;
         }
+        QFileInfo info(text);
         if (le == ui->textPatch || le == ui->textOutput) {
-            QFileInfo info(text);
-            ok = info.absoluteDir().exists() && !info.fileName().isEmpty();
+            if (info.exists()) {
+                ok = info.isFile() && info.isWritable();
+            } else {
+                ok = info.absoluteDir().exists() && QFileInfo(info.absolutePath()).isWritable() && !info.fileName().isEmpty();
+            }
         } else {
-            ok = QFileInfo(text).isFile();
+            ok = info.isFile() && info.isReadable();
         }
         le->setStyleSheet(ok ? "" : "QLineEdit { color: red; }");
     };
