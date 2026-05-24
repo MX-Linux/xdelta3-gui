@@ -77,6 +77,7 @@ private:
     void checkAllinfo();
     bool checkFile(const QString &fileName);
     void createPatch();
+    void handleProgressOutput();
     void setConnections();
     void setPatchName();
     void setOutputName();
@@ -84,4 +85,8 @@ private:
     QString dirSettingsKey(QLineEdit *lineEdit) const;
     static QString formatElapsedTime(qint64 ms);
     static QString formatFileSize(qint64 bytes);
+
+    QProcess *progressProcess {};
+    int lastProg = -1;
+    QString lastStatsLine;
 };

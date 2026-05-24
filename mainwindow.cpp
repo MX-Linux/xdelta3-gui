@@ -60,6 +60,9 @@ MainWindow::MainWindow(const QString &patchFile, QWidget *parent)
       ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    progressProcess = new QProcess(this);
+    connect(progressProcess, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), this, &MainWindow::handleProgressOutput);
+
     setConnections();
     adjustSize();
     const QSize size = this->size();
@@ -106,6 +109,8 @@ void MainWindow::centerWindow()
 void MainWindow::cmdStart()
 {
     bar->setValue(0);
+    lastProg = -1;
+    lastStatsLine.clear();
     etaMs = -1;
     etaTick = 0;
     etaSizeStr.clear();
@@ -379,6 +384,27 @@ void MainWindow::createPatch()
     cmd.runAsync("xdelta3", args);
 }
 
+void MainWindow::handleProgressOutput()
+{
+    const QString rawOutput = (progressProcess->readAllStandardOutput() + progressProcess->readAllStandardError()).trimmed();
+    if (rawOutput.isEmpty()) {
+        return;
+    }
+    const QStringList lines = rawOutput.split('\n', Qt::SkipEmptyParts);
+    bool ok {false};
+    for (const QString &line : lines) {
+        int pctIdx = line.indexOf('%');
+        if (pctIdx != -1) {
+            int prog = static_cast<int>(line.left(pctIdx).trimmed().toDouble(&ok));
+            if (ok) {
+                lastProg = prog;
+                lastStatsLine = line.trimmed();
+            }
+            break;
+        }
+    }
+}
+
 void MainWindow::setConnections()
 {
     connect(ui->pushApplyPatch, &QPushButton::pressed, this, &MainWindow::applyPatch);
@@ -626,26 +652,17 @@ void MainWindow::updateBar()
     // 2. Fallback to external 'progress' tool if native estimation didn't work (e.g. Create Patch)
     if (prog == -1) {
         static bool progressMissing = false;
-        QString rawOutput;
-        if (!progressMissing && Cmd::run("progress -c xdelta3", &rawOutput, Cmd::Quiet)) {
-            const QStringList lines = rawOutput.split('\n', Qt::SkipEmptyParts);
-            bool ok {false};
-            for (const QString &line : lines) {
-                int pctIdx = line.indexOf('%');
-                if (pctIdx != -1) {
-                    prog = static_cast<int>(line.left(pctIdx).trimmed().toDouble(&ok));
-                    if (ok) {
-                        statsLine = line.trimmed();
-                    } else {
-                        prog = -1;
-                    }
-                    break;
-                }
+        if (!progressMissing) {
+            if (progressProcess->state() == QProcess::NotRunning) {
+                progressProcess->start("progress", {"-c", "xdelta3"});
             }
-        } else if (!progressMissing) {
-            if (QStandardPaths::findExecutable("progress").isEmpty()) {
-                progressMissing = true;
+            if (lastProg != -1) {
+                prog = lastProg;
+                statsLine = lastStatsLine;
             }
+        }
+        if (!progressMissing && QStandardPaths::findExecutable("progress").isEmpty()) {
+            progressMissing = true;
         }
     }
 
