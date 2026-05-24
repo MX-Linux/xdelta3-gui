@@ -545,8 +545,7 @@ void MainWindow::setProgressDialog()
     });
     bar->setMaximum(100);
     progress->setWindowModality(Qt::WindowModal);
-    progress->setWindowFlags(Qt::Dialog | Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowSystemMenuHint
-                             | Qt::WindowStaysOnTopHint);
+    progress->setWindowFlags(Qt::Dialog | Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowSystemMenuHint);
     progress->setCancelButton(pushCancel);
     progress->setAutoClose(false);
     progress->setBar(bar);
