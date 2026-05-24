@@ -45,7 +45,13 @@ void Cmd::runAsync(const QString &cmd, Output output)
     if (output == Verbose) {
         qDebug().noquote() << cmd;
     }
-    start(QStandardPaths::findExecutable("bash"), {"-c", cmd});
+    
+    QStringList args = QProcess::splitCommand(cmd);
+    if (args.isEmpty()) {
+        return;
+    }
+    QString program = args.takeFirst();
+    start(program, args);
 }
 
 bool Cmd::run(const QString &cmd, QString *out, Output output)
@@ -54,7 +60,14 @@ bool Cmd::run(const QString &cmd, QString *out, Output output)
     if (output == Verbose) {
         qDebug().noquote() << cmd;
     }
-    p.start("/bin/bash", {"-c", cmd});
+
+    QStringList args = QProcess::splitCommand(cmd);
+    if (args.isEmpty()) {
+        return false;
+    }
+    QString program = args.takeFirst();
+    
+    p.start(program, args);
     if (!p.waitForFinished(5000)) {
         return false;
     }
