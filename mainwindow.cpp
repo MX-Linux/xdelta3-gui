@@ -33,6 +33,7 @@
 #include <QMessageBox>
 #include <QProcess>
 #include <QScreen>
+#include <QStandardPaths>
 #include <QTime>
 
 #include <algorithm>
@@ -595,27 +596,59 @@ void MainWindow::setOutputName()
 void MainWindow::updateBar()
 {
     QString statsLine;
-    QString rawOutput;
     int prog = -1;
-    if (Cmd::run("progress -c xdelta3", &rawOutput, Cmd::Quiet)) {
-        const QStringList lines = rawOutput.split('\n', Qt::SkipEmptyParts);
-        bool ok {false};
-        for (const QString &line : lines) {
-            int pctIdx = line.indexOf('%');
-            if (pctIdx != -1) {
-                prog = static_cast<int>(line.left(pctIdx).trimmed().toDouble(&ok));
-                if (ok) {
-                    bar->setValue(prog);
-                    statsLine = line.trimmed();
-                } else {
-                    prog = -1;
+
+    // 1. Try native progress estimation for Apply Patch
+    if (currentOp == Operation::ApplyPatch && targetFileSize > 0) {
+        qint64 currentSize = QFileInfo(ui->textOutput->text()).size();
+        prog = static_cast<int>(currentSize * 100 / targetFileSize);
+        if (prog > 100) prog = 100;
+
+        qint64 elapsed = elapsedTimer.elapsed();
+        if (elapsed > 0) {
+            double speed = static_cast<double>(currentSize) / (elapsed / 1000.0);
+            statsLine = tr("%1% (%2 / %3) %4/s")
+                            .arg(prog)
+                            .arg(formatFileSize(currentSize))
+                            .arg(formatFileSize(targetFileSize))
+                            .arg(formatFileSize(static_cast<qint64>(speed)));
+        }
+    }
+
+    // 2. Fallback to external 'progress' tool if native estimation didn't work (e.g. Create Patch)
+    if (prog == -1) {
+        static bool progressMissing = false;
+        QString rawOutput;
+        if (!progressMissing && Cmd::run("progress -c xdelta3", &rawOutput, Cmd::Quiet)) {
+            const QStringList lines = rawOutput.split('\n', Qt::SkipEmptyParts);
+            bool ok {false};
+            for (const QString &line : lines) {
+                int pctIdx = line.indexOf('%');
+                if (pctIdx != -1) {
+                    prog = static_cast<int>(line.left(pctIdx).trimmed().toDouble(&ok));
+                    if (ok) {
+                        statsLine = line.trimmed();
+                    } else {
+                        prog = -1;
+                    }
+                    break;
                 }
-                break;
+            }
+        } else if (!progressMissing) {
+            if (QStandardPaths::findExecutable("progress").isEmpty()) {
+                progressMissing = true;
             }
         }
     }
 
-    // Recalculate ETA every 5 seconds; estimate output size only for CreatePatch
+    if (prog != -1) {
+        bar->setValue(prog);
+        bar->setRange(0, 100);
+    } else {
+        bar->setRange(0, 0); // Indeterminate mode
+    }
+
+    // Recalculate ETA every 5 seconds; estimate output size only for Create Patch
     if (etaTick % 5 == 0 && etaTick > 0 && prog > 0) {
         qint64 elapsed = elapsedTimer.elapsed();
         etaMs = qMax(0LL, elapsed * (100 - prog) / prog);
@@ -632,7 +665,7 @@ void MainWindow::updateBar()
     QString fileName = QFileInfo(outputPath).fileName();
 
     QString label;
-    if (etaMs >= 0) {
+    if (etaMs >= 0 && prog > 0) {
         label = tr("~%1 remaining", "estimated time remaining, leave %1 untranslated")
                     .arg(formatElapsedTime(etaMs));
     }
