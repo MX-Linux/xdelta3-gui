@@ -213,22 +213,30 @@ void MainWindow::onSelectFile(QLineEdit *lineEdit, const QString &filter)
 void MainWindow::onSelectDir()
 {
     bool isCreatePatch = ui->tabWidget->currentWidget() == ui->tabCreatePatch;
-    QString name = isCreatePatch ? QFileInfo(ui->textPatch->text()).fileName()
-                                 : QFileInfo(ui->textOutput->text()).fileName();
-    QString key = isCreatePatch ? dirSettingsKey(ui->textPatch) : dirSettingsKey(ui->textOutput);
-    QString lastDir = settings.value(key, QDir::homePath()).toString();
-    QString path = QFileDialog::getExistingDirectory(
-        this, tr("Select directory to place the file in", "select a target directory"), lastDir);
-    if (path.isEmpty()) {
+    QLineEdit *le = isCreatePatch ? ui->textPatch : ui->textOutput;
+    QString currentPath = le->text();
+    QString key = dirSettingsKey(le);
+    
+    QString initialPath;
+    if (QFileInfo(currentPath).isAbsolute()) {
+        initialPath = currentPath;
+    } else {
+        QString lastDir = settings.value(key, QDir::homePath()).toString();
+        initialPath = lastDir + "/" + QFileInfo(currentPath).fileName();
+    }
+
+    QString filter = isCreatePatch ? tr("Delta Files (*.xdelta3);;All Files (*)", "kinds of files to choose") 
+                                   : tr("All Files (*)", "kinds of files to choose");
+    QString title = isCreatePatch ? tr("Select where to save the delta file", "dialog title") 
+                                   : tr("Select where to save the patched file", "dialog title");
+
+    QString selected = QFileDialog::getSaveFileName(this, title, initialPath, filter);
+    if (selected.isEmpty()) {
         return;
     }
 
-    settings.setValue(key, path);
-    if (isCreatePatch) {
-        ui->textPatch->setText(path + "/" + name);
-    } else {
-        ui->textOutput->setText(path + "/" + name);
-    }
+    le->setText(selected);
+    settings.setValue(key, QFileInfo(selected).absolutePath());
     checkAllinfo();
 }
 
