@@ -81,6 +81,13 @@ MainWindow::MainWindow(const QString &patchFile, QWidget *parent)
 
 MainWindow::~MainWindow()
 {
+    if (cmd.state() != QProcess::NotRunning) {
+        cmd.disconnect();
+        cmd.terminate();
+        if (!cmd.waitForFinished(1000)) {
+            cmd.kill();
+        }
+    }
     settings.setValue("geometry", saveGeometry());
     settings.setValue("compression_level", ui->spinCompressionLevel->value());
     settings.setValue("secondary_compression", ui->comboCompression->currentText());
