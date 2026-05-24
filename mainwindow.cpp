@@ -390,17 +390,19 @@ void MainWindow::handleProgressOutput()
     if (rawOutput.isEmpty()) {
         return;
     }
+
+    static const QRegularExpression re(R"((\d+(?:\.\d+)?)%)");
     const QStringList lines = rawOutput.split('\n', Qt::SkipEmptyParts);
-    bool ok {false};
     for (const QString &line : lines) {
-        int pctIdx = line.indexOf('%');
-        if (pctIdx != -1) {
-            int prog = static_cast<int>(line.left(pctIdx).trimmed().toDouble(&ok));
+        auto match = re.match(line);
+        if (match.hasMatch()) {
+            bool ok = false;
+            double val = match.captured(1).toDouble(&ok);
             if (ok) {
-                lastProg = prog;
+                lastProg = static_cast<int>(val);
                 lastStatsLine = line.trimmed();
+                break;
             }
-            break;
         }
     }
 }
