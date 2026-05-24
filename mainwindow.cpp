@@ -447,23 +447,42 @@ void MainWindow::setConnections()
     connect(ui->textOutput, &QLineEdit::editingFinished, this, [this] { checkAllinfo(); });
 
     auto validate = [this](QLineEdit *le) {
-        bool ok = false;
+        QString error;
         QString text = le->text();
         if (text.isEmpty()) {
             le->setStyleSheet("");
+            le->setToolTip("");
             return;
         }
         QFileInfo info(text);
         if (le == ui->textPatch || le == ui->textOutput) {
             if (info.exists()) {
-                ok = info.isFile() && info.isWritable();
+                if (info.isDir()) {
+                    error = tr("Path exists but is a directory.");
+                } else if (!info.isWritable()) {
+                    error = tr("File is not writable.");
+                }
             } else {
-                ok = info.absoluteDir().exists() && QFileInfo(info.absolutePath()).isWritable() && !info.fileName().isEmpty();
+                if (!info.absoluteDir().exists()) {
+                    error = tr("Parent directory does not exist.");
+                } else if (!QFileInfo(info.absolutePath()).isWritable()) {
+                    error = tr("Parent directory is not writable.");
+                } else if (info.fileName().isEmpty()) {
+                    error = tr("Filename cannot be empty.");
+                }
             }
         } else {
-            ok = info.isFile() && info.isReadable();
+            if (!info.exists()) {
+                error = tr("File does not exist.");
+            } else if (!info.isFile()) {
+                error = tr("Path is a directory, not a file.");
+            } else if (!info.isReadable()) {
+                error = tr("File is not readable (check permissions).");
+            }
         }
+        bool ok = error.isEmpty();
         le->setStyleSheet(ok ? "" : "QLineEdit { color: red; }");
+        le->setToolTip(error);
     };
 
     connect(ui->textSource, &QLineEdit::textChanged, this, [this, validate] { validate(ui->textSource); });
