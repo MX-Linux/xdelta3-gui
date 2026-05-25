@@ -1,3 +1,12 @@
+xdelta3-gui (26.05.1) mx; urgency=medium
+
+  * Show patch progress in a dedicated progress view while an operation runs
+  * Improve live ETA and size feedback during patch creation and application
+  * Suggest better output filenames and give clearer path validation feedback
+  * Keep incomplete output files from being left behind after failures or cancels
+
+ -- Adrian <adrian@mxlinux.org>  Sun, 24 May 2026 22:38:12 -0400
+
 xdelta3-gui (26.05) mx; urgency=medium
 
   * Calculate and show live estimated time to completion and estimated size for the patch

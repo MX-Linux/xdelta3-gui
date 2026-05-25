@@ -1,4 +1,4 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="ca">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="pl">
 <context>
     <name>MainWindow</name>
     <message>
@@ -8,98 +8,98 @@
         <extracomment>meaning to create a delta file that bridges between the source and target file
 ----------
 start process</extracomment>
-        <translation>Crea delta</translation>
+        <translation>Utwórz deltę</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="30"/>
         <source>Create a binary difference between two files</source>
         <extracomment>meaning to create a delta file that bridges between the source and target file</extracomment>
-        <translation>Crea una diferència binària entre dos fitxers</translation>
+        <translation>Utwórz różnicę binarną między dwoma plikami</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="49"/>
         <source>Options</source>
         <extracomment>program options</extracomment>
-        <translation>Opcions </translation>
+        <translation>Opcje</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="59"/>
         <source>None</source>
-        <translation>Cap</translation>
+        <translation>Żaden</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="95"/>
         <source>Higher number = better compression ratio, but takes more time to finish</source>
-        <translation>Número més alt = millor relació de compressió, però necessita més temps</translation>
+        <translation>Wyższa liczba = lepszy współczynnik kompresji, ale ukończenie zajmuje więcej czasu</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="98"/>
         <source>Compression level</source>
         <extracomment>level of compression the delta file will use</extracomment>
-        <translation>Nivell de compressió</translation>
+        <translation>Poziom kompresji</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="118"/>
         <source>More compression using various compression algorithms</source>
-        <translation>Més compressió usant diversos algoritmes de compressió</translation>
+        <translation>Więcej kompresji przy użyciu różnych algorytmów kompresji</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="121"/>
         <source>Secondary compression</source>
         <extracomment>an extra layer of compression</extracomment>
-        <translation>Compressió secundària</translation>
+        <translation>Kompresja wtórna</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="131"/>
         <location filename="../mainwindow.ui" line="241"/>
         <source>File selection</source>
         <extracomment>area for selecting input and output files</extracomment>
-        <translation>Selecció de fitxer</translation>
+        <translation>Wybór pliku</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="143"/>
         <source>select target (new) file</source>
         <extracomment>select the new file from which to create a delta between it and the source.</extracomment>
-        <translation>selecciona fitxer objectiu (nou)</translation>
+        <translation>wybierz plik docelowy (nowy)</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="160"/>
         <source>Target file</source>
-        <translation>Fitxer objectiu</translation>
+        <translation>Plik docelowy</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="167"/>
         <source>Source file</source>
-        <translation>Fitxer origen</translation>
+        <translation>Plik źródłowy</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="174"/>
         <source>Delta file name</source>
-        <translation>Nom del fitxer delta</translation>
+        <translation>Nazwa pliku delta</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="181"/>
         <source>Select source file...</source>
         <extracomment>starts a file chooser to select a file</extracomment>
-        <translation>Trieu el fitxer d&apos;origen...</translation>
+        <translation>Wybierz plik źródłowy...</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="194"/>
         <source>select source (old) file</source>
         <extracomment>select the original or source file</extracomment>
-        <translation>trieu el fitxer d&apos;origen (antic)</translation>
+        <translation>wybierz plik źródłowy (stary)</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="201"/>
         <source>Select target file...</source>
         <extracomment>starts a file chooser to select a file</extracomment>
-        <translation>Trieu el fitxer objectiu</translation>
+        <translation>Wybierz plik docelowy...</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="208"/>
         <source>Change location...</source>
         <extracomment>starts a file chooser to select destination for output delta file</extracomment>
-        <translation>Canvia ubicació...</translation>
+        <translation>Zmień lokalizację...</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="232"/>
@@ -108,103 +108,103 @@ start process</extracomment>
         <extracomment>meaning to apply a delta file to a input file to create a new output file
 ----------
 start the process</extracomment>
-        <translation>Aplica la delta</translation>
+        <translation>Zastosuj deltę</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="235"/>
         <source>Create a new file applying a delta (difference) file to an original file</source>
         <extracomment>meaning to apply a delta file to a input file to create a new output file</extracomment>
-        <translation>Crea un nou fitxer aplicant la delta (diferència) al fitxer original</translation>
+        <translation>Utwórz nowy plik, stosując plik delta (różnicowy) do pliku oryginalnego</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="247"/>
         <source>Input file</source>
         <extracomment>a file to start with as the source or input</extracomment>
-        <translation>Fitxer d&apos;entrada</translation>
+        <translation>Plik wejściowy</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="254"/>
         <source>select input file</source>
         <extracomment>select the input or older file</extracomment>
-        <translation>trieu el fitxer d&apos;entrada</translation>
+        <translation>wybierz plik wejściowy</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="261"/>
         <source>Select input file...</source>
         <extracomment>starts a file chooser to select a file</extracomment>
-        <translation>Trieu el fitxer d&apos;entrada...</translation>
+        <translation>Wybierz plik wejściowy...</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="268"/>
         <source>Delta file</source>
         <extracomment>the delta or diff file between the input and the output</extracomment>
-        <translation>Fitxer delta</translation>
+        <translation>Plik delta</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="275"/>
         <source>select delta</source>
         <extracomment>select the delta or patch file</extracomment>
-        <translation>trieu la delta</translation>
+        <translation>wybierz deltę</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="282"/>
         <source>Select delta...</source>
         <extracomment>starts a file chooser to select a file</extracomment>
-        <translation>Triant delta...</translation>
+        <translation>Wybierz deltę...</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="289"/>
         <source>Output file</source>
         <extracomment>the final patched output file</extracomment>
-        <translation>Fitxer de sortida</translation>
+        <translation>Plik wyjściowy</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="299"/>
         <source>use default, or set up a custom name</source>
         <extracomment>create the new file name</extracomment>
-        <translation>usa el valor per omissió, o defineix un nom personalitzat</translation>
+        <translation>użyj domyślnej nazwy lub ustaw własną</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="306"/>
         <source>Change location..</source>
         <extracomment>starts a file chooser to select destination for output file</extracomment>
-        <translation>Canvia ubicació...</translation>
+        <translation>Zmień lokalizację...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="339"/>
         <source>ISO Files (*.iso);;All Files (*)</source>
         <comment>kinds of files to choose</comment>
-        <translation>Fitxers ISO (*.iso);; Tots els fitxers (*)</translation>
+        <translation>Pliki ISO (*.iso);;Wszystkie pliki (*)</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="187"/>
         <source>Select file</source>
         <comment>choose a file</comment>
-        <translation>Trieu el fitxer</translation>
+        <translation>Wybierz plik</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="213"/>
         <source>Select directory to place the file in</source>
         <comment>select a target directory</comment>
-        <translation>trieu un directori per desar-hi el fitxer</translation>
+        <translation>Wybierz katalog, w którym chcesz umieścić plik</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="128"/>
         <source>File was successfully written to &apos;%1&apos; directory.</source>
         <comment>information that file was successfully written</comment>
-        <translation>El fitxer s&apos;ha escrit amb èxit al directori &apos;%1&apos; .</translation>
+        <translation>Plik został pomyślnie zapisany w katalogu &apos;%1&apos;.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="137"/>
         <location filename="../mainwindow.cpp" line="160"/>
         <source>Cancelled</source>
-        <translation>Cancel·lat</translation>
+        <translation>Anulowano</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="137"/>
         <location filename="../mainwindow.cpp" line="160"/>
         <source>Operation was cancelled.</source>
-        <translation>S&apos;ha cancel·lat l&apos;operació.</translation>
+        <translation>Operacja została anulowana.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="140"/>
@@ -212,136 +212,136 @@ start the process</extracomment>
         <location filename="../mainwindow.cpp" line="231"/>
         <location filename="../mainwindow.cpp" line="280"/>
         <source>Error</source>
-        <translation>Error</translation>
+        <translation>Błąd</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="150"/>
         <source>Success</source>
         <comment>information on file written successfully</comment>
-        <translation>Correcte</translation>
+        <translation>Sukces </translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="151"/>
         <source>File &apos;%1&apos; was successfully written.</source>
         <comment>information on file written successfully</comment>
-        <translation>El fitxer &apos;%1&apos; s&apos;ha escrit amb èxit.</translation>
+        <translation>Plik &apos;%1&apos; został pomyślnie zapisany.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="153"/>
         <source>Patch size: %1</source>
         <comment>size of the created patch file</comment>
-        <translation>Mida del pedaç: %1</translation>
+        <translation>Rozmiar poprawki: %1</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="154"/>
         <source>Took %1 to create the patch.</source>
         <comment>elapsed time, leave %1 untranslated</comment>
-        <translation>Agafeu %1 per crear el pedaç.</translation>
+        <translation>Utworzenie poprawki zajęło %1.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="164"/>
         <source>Error: Could not write the file.</source>
         <comment>information that file was not written successfully</comment>
-        <translation>Error: no puc desar el fitxer.</translation>
+        <translation>Błąd: nie można zapisać pliku.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="231"/>
         <source>Please enter a name for the output file.</source>
-        <translation>Si us plau, entreu un nom per al fitxer de sortida.</translation>
+        <translation>Podaj nazwę pliku wyjściowego.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="238"/>
         <source>File exists</source>
-        <translation>Aquest fitxer ja hi és</translation>
+        <translation>Plik istnieje</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="239"/>
         <source>Output file exists, do you want to overwrite?</source>
         <comment>warning about overwritting an existing file</comment>
-        <translation>Aquest fitxer ja hi és, el voleu sobreescriure?</translation>
+        <translation>Plik wyjściowy istnieje. Czy chcesz go nadpisać?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="296"/>
         <source>File &apos;%1&apos; not found or not a file, please double-check the input.</source>
         <comment>warning about file not found</comment>
-        <translation>El fitxer &apos;%1&apos; no s&apos;ha trobat o no és un fitxer, si us plau comproveu l&apos;entrada.</translation>
+        <translation>Plik &apos;%1&apos; nie został znaleziony lub nie jest plikiem, sprawdź dokładnie dane wejściowe.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="340"/>
         <source>Delta Files (*.xdelta3);;All Files (*)</source>
         <comment>kinds of files to choose</comment>
-        <translation>Fitxers Delta (*.xdelta3);;Tots els fitxers (*)</translation>
+        <translation>Pliki delta (*.xdelta3);;Wszystkie pliki (*)</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="593"/>
         <source>~%1 remaining</source>
         <comment>estimated time remaining, leave %1 untranslated</comment>
-        <translation>en queden ~%1</translation>
+        <translation>~%1 pozostało</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="597"/>
         <source> · %1 output size</source>
         <comment>exact output file size from delta, leave %1 untranslated</comment>
-        <translation> mida de sortida · %1 </translation>
+        <translation> · %1 rozmiar wyjściowy</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="600"/>
         <source> · ~%1 estimated size</source>
         <comment>estimated output file size, leave %1 untranslated</comment>
-        <translation> Mida estimada · ~%1 </translation>
+        <translation> · ~%1 szacowany rozmiar</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="604"/>
         <source>Creating file: %1</source>
-        <translation>Creant el fitxer: %1</translation>
+        <translation>Tworzenie pliku: %1</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="127"/>
         <source>Success</source>
         <comment>information that file was successfully written</comment>
-        <translation>Èxit</translation>
+        <translation>Sukces </translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="131"/>
         <source>Took %1 to patch the file.</source>
         <comment>elapsed time, leave %1 untranslated</comment>
-        <translation>Agafeu %1 per apedaçar el fitxer.</translation>
+        <translation>Wykonano %1 czynności w celu załatania pliku.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="141"/>
         <source>Error: Could not write the file.</source>
         <comment>information that there was an error creating the file</comment>
-        <translation>Error: no puc desar el fitxer.</translation>
+        <translation>Błąd: nie można zapisać pliku.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="281"/>
         <source>Please enter a name for the delta file.</source>
         <comment>name of delta file being created</comment>
-        <translation>Si us plau, entreu un nom per al fitxer delta.</translation>
+        <translation>Podaj nazwę pliku delta.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="295"/>
         <source>File not found</source>
         <comment>warning about file not found</comment>
-        <translation>No trobo el fitxer</translation>
+        <translation>Plik nie został znaleziony</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="310"/>
         <source>File exists</source>
         <comment>warning about overwritting file</comment>
-        <translation>Aquest fitxer ja hi és</translation>
+        <translation>Plik istnieje</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="311"/>
         <source>Delta file exists, do you want to overwrite?</source>
         <comment>warning about overwritting file</comment>
-        <translation>El fitxer delta ja hi és, el voleu sobreescriure?</translation>
+        <translation>Plik delta istnieje. Czy chcesz go nadpisać?</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="463"/>
         <source>Cancel</source>
         <comment>stop an action in progress</comment>
-        <translation>Cancel·la</translation>
+        <translation>Anuluj</translation>
     </message>
 </context>
 <context>
@@ -349,45 +349,45 @@ start the process</extracomment>
     <message>
         <location filename="../main.cpp" line="53"/>
         <source>Error</source>
-        <translation>Error</translation>
+        <translation>Błąd</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="54"/>
         <source>xdelta3 binary not found. Please install xdelta3 package.</source>
-        <translation>No he trobat el binari xdelta3. Si us plau, instal·leu el paquet xdelta3 .</translation>
+        <translation>Nie znaleziono pliku binarnego xdelta3. Zainstaluj pakiet xdelta3.</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="64"/>
         <source>GUI for xdelta3 application.</source>
         <comment>short description for --help and desktop file</comment>
-        <translation>Aplicació IGU per xdelta3.</translation>
+        <translation>Interfejs graficzny dla programu xdelta3.</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="65"/>
         <source>App for generating a binary difference between two files in the form of delta encoding</source>
         <comment>extra description for --help</comment>
-        <translation>Aplicació per crear una diferència binària entre dos fitxers en forma de codificació delta</translation>
+        <translation>Program do generowania różnicy binarnej między dwoma plikami w formie kodowania delta</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="70"/>
         <source>file</source>
-        <translation>fitxer</translation>
+        <translation>plik</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="70"/>
         <source>Name of the delta file</source>
-        <translation>Nom del fitxer delta</translation>
+        <translation>Nazwa pliku delta</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="70"/>
         <source>[file]</source>
-        <translation>[fitxer]</translation>
+        <translation>[plik]</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="108"/>
         <source>You must run this program as normal user.</source>
         <comment>warning about running application as root</comment>
-        <translation>Cal executar aquest programa com a usuari normal.</translation>
+        <translation>Musisz uruchomić ten program jako zwykły użytkownik.</translation>
     </message>
 </context>
 </TS>

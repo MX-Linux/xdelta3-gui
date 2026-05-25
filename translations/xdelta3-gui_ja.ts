@@ -171,187 +171,220 @@ start the process</extracomment>
         <translation>場所の変更..</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="100"/>
+        <location filename="../mainwindow.cpp" line="339"/>
         <source>ISO Files (*.iso);;All Files (*)</source>
         <comment>kinds of files to choose</comment>
         <translation>ISO ファイル (*.iso);;すべてのファイル (*)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="101"/>
-        <source>ISO Files (*.xdelta3);;All Files (*)</source>
-        <comment>kinds of files to choose</comment>
-        <translation>ISO ファイル (*.xdelta3);;すべてのファイル (*)</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="104"/>
+        <location filename="../mainwindow.cpp" line="187"/>
         <source>Select file</source>
         <comment>choose a file</comment>
         <translation>ファイルの選択</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="123"/>
+        <location filename="../mainwindow.cpp" line="213"/>
         <source>Select directory to place the file in</source>
         <comment>select a target directory</comment>
         <translation>ファイルを保存するディレクトリを選択</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="135"/>
-        <source>Path not found</source>
-        <comment>warning about not finding the target directory</comment>
-        <translation>パスが見つかりません</translation>
+        <location filename="../mainwindow.cpp" line="128"/>
+        <source>File was successfully written to &apos;%1&apos; directory.</source>
+        <comment>information that file was successfully written</comment>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="136"/>
-        <source>Please select directory again.</source>
-        <comment>message to try again</comment>
-        <translation>もう一度ディレクトリを選択してください。</translation>
+        <location filename="../mainwindow.cpp" line="137"/>
+        <location filename="../mainwindow.cpp" line="160"/>
+        <source>Cancelled</source>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="145"/>
-        <location filename="../mainwindow.cpp" line="183"/>
-        <location filename="../mainwindow.cpp" line="196"/>
-        <location filename="../mainwindow.cpp" line="251"/>
+        <location filename="../mainwindow.cpp" line="137"/>
+        <location filename="../mainwindow.cpp" line="160"/>
+        <source>Operation was cancelled.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="140"/>
+        <location filename="../mainwindow.cpp" line="163"/>
+        <location filename="../mainwindow.cpp" line="231"/>
+        <location filename="../mainwindow.cpp" line="280"/>
         <source>Error</source>
         <translation>エラー</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="145"/>
+        <location filename="../mainwindow.cpp" line="150"/>
+        <source>Success</source>
+        <comment>information on file written successfully</comment>
+        <translation>成功</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="151"/>
+        <source>File &apos;%1&apos; was successfully written.</source>
+        <comment>information on file written successfully</comment>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="153"/>
+        <source>Patch size: %1</source>
+        <comment>size of the created patch file</comment>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="154"/>
+        <source>Took %1 to create the patch.</source>
+        <comment>elapsed time, leave %1 untranslated</comment>
+        <translation>パッチの生成に %1 を要しました。</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="164"/>
+        <source>Error: Could not write the file.</source>
+        <comment>information that file was not written successfully</comment>
+        <translation>エラー: ファイルに書き込めません。</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="231"/>
         <source>Please enter a name for the output file.</source>
         <translation>出力するファイル名を入力してください。</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="157"/>
+        <location filename="../mainwindow.cpp" line="238"/>
         <source>File exists</source>
         <translation>ファイルが存在します</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="158"/>
+        <location filename="../mainwindow.cpp" line="239"/>
         <source>Output file exists, do you want to overwrite?</source>
         <comment>warning about overwritting an existing file</comment>
         <translation>既存の出力ファイルに上書きしますか？</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="175"/>
+        <location filename="../mainwindow.cpp" line="296"/>
+        <source>File &apos;%1&apos; not found or not a file, please double-check the input.</source>
+        <comment>warning about file not found</comment>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="340"/>
+        <source>Delta Files (*.xdelta3);;All Files (*)</source>
+        <comment>kinds of files to choose</comment>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="593"/>
+        <source>~%1 remaining</source>
+        <comment>estimated time remaining, leave %1 untranslated</comment>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="597"/>
+        <source> · %1 output size</source>
+        <comment>exact output file size from delta, leave %1 untranslated</comment>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="600"/>
+        <source> · ~%1 estimated size</source>
+        <comment>estimated output file size, leave %1 untranslated</comment>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="604"/>
+        <source>Creating file: %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="127"/>
         <source>Success</source>
         <comment>information that file was successfully written</comment>
         <translation>成功</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="176"/>
-        <source>File was successfuly written to &apos;%1&apos; directory.</source>
-        <comment>information that file was successfully written</comment>
-        <translation>ファイルは &apos;%1&apos; ディレクトリに書き込まれました。</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="179"/>
+        <location filename="../mainwindow.cpp" line="131"/>
         <source>Took %1 to patch the file.</source>
         <comment>elapsed time, leave %1 untranslated</comment>
         <translation>ファイルのパッチに %1 を要しました。</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="184"/>
+        <location filename="../mainwindow.cpp" line="141"/>
         <source>Error: Could not write the file.</source>
         <comment>information that there was an error creating the file</comment>
         <translation>エラー: ファイルに書き込めません。</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="197"/>
+        <location filename="../mainwindow.cpp" line="281"/>
         <source>Please enter a name for the delta file.</source>
         <comment>name of delta file being created</comment>
         <translation>delta ファイルに名前を入力してください。</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="211"/>
+        <location filename="../mainwindow.cpp" line="295"/>
         <source>File not found</source>
         <comment>warning about file not found</comment>
         <translation>ファイルが見つかりません</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="212"/>
-        <source>File &apos;%1&apos; found or not a file, please double-check the input.</source>
-        <comment>warning about file not found</comment>
-        <translation>&apos;%1&apos; を見つけましたが、ファイルでないかもしれません。もう一度出力を確認してください。</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="226"/>
+        <location filename="../mainwindow.cpp" line="310"/>
         <source>File exists</source>
         <comment>warning about overwritting file</comment>
         <translation>ファイルが存在します</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="227"/>
+        <location filename="../mainwindow.cpp" line="311"/>
         <source>Delta file exists, do you want to overwrite?</source>
         <comment>warning about overwritting file</comment>
         <translation>delta ファイルが存在します。上書きしますか？</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="243"/>
-        <source>Success</source>
-        <comment>information on file written succesfully</comment>
-        <translation>成功</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="244"/>
-        <source>File &apos;%1&apos; was successfuly written.</source>
-        <comment>information on file written succesfully</comment>
-        <translation>&apos;%1&apos; ファイルへの書き込みに成功しました。</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="247"/>
-        <source>Took %1 to create the patch.</source>
-        <comment>elasped time, leave %1 untranslated</comment>
-        <translation>パッチの生成に %1 を要しました。</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="252"/>
-        <source>Error: Could not write the file.</source>
-        <comment>information that file was not written succsessfully</comment>
-        <translation>エラー: 書き込めません。</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="309"/>
+        <location filename="../mainwindow.cpp" line="463"/>
         <source>Cancel</source>
         <comment>stop an action in progress</comment>
         <translation>キャンセル</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="345"/>
-        <source>%1 elapsed</source>
-        <comment>elasped time, leave %1 untranslated</comment>
-        <translation>経過時間 %1</translation>
     </message>
 </context>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../main.cpp" line="45"/>
+        <location filename="../main.cpp" line="53"/>
+        <source>Error</source>
+        <translation>エラー</translation>
+    </message>
+    <message>
+        <location filename="../main.cpp" line="54"/>
+        <source>xdelta3 binary not found. Please install xdelta3 package.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../main.cpp" line="64"/>
         <source>GUI for xdelta3 application.</source>
         <comment>short description for --help and desktop file</comment>
         <translation>xdelta3 アプリケーションの GUI です。</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="46"/>
+        <location filename="../main.cpp" line="65"/>
         <source>App for generating a binary difference between two files in the form of delta encoding</source>
         <comment>extra description for --help</comment>
         <translation>delta エンコーディング形式で2つのファイル間のバイナリ差分を生成するアプリ</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="51"/>
+        <location filename="../main.cpp" line="70"/>
         <source>file</source>
         <translation>ファイル</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="51"/>
+        <location filename="../main.cpp" line="70"/>
         <source>Name of the delta file</source>
         <translation>delta ファイルの名前</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="51"/>
+        <location filename="../main.cpp" line="70"/>
         <source>[file]</source>
         <translation>[ファイル]</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="79"/>
+        <location filename="../main.cpp" line="108"/>
         <source>You must run this program as normal user.</source>
         <comment>warning about running application as root</comment>
         <translation>このプログラムは通常のユーザで実行してください。</translation>
