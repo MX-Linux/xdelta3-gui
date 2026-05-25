@@ -33,6 +33,7 @@
 #include <QMessageBox>
 #include <QProcess>
 #include <QScreen>
+#include <QRegularExpression>
 #include <QStandardPaths>
 #include <QTabBar>
 #include <QtDBus/QtDBus>
@@ -63,7 +64,8 @@ MainWindow::MainWindow(const QString &patchFile, QWidget *parent)
 {
     ui->setupUi(this);
     progressProcess = new QProcess(this);
-    connect(progressProcess, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), this, &MainWindow::handleProgressOutput);
+    connect(progressProcess, &QProcess::readyReadStandardOutput, this, &MainWindow::handleProgressOutput);
+    connect(progressProcess, &QProcess::readyReadStandardError, this, &MainWindow::handleProgressOutput);
 
     setConnections();
     adjustSize();
@@ -133,6 +135,29 @@ void MainWindow::cmdStart()
         timer.start(1s);
     }
     setCursor(QCursor(Qt::BusyCursor));
+}
+
+void MainWindow::handleProgressOutput()
+{
+    const QString rawOutput = (progressProcess->readAllStandardOutput() + progressProcess->readAllStandardError()).trimmed();
+    if (rawOutput.isEmpty()) {
+        return;
+    }
+
+    static const QRegularExpression re(R"((\d+(?:\.\d+)?)%)");
+    const QStringList lines = rawOutput.split('\n', Qt::SkipEmptyParts);
+    for (const QString &line : lines) {
+        auto match = re.match(line);
+        if (match.hasMatch()) {
+            bool ok = false;
+            double val = match.captured(1).toDouble(&ok);
+            if (ok) {
+                lastProg = static_cast<int>(val);
+                lastStatsLine = line.trimmed();
+                break;
+            }
+        }
+    }
 }
 
 void MainWindow::cmdFinished(bool success, const QString &output)
@@ -409,29 +434,6 @@ void MainWindow::createPatch()
     args << "-s" << ui->textSource->text()
          << ui->textTarget->text() << ui->textPatch->text();
     cmd.runAsync("xdelta3", args);
-}
-
-void MainWindow::handleProgressOutput()
-{
-    const QString rawOutput = (progressProcess->readAllStandardOutput() + progressProcess->readAllStandardError()).trimmed();
-    if (rawOutput.isEmpty()) {
-        return;
-    }
-
-    static const QRegularExpression re(R"((\d+(?:\.\d+)?)%)");
-    const QStringList lines = rawOutput.split('\n', Qt::SkipEmptyParts);
-    for (const QString &line : lines) {
-        auto match = re.match(line);
-        if (match.hasMatch()) {
-            bool ok = false;
-            double val = match.captured(1).toDouble(&ok);
-            if (ok) {
-                lastProg = static_cast<int>(val);
-                lastStatsLine = line.trimmed();
-                break;
-            }
-        }
-    }
 }
 
 void MainWindow::setConnections()
@@ -735,7 +737,7 @@ void MainWindow::updateBar()
         label += tr(" · ~%1 estimated size", "estimated output file size, leave %1 untranslated")
                      .arg(etaSizeStr);
     }
-    
+
     if (!fileName.isEmpty()) {
         ui->labelProgressFile->setText(tr("Creating file: %1").arg(fileName));
     }
