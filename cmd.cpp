@@ -24,11 +24,11 @@ Cmd::Cmd(QObject *parent)
 
 void Cmd::runAsync(const QString &program, const QStringList &args, Output output)
 {
-    out_buffer.clear();
     if (state() != QProcess::NotRunning) {
         qDebug() << "Process already running:" << this->program() << arguments();
         return;
     }
+    out_buffer.clear();
     if (output == Verbose) {
         qDebug().noquote() << program << args;
     }
@@ -37,11 +37,11 @@ void Cmd::runAsync(const QString &program, const QStringList &args, Output outpu
 
 void Cmd::runAsync(const QString &cmd, Output output)
 {
-    out_buffer.clear();
     if (state() != QProcess::NotRunning) {
         qDebug() << "Process already running:" << program() << arguments();
         return;
     }
+    out_buffer.clear();
     if (output == Verbose) {
         qDebug().noquote() << cmd;
     }
