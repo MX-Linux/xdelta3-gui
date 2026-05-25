@@ -52,6 +52,7 @@ private slots:
     void cmdFinished(bool success, const QString &output);
     void cmdStart();
     void updateBar();
+    void updateTaskbar(int percent, bool visible);
     void onSelectFile(QLineEdit *lineEdit, const QString &filter);
     void onSelectDir();
 
@@ -62,8 +63,6 @@ private:
 
     Ui::MainWindow *ui;
     Cmd cmd;
-    QProgressBar *bar {};
-    QProgressDialog *progress {};
     QSettings settings {QApplication::applicationName()};
     QTimer timer;
     QElapsedTimer elapsedTimer;

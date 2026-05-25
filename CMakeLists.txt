@@ -83,6 +83,7 @@ find_package(Qt6 REQUIRED COMPONENTS
     Gui
     Widgets
     LinguistTools
+    DBus
 )
 
 # Enable automatic MOC, UIC, and RCC processing
@@ -123,6 +124,7 @@ target_link_libraries(xdelta3-gui
     Qt6::Core
     Qt6::Gui
     Qt6::Widgets
+    Qt6::DBus
 )
 
 # Include source directory for promoted widgets

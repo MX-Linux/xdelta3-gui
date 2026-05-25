@@ -34,6 +34,8 @@
 #include <QProcess>
 #include <QScreen>
 #include <QStandardPaths>
+#include <QTabBar>
+#include <QtDBus/QtDBus>
 #include <QTime>
 
 #include <algorithm>
@@ -81,6 +83,7 @@ MainWindow::MainWindow(const QString &patchFile, QWidget *parent)
         ui->tabWidget->setCurrentWidget(ui->tabApplyPatch);
         ui->textApplyPatch->setText(patchFile);
     }
+    ui->tabWidget->setTabVisible(2, false);
 }
 
 MainWindow::~MainWindow()
@@ -108,28 +111,43 @@ void MainWindow::centerWindow()
 
 void MainWindow::cmdStart()
 {
-    bar->setValue(0);
+    ui->progressBar->setValue(0);
     lastProg = -1;
     lastStatsLine.clear();
     etaMs = -1;
     etaTick = 0;
     etaSizeStr.clear();
     targetFileSize = -1;
-    progress->setLabelText("");
+    ui->labelProgressFile->setText("");
+    ui->labelProgressStats->setText("");
+    
+    // Switch to progress tab and hide others
+    ui->tabWidget->setTabVisible(0, false);
+    ui->tabWidget->setTabVisible(1, false);
+    ui->tabWidget->setTabVisible(2, true);
+    ui->tabWidget->setCurrentIndex(2);
+    // Hide tab bar for a "full page" feel
+    ui->tabWidget->findChild<QTabBar*>()->hide();
+
     if (!timer.isActive()) {
         timer.start(1s);
     }
     setCursor(QCursor(Qt::BusyCursor));
-    ui->tabWidget->setEnabled(false);
 }
 
 void MainWindow::cmdFinished(bool success, const QString &output)
 {
+    updateTaskbar(0, false);
     timer.stop();
     setCursor(QCursor(Qt::ArrowCursor));
-    bar->setValue(bar->maximum());
-    progress->close();
-    ui->tabWidget->setEnabled(true);
+    ui->progressBar->setValue(ui->progressBar->maximum());
+    
+    // Restore selection interface
+    ui->tabWidget->setTabVisible(0, true);
+    ui->tabWidget->setTabVisible(1, true);
+    ui->tabWidget->setTabVisible(2, false);
+    ui->tabWidget->setCurrentIndex(currentOp == Operation::ApplyPatch ? 1 : 0);
+    ui->tabWidget->findChild<QTabBar*>()->show();
 
     QString elapsedStr = formatElapsedTime(elapsedTimer.elapsed());
 
@@ -191,6 +209,17 @@ QString MainWindow::dirSettingsKey(QLineEdit *lineEdit) const
     if (lineEdit == ui->textApplyPatch) return "last_dir_apply_patch";
     if (lineEdit == ui->textOutput)     return "last_dir_output";
     return "last_dir";
+}
+
+void MainWindow::updateTaskbar(int percent, bool visible)
+{
+    QDBusMessage signal = QDBusMessage::createSignal("/", "com.canonical.Unity.LauncherEntry", "Update");
+    signal << "application://xdelta3-gui.desktop";
+    QVariantMap properties;
+    properties.insert("progress", static_cast<double>(percent) / 100.0);
+    properties.insert("progress-visible", visible);
+    signal << properties;
+    QDBusConnection::sessionBus().send(signal);
 }
 
 void MainWindow::onSelectFile(QLineEdit *lineEdit, const QString &filter)
@@ -274,7 +303,6 @@ void MainWindow::applyPatch()
         return;
     }
 
-    progress->show();
     elapsedTimer.restart();
     cancelled = false;
     currentOp = Operation::ApplyPatch;
@@ -367,7 +395,6 @@ void MainWindow::createPatch()
         return;
     }
 
-    progress->show();
     elapsedTimer.restart();
     cancelled = false;
     currentOp = Operation::CreatePatch;
@@ -536,7 +563,11 @@ void MainWindow::setConnections()
         checkAllinfo();
     });
 
-    setProgressDialog();
+    connect(ui->pushCancelProgress, &QPushButton::clicked, this, [this] {
+        cancelled = true;
+        cmd.terminate();
+    });
+
     connect(&timer, &QTimer::timeout, this, &MainWindow::updateBar);
     connect(&cmd, &Cmd::started, this, &MainWindow::cmdStart);
     connect(&cmd, &Cmd::commandFinished, this, &MainWindow::cmdFinished);
@@ -553,25 +584,6 @@ void MainWindow::setPatchName()
     else
         patchName = sourceBase + "_to_" + targetBase + ".xdelta3";
     ui->textPatch->setText(targetDir + "/" + patchName);
-}
-
-void MainWindow::setProgressDialog()
-{
-    progress = new QProgressDialog(this);
-    bar = new QProgressBar(progress);
-    auto *pushCancel = new QPushButton(tr("Cancel", "stop an action in progress"));
-    connect(pushCancel, &QPushButton::clicked, this, [this] {
-        cancelled = true;
-        cmd.terminate();
-    });
-    bar->setMaximum(100);
-    progress->setWindowModality(Qt::WindowModal);
-    progress->setWindowFlags(Qt::Dialog | Qt::CustomizeWindowHint | Qt::WindowTitleHint | Qt::WindowSystemMenuHint);
-    progress->setCancelButton(pushCancel);
-    progress->setAutoClose(false);
-    progress->setBar(bar);
-    bar->setTextVisible(false);
-    progress->reset();
 }
 
 QString MainWindow::formatElapsedTime(qint64 ms)
@@ -687,10 +699,12 @@ void MainWindow::updateBar()
     }
 
     if (prog != -1) {
-        bar->setValue(prog);
-        bar->setRange(0, 100);
+        ui->progressBar->setValue(prog);
+        ui->progressBar->setRange(0, 100);
+        updateTaskbar(prog, true);
     } else {
-        bar->setRange(0, 0); // Indeterminate mode
+        ui->progressBar->setRange(0, 0); // Indeterminate mode
+        updateTaskbar(0, false);
     }
 
     // Recalculate ETA every 5 seconds; estimate output size only for Create Patch
@@ -721,11 +735,12 @@ void MainWindow::updateBar()
         label += tr(" · ~%1 estimated size", "estimated output file size, leave %1 untranslated")
                      .arg(etaSizeStr);
     }
+    
     if (!fileName.isEmpty()) {
-        label += '\n' + tr("Creating file: %1").arg(fileName);
+        ui->labelProgressFile->setText(tr("Creating file: %1").arg(fileName));
     }
     if (!statsLine.isEmpty()) {
         label += '\n' + statsLine;
     }
-    progress->setLabelText(label);
+    ui->labelProgressStats->setText(label);
 }
