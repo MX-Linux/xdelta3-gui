@@ -36,11 +36,15 @@
 #include <QRegularExpression>
 #include <QStandardPaths>
 #include <QTabBar>
+#include <QTemporaryFile>
 #include <QtDBus/QtDBus>
 #include <QTime>
 
 #include <algorithm>
 #include <chrono>
+#include <cstdio>
+
+#include <sys/stat.h>
 
 using namespace std::chrono_literals;
 
@@ -95,6 +99,11 @@ MainWindow::~MainWindow()
         cmd.terminate();
         if (!cmd.waitForFinished(1000)) {
             cmd.kill();
+        }
+        // cmdFinished() won't run (disconnected), so drop the partial temp file
+        // ourselves; the user's original file was never touched.
+        if (!outputTempPath.isEmpty() && outputTempPath != outputFinalPath) {
+            QFile::remove(outputTempPath);
         }
     }
     settings.setValue("geometry", saveGeometry());
@@ -176,8 +185,44 @@ void MainWindow::cmdFinished(bool success, const QString &output)
 
     QString elapsedStr = formatElapsedTime(elapsedTimer.elapsed());
 
+    // Promote the temporary file to its final location only on success, so the
+    // user's original file is never touched if the run failed or was cancelled.
+    QString failureDetail = output;
+    const bool wroteToTemp = !outputTempPath.isEmpty() && outputTempPath != outputFinalPath;
+    if (success && wroteToTemp) {
+        const QByteArray tempName = QFile::encodeName(outputTempPath);
+        const QByteArray finalName = QFile::encodeName(outputFinalPath);
+
+        // Give the result the mode a direct create would have. QTemporaryFile
+        // makes the temp 0600 and xdelta3 -f keeps it, which would otherwise
+        // leave output as 0600 instead of e.g. 0644.
+        if (QFile::exists(outputFinalPath)) {
+            // Overwriting: keep the mode the user's existing file had.
+            QFile::setPermissions(outputTempPath, QFile::permissions(outputFinalPath));
+        } else {
+            // New file: honor the umask as a normal create would. Qt exposes no
+            // umask accessor, so this case stays POSIX.
+            const mode_t mask = ::umask(0);
+            ::umask(mask);
+            ::chmod(tempName.constData(), 0666 & ~mask);
+        }
+
+        // Atomically replace the destination in a single rename(2) so the
+        // original is never removed before the replacement is in place: on
+        // failure the original survives untouched and only the temp is dropped.
+        if (std::rename(tempName.constData(), finalName.constData()) != 0) {
+            success = false;
+            failureDetail = tr("Could not move the temporary file to '%1'.").arg(outputFinalPath);
+        }
+    }
+    // Clean up the temporary file on any non-success outcome (failure, cancel,
+    // or a failed promotion). The original file is left untouched.
+    if (!success && wroteToTemp) {
+        QFile::remove(outputTempPath);
+    }
+
     if (currentOp == Operation::ApplyPatch) {
-        QString location = QFileInfo(ui->textOutput->text()).absolutePath();
+        QString location = QFileInfo(outputFinalPath).absolutePath();
         if (success) {
             QMessageBox::information(
                 this, tr("Success", "information that file was successfully written"),
@@ -186,21 +231,18 @@ void MainWindow::cmdFinished(bool success, const QString &output)
                     + '\n'
                     + tr("Took %1 to patch the file.", "elapsed time, leave %1 untranslated").arg(elapsedStr));
         } else {
-            if (QFile::exists(ui->textOutput->text())) {
-                QFile::remove(ui->textOutput->text());
-            }
             if (cancelled) {
                 QMessageBox::information(this, tr("Cancelled"), tr("Operation was cancelled."));
             } else {
                 QMessageBox::critical(
                     this, tr("Error"),
                     tr("Error: Could not write the file.", "information that there was an error creating the file")
-                        + "\n\n" + output);
+                        + "\n\n" + failureDetail);
             }
         }
     } else if (currentOp == Operation::CreatePatch) {
         if (success) {
-            QString patchPath = QFileInfo(ui->textPatch->text()).absoluteFilePath();
+            QString patchPath = QFileInfo(outputFinalPath).absoluteFilePath();
             QString patchSize = formatFileSize(QFileInfo(patchPath).size());
             QMessageBox::information(
                 this, tr("Success", "information on file written successfully"),
@@ -209,19 +251,18 @@ void MainWindow::cmdFinished(bool success, const QString &output)
                     + tr("Patch size: %1", "size of the created patch file").arg(patchSize) + '\n'
                     + tr("Took %1 to create the patch.", "elapsed time, leave %1 untranslated").arg(elapsedStr));
         } else {
-            if (QFile::exists(ui->textPatch->text())) {
-                QFile::remove(ui->textPatch->text());
-            }
             if (cancelled) {
                 QMessageBox::information(this, tr("Cancelled"), tr("Operation was cancelled."));
             } else {
                 QMessageBox::critical(
                     this, tr("Error"),
                     tr("Error: Could not write the file.", "information that file was not written successfully")
-                        + "\n\n" + output);
+                        + "\n\n" + failureDetail);
             }
         }
     }
+    outputTempPath.clear();
+    outputFinalPath.clear();
     currentOp = Operation::None;
 }
 
@@ -328,11 +369,21 @@ void MainWindow::applyPatch()
         return;
     }
 
+    const QString finalPath = ui->textOutput->text();
+    const QString tempPath = makeTempPath(finalPath);
+    if (tempPath.isEmpty()) {
+        QMessageBox::critical(this, tr("Error"),
+                              tr("Could not create a temporary file in the destination directory."));
+        return;
+    }
+
     elapsedTimer.restart();
     cancelled = false;
     currentOp = Operation::ApplyPatch;
+    outputFinalPath = finalPath;
+    outputTempPath = tempPath;
     QStringList args;
-    args << "-f" << "decode" << "-s" << ui->textInput->text() << ui->textApplyPatch->text() << ui->textOutput->text();
+    args << "-f" << "decode" << "-s" << ui->textInput->text() << ui->textApplyPatch->text() << outputTempPath;
     cmd.runAsync("xdelta3", args);
 
     auto *proc = new QProcess(this);
@@ -400,7 +451,6 @@ void MainWindow::createPatch()
         return;
     }
 
-    bool force = false;
     QFileInfo patchInfo(ui->textPatch->text());
     if (patchInfo.exists()) {
         if (!patchInfo.isWritable()) {
@@ -412,27 +462,32 @@ void MainWindow::createPatch()
                 this, tr("File exists", "warning about overwritting file"),
                 tr("Delta file exists, do you want to overwrite?", "warning about overwritting file"))) {
             return;
-        } else {
-            force = true;
         }
     } else if (!QFileInfo(patchInfo.absolutePath()).isWritable()) {
         QMessageBox::critical(this, tr("Error"), tr("Output directory is not writable."));
         return;
     }
 
+    const QString finalPath = ui->textPatch->text();
+    const QString tempPath = makeTempPath(finalPath);
+    if (tempPath.isEmpty()) {
+        QMessageBox::critical(this, tr("Error"),
+                              tr("Could not create a temporary file in the destination directory."));
+        return;
+    }
+
     elapsedTimer.restart();
     cancelled = false;
     currentOp = Operation::CreatePatch;
+    outputFinalPath = finalPath;
+    outputTempPath = tempPath;
     QStringList args;
-    if (force) {
-        args << "-f";
-    }
-    args << "encode" << ("-" + QString::number(ui->spinCompressionLevel->value()));
+    args << "-f" << "encode" << ("-" + QString::number(ui->spinCompressionLevel->value()));
     if (ui->comboCompression->currentIndex() != 0) {
         args << "-S" << ui->comboCompression->currentText().toLower();
     }
     args << "-s" << ui->textSource->text()
-         << ui->textTarget->text() << ui->textPatch->text();
+         << ui->textTarget->text() << outputTempPath;
     cmd.runAsync("xdelta3", args);
 }
 
@@ -608,6 +663,24 @@ QString MainWindow::formatFileSize(qint64 bytes)
     return QLocale().formattedDataSize(bytes);
 }
 
+// Reserve a unique temporary path in the same directory as finalPath so the
+// result can be promoted with an atomic rename and the user's original file is
+// never touched until the operation succeeds. Returns an empty string if a temp
+// file cannot be created; callers must abort rather than write in place, or the
+// preserve-the-original guarantee is lost.
+QString MainWindow::makeTempPath(const QString &finalPath)
+{
+    QFileInfo fi(finalPath);
+    QTemporaryFile tmp(fi.absolutePath() + "/." + fi.fileName() + ".part-XXXXXX");
+    tmp.setAutoRemove(false);
+    if (!tmp.open()) {
+        return QString();
+    }
+    const QString name = tmp.fileName();
+    tmp.close();
+    return name;
+}
+
 void MainWindow::setOutputName()
 {
     QString inputPath = ui->textInput->text();
@@ -668,7 +741,7 @@ void MainWindow::updateBar()
 
     // 1. Try native progress estimation for Apply Patch
     if (currentOp == Operation::ApplyPatch && targetFileSize > 0) {
-        qint64 currentSize = QFileInfo(ui->textOutput->text()).size();
+        qint64 currentSize = QFileInfo(outputTempPath).size();
         prog = static_cast<int>(currentSize * 100 / targetFileSize);
         if (prog > 100) prog = 100;
 
@@ -715,7 +788,7 @@ void MainWindow::updateBar()
         etaMs = qMax(0LL, elapsed * (100 - prog) / prog);
 
         if (currentOp == Operation::CreatePatch) {
-            qint64 currentSize = QFileInfo(ui->textPatch->text()).size();
+            qint64 currentSize = QFileInfo(outputTempPath).size();
             if (currentSize > 0)
                 etaSizeStr = formatFileSize(currentSize * 100LL / prog);
         }

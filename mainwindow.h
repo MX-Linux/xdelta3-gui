@@ -60,6 +60,8 @@ private:
     enum class Operation { None, CreatePatch, ApplyPatch };
     Operation currentOp = Operation::None;
     bool cancelled = false;
+    QString outputFinalPath; // where the result should ultimately live
+    QString outputTempPath;  // file xdelta3 actually writes to (promoted on success)
 
     Ui::MainWindow *ui;
     Cmd cmd;
@@ -82,6 +84,7 @@ private:
     void setOutputName();
     void setProgressDialog();
     QString dirSettingsKey(QLineEdit *lineEdit) const;
+    static QString makeTempPath(const QString &finalPath);
     static QString formatElapsedTime(qint64 ms);
     static QString formatFileSize(qint64 bytes);
 
