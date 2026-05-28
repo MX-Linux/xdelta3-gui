@@ -83,7 +83,6 @@ private:
     void setConnections();
     void setPatchName();
     void setOutputName();
-    void setProgressDialog();
     QString dirSettingsKey(QLineEdit *lineEdit) const;
     static QString makeTempPath(const QString &finalPath);
     static QString formatElapsedTime(qint64 ms);
