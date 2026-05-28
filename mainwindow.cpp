@@ -174,7 +174,11 @@ void MainWindow::cmdFinished(bool success, const QString &output)
     updateTaskbar(0, false);
     timer.stop();
     setCursor(QCursor(Qt::ArrowCursor));
-    ui->progressBar->setValue(ui->progressBar->maximum());
+    // Ensure a determinate range first: the bar may have been left indeterminate
+    // (setRange(0, 0)) by updateBar(), where maximum() is 0 and the fill would
+    // never reach 100%.
+    ui->progressBar->setRange(0, 100);
+    ui->progressBar->setValue(100);
     
     // Restore selection interface
     ui->tabWidget->setTabVisible(0, true);
