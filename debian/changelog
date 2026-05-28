@@ -1,3 +1,13 @@
+xdelta3-gui (26.05.2) mx; urgency=medium
+
+  * Keep existing output files safe if patch creation or application fails
+  * Show clearer error messages, with technical details kept in the details section
+  * Improve progress reporting so completed operations end at 100% more reliably
+  * Prevent creating an empty patch when the source and target are the same file
+  * Allow drag and drop into the output filename fields
+
+ -- Adrian <adrian@mxlinux.org>  Thu, 28 May 2026 18:35:59 -0400
+
 xdelta3-gui (26.05.1) mx; urgency=medium
 
   * Show patch progress in a dedicated progress view while an operation runs
