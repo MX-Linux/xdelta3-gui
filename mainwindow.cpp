@@ -472,6 +472,16 @@ void MainWindow::createPatch()
         return;
     }
 
+    // Encoding a file against itself produces an empty/pointless patch; the
+    // canonical paths catch symlinks and relative/absolute spellings too.
+    const QString sourceCanonical = QFileInfo(ui->textSource->text()).canonicalFilePath();
+    const QString targetCanonical = QFileInfo(ui->textTarget->text()).canonicalFilePath();
+    if (!sourceCanonical.isEmpty() && sourceCanonical == targetCanonical) {
+        QMessageBox::warning(this, tr("Error"),
+                             tr("Source and target are the same file; the patch would be empty."));
+        return;
+    }
+
     QFileInfo patchInfo(ui->textPatch->text());
     if (patchInfo.exists()) {
         if (!patchInfo.isWritable()) {
