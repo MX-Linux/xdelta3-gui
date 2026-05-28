@@ -48,6 +48,12 @@ int main(int argc, char *argv[])
 
     QApplication app(argc, argv);
 
+    // Set these explicitly: the window icon, translation lookup, D-Bus launcher
+    // entry, and QSettings all key off the application name. Relying on the
+    // executable basename would silently break them if the binary is renamed.
+    QApplication::setOrganizationName("MX Linux");
+    QApplication::setApplicationName("xdelta3-gui");
+
     // Check for xdelta3 binary
     if (QStandardPaths::findExecutable("xdelta3").isEmpty()) {
         QMessageBox::critical(nullptr, QObject::tr("Error"),

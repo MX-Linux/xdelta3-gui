@@ -816,7 +816,9 @@ void MainWindow::updateBar()
     }
 
     if (!fileName.isEmpty()) {
-        ui->labelProgressFile->setText(tr("Creating file: %1").arg(fileName));
+        ui->labelProgressFile->setText(currentOp == Operation::ApplyPatch
+                                           ? tr("Writing file: %1").arg(fileName)
+                                           : tr("Creating file: %1").arg(fileName));
     }
     if (!statsLine.isEmpty()) {
         label += '\n' + statsLine;
