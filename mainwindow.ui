@@ -145,7 +145,7 @@
            </widget>
           </item>
           <item row="3" column="1">
-           <widget class="QLineEdit" name="textPatch">
+           <widget class="DropLineEdit" name="textPatch">
             <property name="text">
              <string notr="true">patch.xdelta3</string>
             </property>
@@ -291,7 +291,7 @@
            </widget>
           </item>
           <item row="2" column="1">
-           <widget class="QLineEdit" name="textOutput">
+           <widget class="DropLineEdit" name="textOutput">
             <property name="text">
              <string/>
             </property>

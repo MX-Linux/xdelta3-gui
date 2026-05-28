@@ -646,10 +646,20 @@ void MainWindow::setConnections()
     connect(ui->textApplyPatch, &DropLineEdit::fileDropped, this, [this](const QString &filePath) {
         if (checkFile(filePath)) {
             QString path = QFileInfo(filePath).absolutePath();
-    
+
             settings.setValue(dirSettingsKey(ui->textApplyPatch), path);
             setOutputName();
         }
+        checkAllinfo();
+    });
+    // Output fields: a dropped path is a save destination (it may not exist yet),
+    // so don't validate it with checkFile — just remember its directory.
+    connect(ui->textPatch, &DropLineEdit::fileDropped, this, [this](const QString &filePath) {
+        settings.setValue(dirSettingsKey(ui->textPatch), QFileInfo(filePath).absolutePath());
+        checkAllinfo();
+    });
+    connect(ui->textOutput, &DropLineEdit::fileDropped, this, [this](const QString &filePath) {
+        settings.setValue(dirSettingsKey(ui->textOutput), QFileInfo(filePath).absolutePath());
         checkAllinfo();
     });
 
