@@ -128,7 +128,10 @@ void MainWindow::cmdStart()
     etaMs = -1;
     etaTick = 0;
     etaSizeStr.clear();
-    targetFileSize = -1;
+    // Note: targetFileSize is intentionally NOT reset here. cmdStart() runs
+    // asynchronously from the process's started() signal and would otherwise
+    // race with (and clobber) the printhdrs probe in applyPatch(). Each
+    // operation resets it up front instead.
     ui->labelProgressFile->setText("");
     ui->labelProgressStats->setText("");
     
@@ -384,15 +387,21 @@ void MainWindow::applyPatch()
     elapsedTimer.restart();
     cancelled = false;
     currentOp = Operation::ApplyPatch;
+    const quint64 thisRun = ++operationId;
+    targetFileSize = -1;
     outputFinalPath = finalPath;
     outputTempPath = tempPath;
     QStringList args;
     args << "-f" << "decode" << "-s" << ui->textInput->text() << ui->textApplyPatch->text() << outputTempPath;
     cmd.runAsync("xdelta3", args);
 
+    // Probe the patched-file size asynchronously (printhdrs can be slow for
+    // large patches, so don't block the UI). The result feeds the native
+    // progress estimate in updateBar(); apply it only if this exact run is still
+    // current, so a late result from a prior run can't poison a later operation.
     auto *proc = new QProcess(this);
     connect(proc, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), this,
-            [this, proc](int, QProcess::ExitStatus) {
+            [this, proc, thisRun](int, QProcess::ExitStatus) {
                 qint64 total = 0;
                 const QString out = proc->readAllStandardOutput() + proc->readAllStandardError();
                 for (const QString &line : out.split('\n', Qt::SkipEmptyParts)) {
@@ -403,7 +412,7 @@ void MainWindow::applyPatch()
                             total += n;
                     }
                 }
-                if (total > 0)
+                if (total > 0 && operationId == thisRun)
                     targetFileSize = total;
                 proc->deleteLater();
             });
@@ -483,6 +492,8 @@ void MainWindow::createPatch()
     elapsedTimer.restart();
     cancelled = false;
     currentOp = Operation::CreatePatch;
+    ++operationId;
+    targetFileSize = -1;
     outputFinalPath = finalPath;
     outputTempPath = tempPath;
     QStringList args;

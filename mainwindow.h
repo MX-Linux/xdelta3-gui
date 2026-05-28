@@ -59,6 +59,7 @@ private slots:
 private:
     enum class Operation { None, CreatePatch, ApplyPatch };
     Operation currentOp = Operation::None;
+    quint64 operationId = 0; // bumped per run, identifies a specific operation
     bool cancelled = false;
     QString outputFinalPath; // where the result should ultimately live
     QString outputTempPath;  // file xdelta3 actually writes to (promoted on success)
