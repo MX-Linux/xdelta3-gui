@@ -241,10 +241,14 @@ void MainWindow::cmdFinished(bool success, const QString &output)
             if (cancelled) {
                 QMessageBox::information(this, tr("Cancelled"), tr("Operation was cancelled."));
             } else {
-                QMessageBox::critical(
-                    this, tr("Error"),
-                    tr("Error: Could not write the file.", "information that there was an error creating the file")
-                        + "\n\n" + failureDetail);
+                QMessageBox box(QMessageBox::Critical, tr("Error"),
+                                tr("Error: Could not write the file.",
+                                   "information that there was an error creating the file"),
+                                QMessageBox::Ok, this);
+                if (!failureDetail.isEmpty()) {
+                    box.setDetailedText(failureDetail);
+                }
+                box.exec();
             }
         }
     } else if (currentOp == Operation::CreatePatch) {
@@ -261,10 +265,14 @@ void MainWindow::cmdFinished(bool success, const QString &output)
             if (cancelled) {
                 QMessageBox::information(this, tr("Cancelled"), tr("Operation was cancelled."));
             } else {
-                QMessageBox::critical(
-                    this, tr("Error"),
-                    tr("Error: Could not write the file.", "information that file was not written successfully")
-                        + "\n\n" + failureDetail);
+                QMessageBox box(QMessageBox::Critical, tr("Error"),
+                                tr("Error: Could not write the file.",
+                                   "information that file was not written successfully"),
+                                QMessageBox::Ok, this);
+                if (!failureDetail.isEmpty()) {
+                    box.setDetailedText(failureDetail);
+                }
+                box.exec();
             }
         }
     }
