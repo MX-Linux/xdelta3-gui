@@ -23,11 +23,8 @@
 
 #include <QApplication>
 #include <QDialog>
-#include <QDir>
 #include <QElapsedTimer>
 #include <QLineEdit>
-#include <QProgressBar>
-#include <QProgressDialog>
 #include <QSettings>
 #include <QTimer>
 

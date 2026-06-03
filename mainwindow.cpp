@@ -27,6 +27,7 @@
 
 #include <QDebug>
 #include <QElapsedTimer>
+#include <QPushButton>
 #include <QFile>
 #include <QFileDialog>
 #include <QLocale>
