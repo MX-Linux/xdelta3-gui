@@ -377,7 +377,7 @@ void MainWindow::applyPatch()
         if (QMessageBox::No
             == QMessageBox::question(
                 this, tr("File exists"),
-                tr("Output file exists, do you want to overwrite?", "warning about overwritting an existing file"))) {
+                tr("Output file exists, do you want to overwrite?", "warning about overwriting an existing file"))) {
             return;
         }
     } else if (!QFileInfo(outInfo.absolutePath()).isWritable()) {
@@ -491,8 +491,8 @@ void MainWindow::createPatch()
         }
         if (QMessageBox::No
             == QMessageBox::question(
-                this, tr("File exists", "warning about overwritting file"),
-                tr("Delta file exists, do you want to overwrite?", "warning about overwritting file"))) {
+                this, tr("File exists", "warning about overwriting file"),
+                tr("Delta file exists, do you want to overwrite?", "warning about overwriting file"))) {
             return;
         }
     } else if (!QFileInfo(patchInfo.absolutePath()).isWritable()) {
@@ -848,11 +848,17 @@ void MainWindow::updateBar()
                     .arg(formatElapsedTime(etaMs));
     }
     if (currentOp == Operation::ApplyPatch && targetFileSize >= 0) {
-        label += tr(" · %1 output size", "exact output file size from delta, leave %1 untranslated")
-                     .arg(formatFileSize(targetFileSize));
+        const auto sizeStr = tr("%1 output size", "exact output file size from delta, leave %1 untranslated")
+                                 .arg(formatFileSize(targetFileSize));
+        if (!label.isEmpty())
+            label += QStringLiteral(" · ");
+        label += sizeStr;
     } else if (!etaSizeStr.isEmpty()) {
-        label += tr(" · ~%1 estimated size", "estimated output file size, leave %1 untranslated")
-                     .arg(etaSizeStr);
+        const auto sizeStr = tr("~%1 estimated size", "estimated output file size, leave %1 untranslated")
+                                 .arg(etaSizeStr);
+        if (!label.isEmpty())
+            label += QStringLiteral(" · ");
+        label += sizeStr;
     }
 
     if (!fileName.isEmpty()) {
