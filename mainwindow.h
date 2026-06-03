@@ -75,6 +75,7 @@ private:
     void centerWindow();
     void checkAllinfo();
     bool checkFile(const QString &fileName);
+    void validateFile(QLineEdit *lineEdit);
     void createPatch();
     void handleProgressOutput();
     void setConnections();

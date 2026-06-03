@@ -469,6 +469,46 @@ bool MainWindow::checkFile(const QString &fileName)
     return true;
 }
 
+void MainWindow::validateFile(QLineEdit *le)
+{
+    QString error;
+    QString text = le->text();
+    if (text.isEmpty()) {
+        le->setStyleSheet("");
+        le->setToolTip("");
+        return;
+    }
+    QFileInfo info(text);
+    if (le == ui->textPatch || le == ui->textOutput) {
+        if (info.exists()) {
+            if (info.isDir()) {
+                error = tr("Path exists but is a directory.");
+            } else if (!info.isWritable()) {
+                error = tr("File is not writable.");
+            }
+        } else {
+            if (!info.absoluteDir().exists()) {
+                error = tr("Parent directory does not exist.");
+            } else if (!QFileInfo(info.absolutePath()).isWritable()) {
+                error = tr("Parent directory is not writable.");
+            } else if (info.fileName().isEmpty()) {
+                error = tr("Filename cannot be empty.");
+            }
+        }
+    } else {
+        if (!info.exists()) {
+            error = tr("File does not exist.");
+        } else if (!info.isFile()) {
+            error = tr("Path is a directory, not a file.");
+        } else if (!info.isReadable()) {
+            error = tr("File is not readable (check permissions).");
+        }
+    }
+    bool ok = error.isEmpty();
+    le->setStyleSheet(ok ? "" : "QLineEdit { color: red; }");
+    le->setToolTip(error);
+}
+
 void MainWindow::createPatch()
 {
     if (!checkFile(ui->textSource->text()) || !checkFile(ui->textTarget->text())) {
@@ -568,51 +608,12 @@ void MainWindow::setConnections()
     });
     connect(ui->textOutput, &QLineEdit::editingFinished, this, [this] { checkAllinfo(); });
 
-    auto validate = [this](QLineEdit *le) {
-        QString error;
-        QString text = le->text();
-        if (text.isEmpty()) {
-            le->setStyleSheet("");
-            le->setToolTip("");
-            return;
-        }
-        QFileInfo info(text);
-        if (le == ui->textPatch || le == ui->textOutput) {
-            if (info.exists()) {
-                if (info.isDir()) {
-                    error = tr("Path exists but is a directory.");
-                } else if (!info.isWritable()) {
-                    error = tr("File is not writable.");
-                }
-            } else {
-                if (!info.absoluteDir().exists()) {
-                    error = tr("Parent directory does not exist.");
-                } else if (!QFileInfo(info.absolutePath()).isWritable()) {
-                    error = tr("Parent directory is not writable.");
-                } else if (info.fileName().isEmpty()) {
-                    error = tr("Filename cannot be empty.");
-                }
-            }
-        } else {
-            if (!info.exists()) {
-                error = tr("File does not exist.");
-            } else if (!info.isFile()) {
-                error = tr("Path is a directory, not a file.");
-            } else if (!info.isReadable()) {
-                error = tr("File is not readable (check permissions).");
-            }
-        }
-        bool ok = error.isEmpty();
-        le->setStyleSheet(ok ? "" : "QLineEdit { color: red; }");
-        le->setToolTip(error);
-    };
-
-    connect(ui->textSource, &QLineEdit::textChanged, this, [this, validate] { validate(ui->textSource); });
-    connect(ui->textTarget, &QLineEdit::textChanged, this, [this, validate] { validate(ui->textTarget); });
-    connect(ui->textPatch, &QLineEdit::textChanged, this, [this, validate] { validate(ui->textPatch); });
-    connect(ui->textInput, &QLineEdit::textChanged, this, [this, validate] { validate(ui->textInput); });
-    connect(ui->textApplyPatch, &QLineEdit::textChanged, this, [this, validate] { validate(ui->textApplyPatch); });
-    connect(ui->textOutput, &QLineEdit::textChanged, this, [this, validate] { validate(ui->textOutput); });
+    connect(ui->textSource, &QLineEdit::textChanged, this, [this] { validateFile(ui->textSource); });
+    connect(ui->textTarget, &QLineEdit::textChanged, this, [this] { validateFile(ui->textTarget); });
+    connect(ui->textPatch, &QLineEdit::textChanged, this, [this] { validateFile(ui->textPatch); });
+    connect(ui->textInput, &QLineEdit::textChanged, this, [this] { validateFile(ui->textInput); });
+    connect(ui->textApplyPatch, &QLineEdit::textChanged, this, [this] { validateFile(ui->textApplyPatch); });
+    connect(ui->textOutput, &QLineEdit::textChanged, this, [this] { validateFile(ui->textOutput); });
 
     // Drag and drop connections
     connect(ui->textSource, &DropLineEdit::fileDropped, this, [this](const QString &filePath) {
