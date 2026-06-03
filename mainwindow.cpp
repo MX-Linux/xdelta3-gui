@@ -133,6 +133,7 @@ void MainWindow::cmdStart()
     // asynchronously from the process's started() signal and would otherwise
     // race with (and clobber) the printhdrs probe in applyPatch(). Each
     // operation resets it up front instead.
+    progressMissing = false;
     ui->labelProgressFile->setText("");
     ui->labelProgressStats->setText("");
     
@@ -803,7 +804,6 @@ void MainWindow::updateBar()
 
     // 2. Fallback to external 'progress' tool if native estimation didn't work (e.g. Create Patch)
     if (prog == -1) {
-        static bool progressMissing = false;
         if (!progressMissing) {
             if (progressProcess->state() == QProcess::NotRunning) {
                 progressProcess->start("progress", {"-c", "xdelta3"});

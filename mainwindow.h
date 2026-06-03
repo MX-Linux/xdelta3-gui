@@ -88,4 +88,5 @@ private:
     QProcess *progressProcess {};
     int lastProg = -1;
     QString lastStatsLine;
+    bool progressMissing = false;
 };
