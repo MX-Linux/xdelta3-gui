@@ -409,6 +409,7 @@ void MainWindow::applyPatch()
     // progress estimate in updateBar(); apply it only if this exact run is still
     // current, so a late result from a prior run can't poison a later operation.
     auto *proc = new QProcess(this);
+    connect(proc, &QProcess::errorOccurred, proc, &QObject::deleteLater);
     connect(proc, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), this,
             [this, proc, thisRun](int, QProcess::ExitStatus) {
                 qint64 total = 0;
