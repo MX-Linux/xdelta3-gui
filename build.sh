@@ -160,21 +160,6 @@ if [ "$ARCH_BUILD" = true ]; then
 
     DESTDIR="$STAGING_DIR" cmake --install "$BUILD_DIR" --prefix /usr --strip
 
-    mkdir -p "$STAGING_DIR/usr/share/applications"
-    mkdir -p "$STAGING_DIR/usr/share/pixmaps"
-    mkdir -p "$STAGING_DIR/usr/share/icons/hicolor/scalable/apps"
-    mkdir -p "$STAGING_DIR/usr/share/mime/packages"
-    mkdir -p "$STAGING_DIR/usr/share/xdelta3-gui/locale"
-
-    install -m 0644 xdelta3-gui.desktop "$STAGING_DIR/usr/share/applications/"
-    install -m 0644 xdelta3-gui.png "$STAGING_DIR/usr/share/pixmaps/"
-    install -m 0644 xdelta3-gui.svg "$STAGING_DIR/usr/share/icons/hicolor/scalable/apps/"
-    install -m 0644 x-xdelta3.xml "$STAGING_DIR/usr/share/mime/packages/"
-
-    while IFS= read -r -d '' qm_file; do
-        install -m 0644 "$qm_file" "$STAGING_DIR/usr/share/xdelta3-gui/locale/"
-    done < <(find "$BUILD_DIR" -type f -name "*.qm" -print0 2>/dev/null)
-
     tar --zstd -C "$STAGING_DIR" -cf "$BUILD_DIR/$PKG_NAME" .
     echo "Arch package created: $BUILD_DIR/$PKG_NAME"
 fi

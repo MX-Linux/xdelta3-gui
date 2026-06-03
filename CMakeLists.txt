@@ -186,8 +186,6 @@ set_target_properties(xdelta3-gui PROPERTIES
 
 
 
-# Install target (required by Debian build system)
-# Other files are handled by debian/install
 install(TARGETS xdelta3-gui
     RUNTIME DESTINATION bin
 )
