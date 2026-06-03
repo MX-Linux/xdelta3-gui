@@ -96,7 +96,7 @@ MainWindow::MainWindow(const QString &patchFile, QWidget *parent)
 MainWindow::~MainWindow()
 {
     if (cmd.state() != QProcess::NotRunning) {
-        cmd.disconnect();
+        QObject::disconnect(&cmd, nullptr, this, nullptr);
         cmd.terminate();
         if (!cmd.waitForFinished(1000)) {
             cmd.kill();
