@@ -24,25 +24,14 @@ cmake_minimum_required(VERSION 3.16)
 
 # Get version from debian/changelog
 execute_process(
-    COMMAND dpkg-parsechangelog -SVersion
+    COMMAND head -n 1 debian/changelog
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-    OUTPUT_VARIABLE PROJECT_VERSION_FROM_CHANGELOG
+    OUTPUT_VARIABLE FIRST_LINE
     OUTPUT_STRIP_TRAILING_WHITESPACE
-    RESULT_VARIABLE DPKG_RESULT
 )
-
-if(NOT DPKG_RESULT EQUAL 0)
-    # Fallback: parse changelog manually
-    execute_process(
-        COMMAND head -n 1 debian/changelog
-        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-        OUTPUT_VARIABLE FIRST_LINE
-        OUTPUT_STRIP_TRAILING_WHITESPACE
-    )
-    string(REGEX REPLACE ".*\\(([^)]+)\\).*" "\\1" PROJECT_VERSION_FROM_CHANGELOG "${FIRST_LINE}")
-    if(NOT PROJECT_VERSION_FROM_CHANGELOG)
-        message(FATAL_ERROR "Failed to parse version from debian/changelog")
-    endif()
+string(REGEX REPLACE ".*\\(([^)]+)\\).*" "\\1" PROJECT_VERSION_FROM_CHANGELOG "${FIRST_LINE}")
+if(NOT PROJECT_VERSION_FROM_CHANGELOG)
+    message(FATAL_ERROR "Failed to parse version from debian/changelog")
 endif()
 
 project(xdelta3-gui
@@ -133,7 +122,6 @@ target_include_directories(xdelta3-gui PRIVATE ${CMAKE_SOURCE_DIR})
 # Set compiler flags
 target_compile_options(xdelta3-gui PRIVATE
     -Wpedantic
-    -pedantic
     -Werror=return-type
     -Werror=switch
     -Werror=uninitialized
