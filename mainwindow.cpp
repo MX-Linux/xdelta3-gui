@@ -25,8 +25,7 @@
 
 #include "droplineedit.h"
 
-#include <QDebug>
-#include <QElapsedTimer>
+#include <QApplication>
 #include <QPushButton>
 #include <QFile>
 #include <QFileDialog>
