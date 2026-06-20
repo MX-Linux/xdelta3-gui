@@ -303,7 +303,7 @@
           <item row="2" column="2">
            <widget class="QPushButton" name="pushSelectOutput">
             <property name="text">
-             <string extracomment="starts a file chooser to select destination for output file">Change location..</string>
+             <string extracomment="starts a file chooser to select destination for output file">Change location...</string>
             </property>
            </widget>
           </item>

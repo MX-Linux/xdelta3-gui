@@ -74,18 +74,18 @@ private:
     void applyPatch();
     void centerWindow();
     void checkAllinfo();
-    bool checkFile(const QString &fileName);
+    [[nodiscard]] bool checkFile(const QString &fileName);
     void validateFile(QLineEdit *lineEdit);
     void createPatch();
     void handleProgressOutput();
     void setConnections();
     void setPatchName();
     void setOutputName();
-    QString dirSettingsKey(QLineEdit *lineEdit) const;
-    bool onDropInputFile(QLineEdit *lineEdit);
-    static QString makeTempPath(const QString &finalPath);
-    static QString formatElapsedTime(qint64 ms);
-    static QString formatFileSize(qint64 bytes);
+    [[nodiscard]] QString dirSettingsKey(QLineEdit *lineEdit) const;
+    [[nodiscard]] bool onDropInputFile(QLineEdit *lineEdit);
+    [[nodiscard]] static QString makeTempPath(const QString &finalPath);
+    [[nodiscard]] static QString formatElapsedTime(qint64 ms);
+    [[nodiscard]] static QString formatFileSize(qint64 bytes);
 
     QProcess *progressProcess {};
     int lastProg = -1;

@@ -607,7 +607,7 @@ void MainWindow::setConnections()
         checkAllinfo();
     });
     connect(ui->textInput, &QLineEdit::editingFinished, this, [this] {
-        checkFile(ui->textInput->text());
+        (void)checkFile(ui->textInput->text());
         checkAllinfo();
     });
     connect(ui->textApplyPatch, &QLineEdit::editingFinished, this, [this] {
