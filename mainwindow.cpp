@@ -71,6 +71,8 @@ MainWindow::MainWindow(const QString &patchFile, QWidget *parent)
     progressProcess = new QProcess(this);
     connect(progressProcess, &QProcess::readyReadStandardOutput, this, &MainWindow::handleProgressOutput);
     connect(progressProcess, &QProcess::readyReadStandardError, this, &MainWindow::handleProgressOutput);
+    connect(progressProcess, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
+            this, [this] { progressMissing = true; });
 
     setConnections();
     adjustSize();
@@ -669,6 +671,7 @@ void MainWindow::setConnections()
 
     connect(ui->pushCancelProgress, &QPushButton::clicked, this, [this] {
         cancelled = true;
+        progressProcess->kill();
         cmd.terminate();
     });
 

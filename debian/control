@@ -10,10 +10,10 @@ Homepage: https://mxlinux.org
 Package: xdelta3-gui
 Architecture: any
 Depends: xdelta3,
-         progress,
          xdg-utils | mx-viewer,
          ${misc:Depends},
          ${shlibs:Depends}
+Recommends: progress
 Description: Graphical interface for xdelta3
  A user-friendly GUI for the xdelta3 application, which is a
  VCDIFF (RFC 3284) binary diff tool. This application allows users
