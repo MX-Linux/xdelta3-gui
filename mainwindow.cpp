@@ -359,6 +359,15 @@ void MainWindow::onSelectDir()
     checkAllinfo();
 }
 
+bool MainWindow::onDropInputFile(QLineEdit *lineEdit)
+{
+    const QString text = lineEdit->text();
+    if (!checkFile(text))
+        return false;
+    settings.setValue(dirSettingsKey(lineEdit), QFileInfo(text).absolutePath());
+    return true;
+}
+
 void MainWindow::applyPatch()
 {
     if (ui->textOutput->text().isEmpty()) {
@@ -618,42 +627,26 @@ void MainWindow::setConnections()
     connect(ui->textOutput, &QLineEdit::textChanged, this, [this] { validateFile(ui->textOutput); });
 
     // Drag and drop connections
-    connect(ui->textSource, &DropLineEdit::fileDropped, this, [this](const QString &filePath) {
-        if (checkFile(filePath)) {
-            QString path = QFileInfo(filePath).absolutePath();
-    
-            settings.setValue(dirSettingsKey(ui->textSource), path);
-            if (!ui->textTarget->text().isEmpty()) {
-                setPatchName();
-            }
+    connect(ui->textSource, &DropLineEdit::fileDropped, this, [this](const QString &) {
+        if (onDropInputFile(ui->textSource) && !ui->textTarget->text().isEmpty()) {
+            setPatchName();
         }
         checkAllinfo();
     });
-    connect(ui->textTarget, &DropLineEdit::fileDropped, this, [this](const QString &filePath) {
-        if (checkFile(filePath)) {
-            QString path = QFileInfo(filePath).absolutePath();
-    
-            settings.setValue(dirSettingsKey(ui->textTarget), path);
-            if (!ui->textSource->text().isEmpty()) {
-                setPatchName();
-            }
+    connect(ui->textTarget, &DropLineEdit::fileDropped, this, [this](const QString &) {
+        if (onDropInputFile(ui->textTarget) && !ui->textSource->text().isEmpty()) {
+            setPatchName();
         }
         checkAllinfo();
     });
-    connect(ui->textInput, &DropLineEdit::fileDropped, this, [this](const QString &filePath) {
-        if (checkFile(filePath)) {
-            QString path = QFileInfo(filePath).absolutePath();
-    
-            settings.setValue(dirSettingsKey(ui->textInput), path);
+    connect(ui->textInput, &DropLineEdit::fileDropped, this, [this](const QString &) {
+        if (onDropInputFile(ui->textInput)) {
             setOutputName();
         }
         checkAllinfo();
     });
-    connect(ui->textApplyPatch, &DropLineEdit::fileDropped, this, [this](const QString &filePath) {
-        if (checkFile(filePath)) {
-            QString path = QFileInfo(filePath).absolutePath();
-
-            settings.setValue(dirSettingsKey(ui->textApplyPatch), path);
+    connect(ui->textApplyPatch, &DropLineEdit::fileDropped, this, [this](const QString &) {
+        if (onDropInputFile(ui->textApplyPatch)) {
             setOutputName();
         }
         checkAllinfo();

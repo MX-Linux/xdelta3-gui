@@ -82,6 +82,7 @@ private:
     void setPatchName();
     void setOutputName();
     QString dirSettingsKey(QLineEdit *lineEdit) const;
+    bool onDropInputFile(QLineEdit *lineEdit);
     static QString makeTempPath(const QString &finalPath);
     static QString formatElapsedTime(qint64 ms);
     static QString formatFileSize(qint64 bytes);
