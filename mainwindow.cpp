@@ -318,8 +318,10 @@ void MainWindow::onSelectFile(QLineEdit *lineEdit, const QString &filter)
         checkAllinfo();
         return;
     }
-    if (lineEdit == ui->textTarget) {
-        setPatchName();
+    if (lineEdit == ui->textSource || lineEdit == ui->textTarget) {
+        if (!ui->textSource->text().isEmpty() && !ui->textTarget->text().isEmpty()) {
+            setPatchName();
+        }
     } else if (lineEdit == ui->textInput || lineEdit == ui->textApplyPatch) {
         setOutputName();
     }
@@ -367,6 +369,10 @@ bool MainWindow::onDropInputFile(QLineEdit *lineEdit)
 
 void MainWindow::applyPatch()
 {
+    if (currentOp != Operation::None || cmd.state() != QProcess::NotRunning) {
+        return;
+    }
+
     if (ui->textOutput->text().isEmpty()) {
         ui->pushApplyPatch->setDisabled(true);
         QMessageBox::warning(this, tr("Error"), tr("Please enter a name for the output file."));
@@ -519,6 +525,10 @@ void MainWindow::validateFile(QLineEdit *le)
 
 void MainWindow::createPatch()
 {
+    if (currentOp != Operation::None || cmd.state() != QProcess::NotRunning) {
+        return;
+    }
+
     if (!checkFile(ui->textSource->text()) || !checkFile(ui->textTarget->text())) {
         return;
     }
