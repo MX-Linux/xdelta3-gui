@@ -1,3 +1,12 @@
+xdelta3-gui (26.07) mx; urgency=medium
+
+  * Prevent starting a second patch operation while another one is still running
+  * Restore progress updates during patch creation and allow the optional progress tool to be absent
+  * Fix progress text, overwrite wording, and the Change location button label
+  * Place the application in the correct MX Utilities menu category
+
+ -- Adrian <adrian@mxlinux.org>  Mon, 27 Jul 2026 20:46:00 -0400
+
 xdelta3-gui (26.05.2) mx; urgency=medium
 
   * Keep existing output files safe if patch creation or application fails
