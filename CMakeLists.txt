@@ -100,6 +100,7 @@ set(UI_FILES
 
 # Get all translation files
 file(GLOB TRANSLATION_FILES "translations/*.ts")
+list(FILTER TRANSLATION_FILES EXCLUDE REGEX "/xdelta3-gui_en_US\\.ts$")
 
 # Create the executable
 add_executable(xdelta3-gui
