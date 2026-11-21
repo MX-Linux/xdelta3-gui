@@ -28,6 +28,8 @@
 #include <QStandardPaths>
 #include <QTranslator>
 
+#include <memory>
+
 #include "mainwindow.h"
 
 #include <unistd.h>
@@ -38,21 +40,28 @@
 
 int main(int argc, char *argv[])
 {
-    if (qEnvironmentVariableIsEmpty("DISPLAY") && qEnvironmentVariableIsEmpty("WAYLAND_DISPLAY")
-        && qEnvironmentVariableIsEmpty("QT_QPA_PLATFORM")) {
-        qWarning("xdelta3-gui: no display available (DISPLAY and WAYLAND_DISPLAY are both unset); "
-                "a graphical session is required to run this program.");
-        return EXIT_FAILURE;
-    }
+    const QByteArray option = argc == 2 ? QByteArray(argv[1]) : QByteArray();
+    const bool informational = option == "-h" || option == "--help" || option == "--help-all"
+                               || option == "-v" || option == "--version";
+    std::unique_ptr<QCoreApplication> app;
+    if (informational) {
+        app = std::make_unique<QCoreApplication>(argc, argv);
+    } else {
+        if (qEnvironmentVariableIsEmpty("DISPLAY") && qEnvironmentVariableIsEmpty("WAYLAND_DISPLAY")
+            && qEnvironmentVariableIsEmpty("QT_QPA_PLATFORM")) {
+            qWarning("xdelta3-gui: no display available (DISPLAY and WAYLAND_DISPLAY are both unset); "
+                    "a graphical session is required to run this program.");
+            return EXIT_FAILURE;
+        }
 
-    // Set Qt platform to XCB (X11) if not already set and we're in X11 environment
-    if (qEnvironmentVariableIsEmpty("QT_QPA_PLATFORM")) {
-        if (!qEnvironmentVariableIsEmpty("DISPLAY") && qEnvironmentVariableIsEmpty("WAYLAND_DISPLAY")) {
+        // Set Qt platform to XCB (X11) if not already set and we're in X11 environment
+        if (qEnvironmentVariableIsEmpty("QT_QPA_PLATFORM") && !qEnvironmentVariableIsEmpty("DISPLAY")
+            && qEnvironmentVariableIsEmpty("WAYLAND_DISPLAY")) {
             qputenv("QT_QPA_PLATFORM", "xcb");
         }
-    }
 
-    QApplication app(argc, argv);
+        app = std::make_unique<QApplication>(argc, argv);
+    }
 
     // Set these explicitly: the window icon, translation lookup, D-Bus launcher
     // entry, and QSettings all key off the application name. Relying on the
@@ -60,15 +69,6 @@ int main(int argc, char *argv[])
     QApplication::setOrganizationName("MX Linux");
     QApplication::setApplicationName("xdelta3-gui");
 
-    // Check for xdelta3 binary
-    if (QStandardPaths::findExecutable("xdelta3").isEmpty()) {
-        QMessageBox::critical(nullptr, QObject::tr("Error"),
-                              QObject::tr("xdelta3 binary not found. Please install xdelta3 package."));
-        return EXIT_FAILURE;
-    }
-
-    QApplication::setApplicationDisplayName("xdelta3 GUI");
-    QApplication::setWindowIcon(QIcon::fromTheme(QApplication::applicationName()));
     QApplication::setApplicationVersion(VERSION);
 
     QCommandLineParser parser;
@@ -80,7 +80,16 @@ int main(int argc, char *argv[])
     parser.addHelpOption();
     parser.addVersionOption();
     parser.addPositionalArgument(QObject::tr("file"), QObject::tr("Name of the delta file"), QObject::tr("[file]"));
-    parser.process(app);
+    parser.process(*app);
+
+    // Check for xdelta3 binary
+    if (QStandardPaths::findExecutable("xdelta3").isEmpty()) {
+        QMessageBox::critical(nullptr, QObject::tr("Error"),
+                              QObject::tr("xdelta3 binary not found. Please install xdelta3 package."));
+        return EXIT_FAILURE;
+    }
+    QApplication::setApplicationDisplayName("xdelta3 GUI");
+    QApplication::setWindowIcon(QIcon::fromTheme(QApplication::applicationName()));
 
     QTranslator qtTran;
     if (qtTran.load(QLocale::system(), "qt", "_", QLibraryInfo::path(QLibraryInfo::TranslationsPath))) {
