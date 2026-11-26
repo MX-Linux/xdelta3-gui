@@ -868,7 +868,9 @@ void MainWindow::setOutputName()
 
     if (!patchPath.isEmpty()) {
         QString patchBase = QFileInfo(patchPath).completeBaseName();
-        // If patch name contains "_to_VERSION", try to extract that version
+        // "<input>_to_<target>" (as Create Patch names it) gives the target
+        // name directly; otherwise treat the part after the last "_to_" as a
+        // version to substitute into the input name.
         if (patchBase.contains("_to_")) {
             QString targetVersion = patchBase.section("_to_", -1);
             // Remove .xdelta3 if it's there (shouldn't be in completeBaseName but just in case)
@@ -881,7 +883,12 @@ void MainWindow::setOutputName()
             // dots are part of version numbers, not separators.
             int lastSep = qMax(inputBase.lastIndexOf('-'), inputBase.lastIndexOf('_'));
 
-            if (lastSep != -1 && isNumericVersion(inputBase.mid(lastSep + 1))) {
+            const QString createdPrefix = inputBase + QStringLiteral("_to_");
+            if (patchBase.startsWith(createdPrefix)) {
+                // Named by Create Patch ("<source>_to_<target>"): the rest is the
+                // complete target name (which may itself contain "_to_").
+                outputName = patchBase.mid(createdPrefix.size());
+            } else if (lastSep != -1 && isNumericVersion(inputBase.mid(lastSep + 1))) {
                 outputName = inputBase.left(lastSep + 1) + targetVersion;
             } else if (isNumericVersion(inputBase)) {
                 outputName = targetVersion;
