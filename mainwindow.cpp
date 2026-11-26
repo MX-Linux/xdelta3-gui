@@ -279,6 +279,10 @@ void MainWindow::cmdFinished(bool success, const QString &output)
     // Promote the temporary file to its final location only on success, so the
     // user's original file is never touched if the run failed or was cancelled.
     QString failureDetail = output;
+    // Cancel may be clicked after xdelta3 exited but before this ran; honor it.
+    if (cancelled) {
+        success = false;
+    }
     const bool wroteToTemp = !outputTempPath.isEmpty() && outputTempPath != outputFinalPath;
     if (success && wroteToTemp) {
         const QByteArray tempName = QFile::encodeName(outputTempPath);
