@@ -60,6 +60,46 @@ bool isNumericVersion(const QString &value)
     }
     return true;
 }
+
+// Patches created by this GUI encode the raw bytes of their inputs (-D) and
+// carry this marker in the VCDIFF application header. Without -D, xdelta3
+// decompresses gzip/bzip2/xz inputs and recompresses the result, which yields
+// the same data but not the same bytes as the original target.
+const QString rawPatchMarker = QStringLiteral("xdgui-raw-v1");
+
+// True only for an uncompressed VCDIFF file whose application header is
+// rawPatchMarker; such a patch must be decoded with -D as well. Anything else
+// (older patches, patches wrapped in external compression, a failed probe)
+// keeps xdelta3's default decode behavior, where a wrong guess fails with a
+// checksum error instead of producing different bytes.
+bool isRawBytePatch(const QString &patchPath)
+{
+    QFile file(patchPath);
+    if (!file.open(QIODevice::ReadOnly) || file.read(3) != QByteArray("\xD6\xC3\xC4", 3)) {
+        return false;
+    }
+    file.close();
+
+    // printhdr only reads the first window header, so this returns quickly.
+    QProcess probe;
+    probe.setProcessEnvironment(Cmd::xdeltaEnvironment());
+    probe.start("xdelta3", {"printhdr", patchPath});
+    if (!probe.waitForFinished(5000)) {
+        probe.kill();
+        probe.waitForFinished();
+        return false;
+    }
+    if (probe.exitStatus() != QProcess::NormalExit || probe.exitCode() != 0) {
+        return false;
+    }
+    const QList<QByteArray> lines = probe.readAllStandardOutput().split('\n');
+    for (const QByteArray &line : lines) {
+        if (line.startsWith("VCDIFF application header:")) {
+            return line.mid(line.indexOf(':') + 1).trimmed() == rawPatchMarker.toUtf8();
+        }
+    }
+    return false;
+}
 } // namespace
 
 MainWindow::MainWindow(const QString &patchFile, QWidget *parent)
@@ -400,6 +440,8 @@ void MainWindow::applyPatch()
         return;
     }
 
+    const bool rawBytePatch = isRawBytePatch(ui->textApplyPatch->text());
+
     const QString finalPath = ui->textOutput->text();
     const QString tempPath = makeTempPath(finalPath);
     if (tempPath.isEmpty()) {
@@ -416,7 +458,11 @@ void MainWindow::applyPatch()
     outputFinalPath = finalPath;
     outputTempPath = tempPath;
     QStringList args;
-    args << "-f" << "decode" << "-s" << ui->textInput->text() << ui->textApplyPatch->text() << outputTempPath;
+    args << "-f" << "decode";
+    if (rawBytePatch) {
+        args << "-D";
+    }
+    args << "-s" << ui->textInput->text() << ui->textApplyPatch->text() << outputTempPath;
     cmd.runAsync("xdelta3", args);
 
     // Probe the patched-file size asynchronously (printhdrs can be slow for
@@ -577,7 +623,8 @@ void MainWindow::createPatch()
     outputFinalPath = finalPath;
     outputTempPath = tempPath;
     QStringList args;
-    args << "-f" << "encode" << ("-" + QString::number(ui->spinCompressionLevel->value()));
+    args << "-f" << "encode" << "-D" << ("-A=" + rawPatchMarker)
+         << ("-" + QString::number(ui->spinCompressionLevel->value()));
     if (ui->comboCompression->currentIndex() != 0) {
         args << "-S" << ui->comboCompression->currentText().toLower();
     }
