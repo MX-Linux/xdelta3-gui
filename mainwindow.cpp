@@ -684,9 +684,11 @@ void MainWindow::createPatch()
     QStringList args;
     args << "-f" << "encode" << "-D" << ("-A=" + rawPatchMarker)
          << ("-" + QString::number(ui->spinCompressionLevel->value()));
-    if (ui->comboCompression->currentIndex() != 0) {
-        args << "-S" << ui->comboCompression->currentText().toLower();
-    }
+    // Always pass -S: without it xdelta3 applies its default secondary
+    // compressor (lzma in 3.0.x). Index 0 is the translatable "None" entry.
+    args << "-S"
+         << (ui->comboCompression->currentIndex() == 0 ? QStringLiteral("none")
+                                                        : ui->comboCompression->currentText().toLower());
     args << "-s" << ui->textSource->text()
          << ui->textTarget->text() << outputTempPath;
     cmd.runAsync("xdelta3", args);
