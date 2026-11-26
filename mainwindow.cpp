@@ -182,11 +182,12 @@ MainWindow::~MainWindow()
         if (!cmd.waitForFinished(1000)) {
             cmd.kill();
         }
-        // cmdFinished() won't run (disconnected), so drop the partial temp file
-        // ourselves; the user's original file was never touched.
-        if (!outputTempPath.isEmpty() && outputTempPath != outputFinalPath) {
-            QFile::remove(outputTempPath);
-        }
+    }
+    // cmdFinished() won't run for this operation (disconnected above, or a
+    // queued failed-start report that dies with cmd), so drop the partial temp
+    // file ourselves; the user's original file was never touched.
+    if (!outputTempPath.isEmpty() && outputTempPath != outputFinalPath) {
+        QFile::remove(outputTempPath);
     }
     settings.setValue("geometry", saveGeometry());
     settings.setValue("compression_level", ui->spinCompressionLevel->value());

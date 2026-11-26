@@ -12,6 +12,17 @@ Cmd::Cmd(QObject *parent)
         bool success = (exitStatus == QProcess::NormalExit && exitCode == 0);
         emit commandFinished(success, out_buffer.trimmed());
     });
+    // A program that cannot be started never emits finished(), so report the
+    // failure here; otherwise the caller's cleanup and UI reset never run.
+    // Queued so the caller has returned from runAsync() before it is handled.
+    connect(
+        this, &QProcess::errorOccurred, this,
+        [this](QProcess::ProcessError error) {
+            if (error == QProcess::FailedToStart) {
+                emit commandFinished(false, errorString());
+            }
+        },
+        Qt::QueuedConnection);
 }
 
 QProcessEnvironment Cmd::xdeltaEnvironment()
