@@ -5,6 +5,9 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
 APPNAME="$(basename "$PROJECT_DIR")"
 
+# Everything below is relative to this directory, wherever the script is run from.
+cd "$SCRIPT_DIR" || exit 1
+
 echodo() {
   echo "${@}"
   ${@}
@@ -31,13 +34,62 @@ if [ -z "$(grep minimum_perc .tx/config)" ]; then
         echo "minimum_perc = 25" >> .tx/config
 fi
 
-# Remove existing translations
-find . -type f -name '*.ts' -not -name '*en.ts' -delete
+if ! command -v tx >/dev/null; then
+   echo "Error: tx (Transifex client) not found; existing translations were left untouched."
+   exit 1
+fi
+
+# Set the existing catalogs aside so languages dropped on Transifex are pruned,
+# and put them back if the pull fails or is interrupted so local edits are not
+# lost. The backup lives next to the catalogs, so moving there is a rename.
+BACKUP_DIR="$(mktemp -d "$SCRIPT_DIR/.ts-backup.XXXXXX")" || exit 1
+shopt -s nullglob
+
+# Move the backed-up catalogs back (without deleting anything).
+undo_backup() {
+   mv "$BACKUP_DIR"/*.ts . 2>/dev/null
+   rmdir "$BACKUP_DIR"
+}
+
+# Drop whatever the pull wrote, then put the previous catalogs back.
+restore_catalogs() {
+   trap '' INT TERM # a second restore would delete the catalogs just put back
+   for ts in "${APPNAME}"_*.ts; do
+      [ "$ts" = "${APPNAME}_en.ts" ] || rm -f "$ts"
+   done
+   undo_backup
+}
+
+for ts in "${APPNAME}"_*.ts; do
+   if [ "$ts" != "${APPNAME}_en.ts" ] && ! mv "$ts" "$BACKUP_DIR/"; then
+      echo "Error: could not back up $ts; restoring the previous translations."
+      undo_backup
+      exit 1
+   fi
+done
+trap 'echo "Interrupted; restoring the previous translations."; restore_catalogs; exit 130' INT TERM
 
 # Get all translations
-if command -v tx >/dev/null; then
-   echodo tx pull -r antix-development.$APPNAME --all
+if ! echodo tx pull -r antix-development.$APPNAME --all; then
+   echo "Error: tx pull failed; restoring the previous translations."
+   restore_catalogs
+   exit 1
 fi
+pulled=0
+for ts in "${APPNAME}"_*.ts; do
+   case "$ts" in
+      "${APPNAME}_en.ts" | "${APPNAME}_en_US.ts") ;;
+      *) pulled=$((pulled + 1)) ;;
+   esac
+done
+if [ "$pulled" -eq 0 ]; then
+   echo "Error: tx pull returned no translations; restoring the previous translations."
+   restore_catalogs
+   exit 1
+fi
+trap - INT TERM
+rm -rf "$BACKUP_DIR"
+shopt -u nullglob
 
 # en_US duplicates the English source catalog and should not be shipped.
 rm -f "${APPNAME}_en_US.ts"
