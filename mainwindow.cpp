@@ -928,8 +928,11 @@ void MainWindow::updateBar()
     // 2. Fallback to external 'progress' tool if native estimation didn't work (e.g. Create Patch)
     if (prog == -1) {
         if (!progressMissing) {
-            if (progressProcess->state() == QProcess::NotRunning) {
-                progressProcess->start("progress", {"-c", "xdelta3"});
+            // Watch this operation's own process: "-c xdelta3" would also
+            // report any other xdelta3 job running on the system.
+            const qint64 pid = cmd.processId();
+            if (pid > 0 && progressProcess->state() == QProcess::NotRunning) {
+                progressProcess->start("progress", {"-p", QString::number(pid)});
             }
             if (lastProg != -1) {
                 prog = lastProg;
