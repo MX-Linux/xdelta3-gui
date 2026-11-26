@@ -61,12 +61,36 @@ validate_version() {
     echo "$version"
 }
 
-# Check if tag already exists locally or on the remote
-tag_exists() {
+# Print the object id of the local tag, or nothing if there is none
+local_tag_id() {
+    git rev-parse -q --verify "refs/tags/$1" 2>/dev/null || true
+}
+
+# Print the object id of the tag on origin. Returns 2 if origin has no such
+# tag and 1 if origin could not be queried, so a network or authentication
+# failure is never mistaken for a missing tag.
+remote_tag_id() {
+    local ref="refs/tags/$1" out rc=0
+    out=$(git ls-remote --exit-code origin "$ref") || rc=$?
+    case $rc in
+        0) awk -v ref="$ref" '$2 == ref { print $1 }' <<< "$out" ;;
+        2) return 2 ;;
+        *) return 1 ;;
+    esac
+}
+
+# Push a local tag and confirm origin now has the same tag object
+push_tag() {
     local version=$1
-    if git tag -l | grep -q "^${version}$"; then return 0; fi
-    if git ls-remote --tags origin 2>/dev/null | grep -q "refs/tags/${version}$"; then return 0; fi
-    return 1
+    print_step "Pushing tag to GitHub..."
+    git push origin "refs/tags/$version"
+    local remote_id
+    remote_id=$(remote_tag_id "$version") || remote_id=""
+    if [ -z "$remote_id" ] || [ "$remote_id" != "$(local_tag_id "$version")" ]; then
+        print_error "Tag '$version' on origin does not match the local tag after pushing"
+        exit 1
+    fi
+    print_success "Tag pushed to GitHub"
 }
 
 # Get latest numeric release tag for comparison
@@ -412,9 +436,32 @@ main() {
     check_aur_checkout || exit 1
 
     print_step "Checking if tag '$version' already exists..."
-    if tag_exists "$version"; then
+    local local_id remote_id remote_rc=0
+    local_id=$(local_tag_id "$version")
+    remote_id=$(remote_tag_id "$version") || remote_rc=$?
+    if [ "$remote_rc" -eq 1 ]; then
+        print_error "Could not query tags on origin; check the connection and re-run"
+        exit 1
+    fi
+    if [ -n "$local_id" ] && [ -n "$remote_id" ] && [ "$local_id" != "$remote_id" ]; then
+        print_error "Tag '$version' differs locally ($local_id) and on origin ($remote_id)"
+        exit 1
+    fi
+    if [ -n "$local_id" ] || [ -n "$remote_id" ]; then
         print_warning "Tag '$version' already exists; no new tag will be created"
         tag_status="existing"
+        if [ -z "$remote_id" ]; then
+            # An earlier run created the tag but failed to push it
+            print_warning "Tag '$version' exists only locally"
+            git show --no-patch "refs/tags/$version"
+            echo "Push this tag to GitHub? (y/N)"
+            read -r response
+            if [[ ! "$response" =~ ^[Yy]$ ]]; then
+                print_step "Aborted by user"
+                exit 0
+            fi
+            push_tag "$version"
+        fi
         ANNOTATION=$(get_tag_annotation "$version")
         if [ -z "$ANNOTATION" ]; then
             ANNOTATION="Update AUR package to $version"
@@ -448,9 +495,7 @@ main() {
             exit 0
         fi
         create_tag "$version" "$annotation"
-        print_step "Pushing tag to GitHub..."
-        git push origin "$version"
-        print_success "Tag pushed to GitHub"
+        push_tag "$version"
     fi
 
     update_aur_package "$version" "$annotation"
