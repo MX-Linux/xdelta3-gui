@@ -51,5 +51,8 @@ cmake_install.cmake
 # Transifex ignore
 .tx/
 
-# Clang build directory (build.sh --clang)
+# Build directories (build.sh)
+/build/
 /build-clang/
+# Arch package build directory (build.sh --arch)
+/build-arch/

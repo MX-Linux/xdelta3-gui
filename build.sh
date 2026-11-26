@@ -63,7 +63,7 @@ while [[ $# -gt 0 ]]; do
             echo "  -c, --clang     Use clang compiler"
             echo "  --clean         Clean build directory before building"
             echo "  --debian        Build Debian package"
-            echo "  --arch          Build Arch Linux tar.zst package"
+            echo "  --arch          Build an Arch Linux package with makepkg (always Release)"
             echo "  -h, --help      Show this help message"
             exit 0
             ;;
@@ -130,10 +130,51 @@ get_version() {
     echo "0.0.0"
 }
 
+# Build an installable Arch Linux package with makepkg, from the current
+# working tree, using arch/PKGBUILD
+if [ "$ARCH_BUILD" = true ]; then
+    if ! command -v makepkg >/dev/null 2>&1; then
+        echo "Error: makepkg not found; --arch needs pacman's makepkg."
+        exit 1
+    fi
+    if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+        echo "Error: --arch packs the git working tree; run it from a git checkout."
+        exit 1
+    fi
+    PKG_DIR="build-arch"
+    VERSION="$(get_version)"
+    VERSION="${VERSION#*:}"    # no epoch in file names
+    PKGVER="${VERSION//-/_}"   # pkgver may not contain '-'
+    echo "Building Arch Linux package $PKGVER..."
+
+    rm -rf "$PKG_DIR"
+    mkdir -p "$PKG_DIR"
+    # arch/PKGBUILD consumes a source tarball that unpacks to src/; build it
+    # from the tracked files as they are now (uncommitted edits included).
+    # Untracked files stay out so local build trees and notes never ship.
+    git ls-files -z -- . ':!debs' |
+        while IFS= read -r -d '' f; do [ -e "$f" ] && printf '%s\0' "$f"; done |
+        tar --null -T - --transform 's,^,src/,' -cJf "$PKG_DIR/xdelta3-gui_${PKGVER}.tar.xz"
+    sed "s/^pkgver=.*/pkgver=${PKGVER}/" arch/PKGBUILD > "$PKG_DIR/PKGBUILD"
+
+    MAKEPKG_ARGS=(-f)
+    if [ ! -f /etc/arch-release ]; then
+        echo "Warning: not on Arch Linux; skipping dependency checks. The package is"
+        echo "built against this system's libraries and may not run on Arch."
+        MAKEPKG_ARGS+=(--nodeps)
+    fi
+    # PKGDEST from makepkg.conf would put the package elsewhere
+    (cd "$PKG_DIR" && PKGDEST="$PWD" makepkg "${MAKEPKG_ARGS[@]}")
+
+    echo "Arch package created:"
+    ls "$PKG_DIR"/*.pkg.tar.*
+    exit 0
+fi
+
 # Clean build directory if requested
 if [ "$CLEAN" = true ]; then
     echo "Cleaning build directory and debian artifacts..."
-    rm -rf "$BUILD_DIR"
+    rm -rf "$BUILD_DIR" build-arch
     rm -f debian/*.debhelper.log debian/*.substvars debian/files
     rm -rf debian/.debhelper/ debian/xdelta3-gui/ obj-*/
     rm -f translations/*.qm version.h
@@ -170,19 +211,3 @@ cmake --build "$BUILD_DIR" --parallel
 
 echo "Build completed successfully!"
 echo "Executable: $BUILD_DIR/xdelta3-gui"
-
-# Build Arch Linux package if requested
-if [ "$ARCH_BUILD" = true ]; then
-    echo "Building Arch Linux tar.zst package..."
-    VERSION="$(get_version)"
-    STAGING_DIR="$BUILD_DIR/arch-root"
-    PKG_NAME="xdelta3-gui-${VERSION}-1-arch.tar.zst"
-
-    rm -rf "$STAGING_DIR"
-    mkdir -p "$STAGING_DIR"
-
-    DESTDIR="$STAGING_DIR" cmake --install "$BUILD_DIR" --prefix /usr --strip
-
-    tar --zstd -C "$STAGING_DIR" -cf "$BUILD_DIR/$PKG_NAME" .
-    echo "Arch package created: $BUILD_DIR/$PKG_NAME"
-fi
