@@ -50,3 +50,6 @@ cmake_install.cmake
 
 # Transifex ignore
 .tx/
+
+# Clang build directory (build.sh --clang)
+/build-clang/

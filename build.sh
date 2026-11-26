@@ -41,6 +41,7 @@ while [[ $# -gt 0 ]]; do
             ;;
         -c|--clang)
             USE_CLANG=true
+            BUILD_DIR="build-clang"
             shift
             ;;
         --clean)
@@ -106,7 +107,7 @@ if [ "$DEBIAN_BUILD" = true ]; then
     shopt -u nullglob
 
     echo "Cleaning build directory and debian artifacts..."
-    rm -rf "$BUILD_DIR"
+    rm -rf build # debuild ignores --clang; keep any build-clang/ tree
     rm -f debian/*.debhelper.log debian/*.substvars debian/files
     rm -rf debian/.debhelper/ debian/xdelta3-gui/ obj-*/
     rm -f translations/*.qm version.h
@@ -154,12 +155,14 @@ CMAKE_ARGS=(
     -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 )
 
+# The compiler is fixed when a build directory is first configured, so each
+# compiler gets its own directory instead of switching a cached one.
 if [ "$USE_CLANG" = true ]; then
-    CMAKE_ARGS+=(-DUSE_CLANG=ON)
     echo "Using clang compiler"
+    CC=clang CXX=clang++ cmake "${CMAKE_ARGS[@]}"
+else
+    cmake "${CMAKE_ARGS[@]}"
 fi
-
-cmake "${CMAKE_ARGS[@]}"
 
 # Build the project
 echo "Building project with Ninja..."
