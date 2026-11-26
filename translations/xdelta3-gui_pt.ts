@@ -97,8 +97,11 @@ start process</extracomment>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="208"/>
+        <location filename="../mainwindow.ui" line="306"/>
         <source>Change location...</source>
-        <extracomment>starts a file chooser to select destination for output delta file</extracomment>
+        <extracomment>starts a file chooser to select destination for output delta file
+----------
+starts a file chooser to select destination for output file</extracomment>
         <translation>Alterar local</translation>
     </message>
     <message>
@@ -165,12 +168,6 @@ start the process</extracomment>
         <translation>utilizar a predefinição ou definir um nome personalizado</translation>
     </message>
     <message>
-        <location filename="../mainwindow.ui" line="306"/>
-        <source>Change location..</source>
-        <extracomment>starts a file chooser to select destination for output file</extracomment>
-        <translation>Alterar localização...</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.ui" line="340"/>
         <source>Progress</source>
         <translation>Progresso</translation>
@@ -181,326 +178,326 @@ start the process</extracomment>
         <translation>Cancelar</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="532"/>
+        <location filename="../mainwindow.cpp" line="593"/>
         <source>ISO Files (*.iso);;All Files (*)</source>
         <comment>kinds of files to choose</comment>
         <translation>Ficheiros ISO (*.iso);;Todos os ficheiros (*)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="310"/>
+        <location filename="../mainwindow.cpp" line="311"/>
         <source>Select file</source>
         <comment>choose a file</comment>
         <translation>Selecionar ficheiro</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="222"/>
+        <location filename="../mainwindow.cpp" line="223"/>
         <source>Could not move the temporary file to &apos;%1&apos;.</source>
         <translation>Não foi possível mover o ficheiro temporário para &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="236"/>
+        <location filename="../mainwindow.cpp" line="237"/>
         <source>File was successfully written to &apos;%1&apos; directory.</source>
         <comment>information that file was successfully written</comment>
         <translation>O ficheiro foi gravado com sucesso para a pasta &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="242"/>
-        <location filename="../mainwindow.cpp" line="266"/>
+        <location filename="../mainwindow.cpp" line="243"/>
+        <location filename="../mainwindow.cpp" line="267"/>
         <source>Cancelled</source>
         <translation>A ação foi cancelada!</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="242"/>
-        <location filename="../mainwindow.cpp" line="266"/>
+        <location filename="../mainwindow.cpp" line="243"/>
+        <location filename="../mainwindow.cpp" line="267"/>
         <source>Operation was cancelled.</source>
         <translation>A operação foi cancelada.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="244"/>
-        <location filename="../mainwindow.cpp" line="268"/>
-        <location filename="../mainwindow.cpp" line="362"/>
-        <location filename="../mainwindow.cpp" line="373"/>
-        <location filename="../mainwindow.cpp" line="383"/>
-        <location filename="../mainwindow.cpp" line="390"/>
-        <location filename="../mainwindow.cpp" line="439"/>
-        <location filename="../mainwindow.cpp" line="480"/>
-        <location filename="../mainwindow.cpp" line="488"/>
-        <location filename="../mainwindow.cpp" line="498"/>
-        <location filename="../mainwindow.cpp" line="505"/>
+        <location filename="../mainwindow.cpp" line="245"/>
+        <location filename="../mainwindow.cpp" line="269"/>
+        <location filename="../mainwindow.cpp" line="378"/>
+        <location filename="../mainwindow.cpp" line="389"/>
+        <location filename="../mainwindow.cpp" line="399"/>
+        <location filename="../mainwindow.cpp" line="406"/>
+        <location filename="../mainwindow.cpp" line="456"/>
+        <location filename="../mainwindow.cpp" line="541"/>
+        <location filename="../mainwindow.cpp" line="549"/>
+        <location filename="../mainwindow.cpp" line="559"/>
+        <location filename="../mainwindow.cpp" line="566"/>
         <source>Error</source>
         <translation>Erro</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="259"/>
+        <location filename="../mainwindow.cpp" line="260"/>
         <source>Success</source>
         <comment>information on file written successfully</comment>
         <translation>Sucesso</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="260"/>
+        <location filename="../mainwindow.cpp" line="261"/>
         <source>File &apos;%1&apos; was successfully written.</source>
         <comment>information on file written successfully</comment>
         <translation>O ficheiro ‘%1’ foi gravado com sucesso.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="262"/>
+        <location filename="../mainwindow.cpp" line="263"/>
         <source>Patch size: %1</source>
         <comment>size of the created patch file</comment>
         <translation>Tamanho do Patch: %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="263"/>
+        <location filename="../mainwindow.cpp" line="264"/>
         <source>Took %1 to create the patch.</source>
         <comment>elapsed time, leave %1 untranslated</comment>
         <translation>Demorou %1 a criar o patch.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="269"/>
+        <location filename="../mainwindow.cpp" line="270"/>
         <source>Error: Could not write the file.</source>
         <comment>information that file was not written successfully</comment>
         <translation>Erro: Impossível escrever ficheiro</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="344"/>
+        <location filename="../mainwindow.cpp" line="347"/>
         <source>All Files (*)</source>
         <comment>kinds of files to choose</comment>
         <translation>Todos os Ficheiros (*)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="345"/>
+        <location filename="../mainwindow.cpp" line="348"/>
         <source>Select where to save the delta file</source>
         <comment>dialog title</comment>
         <translation>Selecione a pasta onde será gravado o ficheiro delta</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="346"/>
+        <location filename="../mainwindow.cpp" line="349"/>
         <source>Select where to save the patched file</source>
         <comment>dialog title</comment>
         <translation>Selecione a pasta onde será gravado o ficheiro com o patch</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="362"/>
+        <location filename="../mainwindow.cpp" line="378"/>
         <source>Please enter a name for the output file.</source>
         <translation>Insira o nome para o ficheiro de saída.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="373"/>
+        <location filename="../mainwindow.cpp" line="389"/>
         <source>Output file is not writable.</source>
         <translation>O ficheiro de saída não tem permissões de gravação.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="378"/>
+        <location filename="../mainwindow.cpp" line="394"/>
         <source>File exists</source>
         <translation>Ficheiro existe</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="379"/>
-        <source>Output file exists, do you want to overwrite?</source>
-        <comment>warning about overwritting an existing file</comment>
-        <translation>Ficheiro já existente. Gravar por cima?</translation>
+        <location filename="../mainwindow.cpp" line="856"/>
+        <source>%1 output size</source>
+        <comment>exact output file size from delta, leave %1 untranslated</comment>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="383"/>
-        <location filename="../mainwindow.cpp" line="498"/>
+        <location filename="../mainwindow.cpp" line="862"/>
+        <source>~%1 estimated size</source>
+        <comment>estimated output file size, leave %1 untranslated</comment>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="399"/>
+        <location filename="../mainwindow.cpp" line="559"/>
         <source>Output directory is not writable.</source>
         <translation>A pasta de saída não tem permissões de gravação.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="391"/>
-        <location filename="../mainwindow.cpp" line="506"/>
+        <location filename="../mainwindow.cpp" line="407"/>
+        <location filename="../mainwindow.cpp" line="567"/>
         <source>Could not create a temporary file in the destination directory.</source>
         <translation>Não foi possível criar um ficheiro temporário na pasta de destino.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="456"/>
+        <location filename="../mainwindow.cpp" line="473"/>
         <source>File &apos;%1&apos; not found or not a file, please double-check the input.</source>
         <comment>warning about file not found</comment>
         <translation>O ficheiro ‘%1’ não foi encontrado ou não é um ficheiro. Verifique novamente o que inseriu.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="343"/>
-        <location filename="../mainwindow.cpp" line="533"/>
+        <location filename="../mainwindow.cpp" line="346"/>
+        <location filename="../mainwindow.cpp" line="594"/>
         <source>Delta Files (*.xdelta3);;All Files (*)</source>
         <comment>kinds of files to choose</comment>
         <translation>Ficheiros Delta (*.xdelta3);;Todos os Ficheiros (*)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="481"/>
+        <location filename="../mainwindow.cpp" line="542"/>
         <source>Source and target are the same file; the patch would be empty.</source>
         <translation>A origem e o destino do ficheiro são as mesmas; o patch deve estar em branco.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="580"/>
+        <location filename="../mainwindow.cpp" line="499"/>
         <source>Path exists but is a directory.</source>
         <translation>O caminho existe, mas é uma pasta.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="582"/>
+        <location filename="../mainwindow.cpp" line="395"/>
+        <source>Output file exists, do you want to overwrite?</source>
+        <comment>warning about overwriting an existing file</comment>
+        <translation>Ficheiro já existente. Gravar por cima?</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="501"/>
         <source>File is not writable.</source>
         <translation>O ficheiro não tem permissões de gravação.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="586"/>
+        <location filename="../mainwindow.cpp" line="505"/>
         <source>Parent directory does not exist.</source>
         <translation>A pasta pai não existe.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="588"/>
+        <location filename="../mainwindow.cpp" line="507"/>
         <source>Parent directory is not writable.</source>
         <translation>A pasta pai não tem permissões de gravação.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="590"/>
+        <location filename="../mainwindow.cpp" line="509"/>
         <source>Filename cannot be empty.</source>
         <translation>O nome do ficheiro não pode estar em branco.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="595"/>
+        <location filename="../mainwindow.cpp" line="514"/>
         <source>File does not exist.</source>
         <translation>O ficheiro não existe.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="597"/>
+        <location filename="../mainwindow.cpp" line="516"/>
         <source>Path is a directory, not a file.</source>
         <translation>O caminho é uma pasta e não um ficheiro.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="599"/>
+        <location filename="../mainwindow.cpp" line="518"/>
         <source>File is not readable (check permissions).</source>
         <translation>O ficheiro não pode ser lido (verifique as permissões deste).</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="794"/>
+        <location filename="../mainwindow.cpp" line="554"/>
+        <source>File exists</source>
+        <comment>warning about overwriting file</comment>
+        <translation>Ficheiro existe</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="555"/>
+        <source>Delta file exists, do you want to overwrite?</source>
+        <comment>warning about overwriting file</comment>
+        <translation>Ficheiro delta já existe. Gravar por cima dele?</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="801"/>
         <source>%1% (%2 / %3) %4/s</source>
         <translation>%1% (%2 / %3) %4/s</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="846"/>
+        <location filename="../mainwindow.cpp" line="852"/>
         <source>~%1 remaining</source>
         <comment>estimated time remaining, leave %1 untranslated</comment>
         <translation>~%1 restante</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="850"/>
-        <source> · %1 output size</source>
-        <comment>exact output file size from delta, leave %1 untranslated</comment>
-        <translation> · %1 de tamanho</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="853"/>
-        <source> · ~%1 estimated size</source>
-        <comment>estimated output file size, leave %1 untranslated</comment>
-        <translation> · ~%1  de  tamanho estimado</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="859"/>
+        <location filename="../mainwindow.cpp" line="871"/>
         <source>Writing file: %1</source>
         <translation>A gravar o ficheiro: %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="860"/>
+        <location filename="../mainwindow.cpp" line="872"/>
         <source>Creating file: %1</source>
         <translation>A criar o ficheiro: %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="235"/>
+        <location filename="../mainwindow.cpp" line="236"/>
         <source>Success</source>
         <comment>information that file was successfully written</comment>
         <translation>Sucesso</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="239"/>
+        <location filename="../mainwindow.cpp" line="240"/>
         <source>Took %1 to patch the file.</source>
         <comment>elapsed time, leave %1 untranslated</comment>
         <translation>Demorou %1 para aplicar o patch.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="245"/>
+        <location filename="../mainwindow.cpp" line="246"/>
         <source>Error: Could not write the file.</source>
         <comment>information that there was an error creating the file</comment>
         <translation>Erro: Impossível escrever ficheiro</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="440"/>
+        <location filename="../mainwindow.cpp" line="457"/>
         <source>Please enter a name for the delta file.</source>
         <comment>name of delta file being created</comment>
         <translation>Insira o nome para o ficheiro delta.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="455"/>
+        <location filename="../mainwindow.cpp" line="472"/>
         <source>File not found</source>
         <comment>warning about file not found</comment>
         <translation>Ficheiro não encontrado</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="462"/>
+        <location filename="../mainwindow.cpp" line="479"/>
         <source>Permission denied</source>
         <translation>Permissãoi negada</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="463"/>
+        <location filename="../mainwindow.cpp" line="480"/>
         <source>File &apos;%1&apos; is not readable. Please check your permissions.</source>
         <translation>O ficheiro  &apos;%1&apos; não pode ser lido. Verifique as permissões dele.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="488"/>
+        <location filename="../mainwindow.cpp" line="549"/>
         <source>Delta file is not writable.</source>
         <translation>O ficheiro Delta não tem permissões de gravação.</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="493"/>
-        <source>File exists</source>
-        <comment>warning about overwritting file</comment>
-        <translation>Ficheiro existe</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="494"/>
-        <source>Delta file exists, do you want to overwrite?</source>
-        <comment>warning about overwritting file</comment>
-        <translation>Ficheiro delta já existe. Gravar por cima dele?</translation>
     </message>
 </context>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../main.cpp" line="59"/>
+        <location filename="../main.cpp" line="58"/>
         <source>Error</source>
         <translation>Erro</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="60"/>
+        <location filename="../main.cpp" line="59"/>
         <source>xdelta3 binary not found. Please install xdelta3 package.</source>
         <translation>O comando xdelta3 não foi encontrado. Por favor, instale o pacote xdelta3.</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="70"/>
+        <location filename="../main.cpp" line="69"/>
         <source>GUI for xdelta3 application.</source>
         <comment>short description for --help and desktop file</comment>
         <translation>Interface Gráfico para a aplicação xdelta3</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="71"/>
+        <location filename="../main.cpp" line="70"/>
         <source>App for generating a binary difference between two files in the form of delta encoding</source>
         <comment>extra description for --help</comment>
         <translation>Gera um ficheiro de diferenças binário entre dois ficheiros, na forma de codificação delta</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="76"/>
+        <location filename="../main.cpp" line="75"/>
         <source>file</source>
         <translation>ficheiro</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="76"/>
+        <location filename="../main.cpp" line="75"/>
         <source>Name of the delta file</source>
         <translation>Nome do ficheiro delta</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="76"/>
+        <location filename="../main.cpp" line="75"/>
         <source>[file]</source>
         <translation>[file]</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="114"/>
+        <location filename="../main.cpp" line="113"/>
         <source>You must run this program as normal user.</source>
         <comment>warning about running application as root</comment>
         <translation>Este programa tem que ser executado como utilizador normal.</translation>

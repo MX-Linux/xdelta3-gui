@@ -1,3 +1,26 @@
+xdelta3-gui (26.11) mx; urgency=medium
+
+  * Reproduce compressed files byte for byte with newly created patches
+    (use xdelta3 -d -D when applying them to compressed input from the
+    command line)
+  * Prevent command-line settings for xdelta3 from causing the GUI to save
+    an empty file and report success
+  * Keep the existing output when Cancel is clicked just as a patch finishes
+  * Report a file that appears at the destination while a patch is running
+    so the user can choose another name
+  * Allow another attempt if xdelta3 fails to start
+  * Honor the “None” setting for secondary compression
+  * Suggest the target filename when applying a patch, including when the
+    input path is typed, and keep any output name the user has chosen
+  * Accept input filenames that begin with a dash
+  * Show progress for the current patch when several xdelta3 jobs are running
+  * Show translated command-line help and allow --help and --version to run
+    without a graphical session
+  * Add a manual page for xdelta3-gui
+  * Build an Arch Linux package that can be installed with pacman
+
+ -- Adrian <adrian@mxlinux.org>  Wed, 25 Nov 2026 21:36:29 -0500
+
 xdelta3-gui (26.07) mx; urgency=medium
 
   * Prevent starting a second patch operation while another one is still running
