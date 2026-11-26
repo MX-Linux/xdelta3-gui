@@ -11,6 +11,10 @@ public:
     explicit Cmd(QObject *parent = nullptr);
     void runAsync(const QString &program, const QStringList &args, Output output = Verbose);
 
+    // Environment for xdelta3 children. XDELTA is stripped because xdelta3
+    // reads extra options from it (e.g. -c would redirect output to stdout).
+    static QProcessEnvironment xdeltaEnvironment();
+
 signals:
     void commandFinished(bool success, const QString &output);
 

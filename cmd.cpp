@@ -5,12 +5,20 @@
 Cmd::Cmd(QObject *parent)
     : QProcess(parent)
 {
+    setProcessEnvironment(xdeltaEnvironment());
     connect(this, &Cmd::readyReadStandardOutput, [this] { out_buffer += readAllStandardOutput(); });
     connect(this, &Cmd::readyReadStandardError, [this] { out_buffer += readAllStandardError(); });
     connect(this, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), [this](int exitCode, QProcess::ExitStatus exitStatus) {
         bool success = (exitStatus == QProcess::NormalExit && exitCode == 0);
         emit commandFinished(success, out_buffer.trimmed());
     });
+}
+
+QProcessEnvironment Cmd::xdeltaEnvironment()
+{
+    QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
+    env.remove("XDELTA");
+    return env;
 }
 
 void Cmd::runAsync(const QString &program, const QStringList &args, Output output)
