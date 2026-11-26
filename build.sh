@@ -73,26 +73,43 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
+# Debian source package name. The parent directory is shared with other
+# projects, so only files named after this package may be moved or removed there.
+get_source_name() {
+    sed -n 's/^Source:[[:space:]]*//; s/[[:space:]]*$//p' debian/control | head -n 1
+}
+
 # Build Debian package
 if [ "$DEBIAN_BUILD" = true ]; then
+    SOURCE_NAME="$(get_source_name)"
+    PKG_VERSION="$(dpkg-parsechangelog -SVersion)"
+    PKG_VERSION="${PKG_VERSION#*:}" # file names omit the epoch
+
     echo "Building Debian package..."
     debuild -us -uc
 
     echo "Creating debs directory and moving debian artifacts..."
     mkdir -p debs
-    mv ../*.deb debs/ 2>/dev/null || true
-    mv ../*.changes debs/ 2>/dev/null || true  
-    mv ../*.dsc debs/ 2>/dev/null || true
-    mv ../*.tar.* debs/ 2>/dev/null || true
-    mv ../*.buildinfo debs/ 2>/dev/null || true
-    mv ../*.build debs/ 2>/dev/null || true
+    shopt -s nullglob
+    # The .changes manifest lists every file this build produced (.debs, .dsc,
+    # source tarball, .buildinfo).
+    for changes in ../"${SOURCE_NAME}_${PKG_VERSION}"_*.changes; do
+        awk '/^Files:/ { f = 1; next } /^[^ ]/ { f = 0 } f && NF { print $NF }' "$changes" |
+            while read -r file; do
+                if [ -f "../$file" ]; then mv "../$file" debs/; fi
+            done
+        mv "$changes" debs/
+    done
+    for log in ../"${SOURCE_NAME}_${PKG_VERSION}"_*.build; do
+        mv "$log" debs/
+    done
+    shopt -u nullglob
 
     echo "Cleaning build directory and debian artifacts..."
     rm -rf "$BUILD_DIR"
     rm -f debian/*.debhelper.log debian/*.substvars debian/files
     rm -rf debian/.debhelper/ debian/xdelta3-gui/ obj-*/
     rm -f translations/*.qm version.h
-    rm -f ../*.build ../*.buildinfo 2>/dev/null || true
 
     echo "Debian package build completed!"
     echo "Debian artifacts moved to debs/ directory"
@@ -119,7 +136,10 @@ if [ "$CLEAN" = true ]; then
     rm -f debian/*.debhelper.log debian/*.substvars debian/files
     rm -rf debian/.debhelper/ debian/xdelta3-gui/ obj-*/
     rm -f translations/*.qm version.h
-    rm -f ../*.build ../*.buildinfo 2>/dev/null || true
+    SOURCE_NAME="$(get_source_name)"
+    if [ -n "$SOURCE_NAME" ]; then
+        rm -f ../"${SOURCE_NAME}"_*.build ../"${SOURCE_NAME}"_*.buildinfo
+    fi
 fi
 
 # Create build directory
