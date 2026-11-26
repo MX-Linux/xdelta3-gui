@@ -71,26 +71,8 @@ int main(int argc, char *argv[])
 
     QApplication::setApplicationVersion(VERSION);
 
-    QCommandLineParser parser;
-    parser.setApplicationDescription(
-        QObject::tr("GUI for xdelta3 application.", "short description for --help and desktop file") + " "
-        + QObject::tr("App for generating a binary difference "
-                      "between two files in the form of delta encoding",
-                      "extra description for --help"));
-    parser.addHelpOption();
-    parser.addVersionOption();
-    parser.addPositionalArgument(QObject::tr("file"), QObject::tr("Name of the delta file"), QObject::tr("[file]"));
-    parser.process(*app);
-
-    // Check for xdelta3 binary
-    if (QStandardPaths::findExecutable("xdelta3").isEmpty()) {
-        QMessageBox::critical(nullptr, QObject::tr("Error"),
-                              QObject::tr("xdelta3 binary not found. Please install xdelta3 package."));
-        return EXIT_FAILURE;
-    }
-    QApplication::setApplicationDisplayName("xdelta3 GUI");
-    QApplication::setWindowIcon(QIcon::fromTheme(QApplication::applicationName()));
-
+    // Install translators before anything user-visible is built: the --help
+    // text and the missing-xdelta3 dialog below are translated too.
     QTranslator qtTran;
     if (qtTran.load(QLocale::system(), "qt", "_", QLibraryInfo::path(QLibraryInfo::TranslationsPath))) {
         QApplication::installTranslator(&qtTran);
@@ -116,6 +98,26 @@ int main(int argc, char *argv[])
             break;
         }
     }
+
+    QCommandLineParser parser;
+    parser.setApplicationDescription(
+        QObject::tr("GUI for xdelta3 application.", "short description for --help and desktop file") + " "
+        + QObject::tr("App for generating a binary difference "
+                      "between two files in the form of delta encoding",
+                      "extra description for --help"));
+    parser.addHelpOption();
+    parser.addVersionOption();
+    parser.addPositionalArgument(QObject::tr("file"), QObject::tr("Name of the delta file"), QObject::tr("[file]"));
+    parser.process(*app);
+
+    // Check for xdelta3 binary
+    if (QStandardPaths::findExecutable("xdelta3").isEmpty()) {
+        QMessageBox::critical(nullptr, QObject::tr("Error"),
+                              QObject::tr("xdelta3 binary not found. Please install xdelta3 package."));
+        return EXIT_FAILURE;
+    }
+    QApplication::setApplicationDisplayName("xdelta3 GUI");
+    QApplication::setWindowIcon(QIcon::fromTheme(QApplication::applicationName()));
 
     if (getuid() != 0) {
         const auto patchFile = parser.positionalArguments().isEmpty() ? "" : parser.positionalArguments().constFirst();
