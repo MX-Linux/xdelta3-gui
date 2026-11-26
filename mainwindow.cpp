@@ -734,7 +734,9 @@ void MainWindow::setConnections()
         checkAllinfo();
     });
     connect(ui->textInput, &QLineEdit::editingFinished, this, [this] {
-        (void)checkFile(ui->textInput->text());
+        if (checkFile(ui->textInput->text())) {
+            setOutputName();
+        }
         checkAllinfo();
     });
     connect(ui->textApplyPatch, &QLineEdit::editingFinished, this, [this] {
@@ -900,7 +902,14 @@ void MainWindow::setOutputName()
         }
     }
 
-    ui->textOutput->setText(inputDir + "/" + outputName);
+    // Keep a destination the user chose; replace only an empty field or the
+    // previous automatic suggestion.
+    const QString current = ui->textOutput->text();
+    if (!current.isEmpty() && current != lastSuggestedOutput) {
+        return;
+    }
+    lastSuggestedOutput = inputDir + "/" + outputName;
+    ui->textOutput->setText(lastSuggestedOutput);
 }
 
 void MainWindow::updateBar()
