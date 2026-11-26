@@ -41,10 +41,13 @@
 #include <QTime>
 
 #include <algorithm>
+#include <cerrno>
 #include <chrono>
 #include <cstdio>
 
+#include <fcntl.h>
 #include <sys/stat.h>
+#include <unistd.h>
 
 using namespace std::chrono_literals;
 
@@ -99,6 +102,45 @@ bool isRawBytePatch(const QString &patchPath)
         }
     }
     return false;
+}
+
+// Move tempName to finalName in one step. When mayReplace is false the
+// destination did not exist when the user confirmed it, so a file that has
+// appeared there since (another program, a sync client) must not be replaced.
+// Returns 0 on success or an errno value; EEXIST means such a file appeared.
+int publishFile(const QByteArray &tempName, const QByteArray &finalName, bool mayReplace)
+{
+    if (mayReplace) {
+        return std::rename(tempName.constData(), finalName.constData()) == 0 ? 0 : errno;
+    }
+    if (::renameat2(AT_FDCWD, tempName.constData(), AT_FDCWD, finalName.constData(), RENAME_NOREPLACE) == 0) {
+        return 0;
+    }
+    if (errno != EINVAL && errno != ENOSYS) {
+        return errno;
+    }
+    // The filesystem cannot rename without replacing (e.g. NFS, CIFS); link()
+    // also refuses an existing name and is atomic.
+    if (::link(tempName.constData(), finalName.constData()) == 0) {
+        ::unlink(tempName.constData());
+        return 0;
+    }
+    struct stat finalSt {};
+    if (errno == EEXIST) {
+        // A retransmitted NFS LINK can report EEXIST although it succeeded.
+        struct stat tempSt {};
+        if (::stat(tempName.constData(), &tempSt) == 0 && ::lstat(finalName.constData(), &finalSt) == 0
+            && tempSt.st_dev == finalSt.st_dev && tempSt.st_ino == finalSt.st_ino) {
+            ::unlink(tempName.constData());
+            return 0;
+        }
+        return EEXIST;
+    }
+    // No hard links either (e.g. FAT): best effort, check and then rename.
+    if (::lstat(finalName.constData(), &finalSt) == 0) {
+        return EEXIST;
+    }
+    return std::rename(tempName.constData(), finalName.constData()) == 0 ? 0 : errno;
 }
 } // namespace
 
@@ -255,10 +297,16 @@ void MainWindow::cmdFinished(bool success, const QString &output)
             ::chmod(tempName.constData(), 0666 & ~mask);
         }
 
-        // Atomically replace the destination in a single rename(2) so the
-        // original is never removed before the replacement is in place: on
-        // failure the original survives untouched and only the temp is dropped.
-        if (std::rename(tempName.constData(), finalName.constData()) != 0) {
+        // Atomically move the result into place so the original is never
+        // removed before the replacement exists: on failure the original
+        // survives untouched and only the temp is dropped.
+        const int err = publishFile(tempName, finalName, outputMayReplace);
+        if (err == EEXIST) {
+            success = false;
+            failureDetail = tr("'%1' was created by another program while the operation was running, so it "
+                               "was not replaced.")
+                                .arg(outputFinalPath);
+        } else if (err != 0) {
             success = false;
             failureDetail = tr("Could not move the temporary file to '%1'.").arg(outputFinalPath);
         }
@@ -424,6 +472,8 @@ void MainWindow::applyPatch()
     }
 
     QFileInfo outInfo(ui->textOutput->text());
+    // A dangling symlink is replaced as before; it cannot be a newer file.
+    const bool mayReplace = outInfo.exists() || outInfo.isSymLink();
     if (outInfo.exists()) {
         if (!outInfo.isWritable()) {
             QMessageBox::critical(this, tr("Error"), tr("Output file is not writable."));
@@ -457,6 +507,7 @@ void MainWindow::applyPatch()
     targetFileSize = -1;
     outputFinalPath = finalPath;
     outputTempPath = tempPath;
+    outputMayReplace = mayReplace;
     QStringList args;
     args << "-f" << "decode";
     if (rawBytePatch) {
@@ -591,6 +642,8 @@ void MainWindow::createPatch()
     }
 
     QFileInfo patchInfo(ui->textPatch->text());
+    // A dangling symlink is replaced as before; it cannot be a newer file.
+    const bool mayReplace = patchInfo.exists() || patchInfo.isSymLink();
     if (patchInfo.exists()) {
         if (!patchInfo.isWritable()) {
             QMessageBox::critical(this, tr("Error"), tr("Delta file is not writable."));
@@ -622,6 +675,7 @@ void MainWindow::createPatch()
     targetFileSize = -1;
     outputFinalPath = finalPath;
     outputTempPath = tempPath;
+    outputMayReplace = mayReplace;
     QStringList args;
     args << "-f" << "encode" << "-D" << ("-A=" + rawPatchMarker)
          << ("-" + QString::number(ui->spinCompressionLevel->value()));

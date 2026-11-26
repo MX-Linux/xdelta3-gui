@@ -60,6 +60,7 @@ private:
     bool cancelled = false;
     QString outputFinalPath; // where the result should ultimately live
     QString outputTempPath;  // file xdelta3 actually writes to (promoted on success)
+    bool outputMayReplace = false; // destination existed and the user approved overwriting it
 
     Ui::MainWindow *ui;
     Cmd cmd;
