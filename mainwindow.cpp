@@ -64,6 +64,15 @@ bool isNumericVersion(const QString &value)
     return true;
 }
 
+// Return path as an xdelta3 file operand: a relative name such as
+// "-nightly.iso" would otherwise be parsed as options. Only "./" is prepended,
+// so the kernel still resolves the path exactly as typed (QFileInfo's absolute
+// paths collapse "dir/.." textually, which differs when dir is a symlink).
+QString fileArg(const QString &path)
+{
+    return path.startsWith('-') ? QStringLiteral("./") + path : path;
+}
+
 // Patches created by this GUI encode the raw bytes of their inputs (-D) and
 // carry this marker in the VCDIFF application header. Without -D, xdelta3
 // decompresses gzip/bzip2/xz inputs and recompresses the result, which yields
@@ -495,7 +504,9 @@ void MainWindow::applyPatch()
         return;
     }
 
-    const bool rawBytePatch = isRawBytePatch(ui->textApplyPatch->text());
+    const QString inputPath = fileArg(ui->textInput->text());
+    const QString patchPath = fileArg(ui->textApplyPatch->text());
+    const bool rawBytePatch = isRawBytePatch(patchPath);
 
     const QString finalPath = ui->textOutput->text();
     const QString tempPath = makeTempPath(finalPath);
@@ -518,7 +529,7 @@ void MainWindow::applyPatch()
     if (rawBytePatch) {
         args << "-D";
     }
-    args << "-s" << ui->textInput->text() << ui->textApplyPatch->text() << outputTempPath;
+    args << "-s" << inputPath << patchPath << outputTempPath;
     cmd.runAsync("xdelta3", args);
 
     // Probe the patched-file size asynchronously (printhdrs can be slow for
@@ -544,7 +555,7 @@ void MainWindow::applyPatch()
                     targetFileSize = total;
                 proc->deleteLater();
             });
-    proc->start("xdelta3", {"printhdrs", ui->textApplyPatch->text()});
+    proc->start("xdelta3", {"printhdrs", patchPath});
 }
 
 void MainWindow::checkAllinfo()
@@ -689,8 +700,7 @@ void MainWindow::createPatch()
     args << "-S"
          << (ui->comboCompression->currentIndex() == 0 ? QStringLiteral("none")
                                                         : ui->comboCompression->currentText().toLower());
-    args << "-s" << ui->textSource->text()
-         << ui->textTarget->text() << outputTempPath;
+    args << "-s" << fileArg(ui->textSource->text()) << fileArg(ui->textTarget->text()) << outputTempPath;
     cmd.runAsync("xdelta3", args);
 }
 
