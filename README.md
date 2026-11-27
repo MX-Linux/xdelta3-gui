@@ -124,3 +124,18 @@ See [LICENSE](LICENSE) for the full license text.
 - [OpenSUSE Build Service](https://build.opensuse.org/projects/home:mx-packaging/packages/xdelta3-gui)
 - [xdelta3 Project](http://xdelta.org/)
 
+## AppImage
+
+Download the x86-64 AppImage from a GitHub release’s **Assets**, make it executable with `chmod +x`, and launch it as your desktop user. Both `xdelta3` and the `progress` utility are bundled. On hosts without FUSE, use `--appimage-extract-and-run`.
+
+To build locally on Debian 13 (trixie), install the build dependencies and run the packaging script:
+
+```sh
+sudo apt-get install \
+    ca-certificates git build-essential cmake ninja-build dpkg-dev curl file \
+    qt6-base-dev qt6-tools-dev qt6-tools-dev-tools qt6-svg-plugins qt6-translations-l10n \
+    qt6-wayland xdelta3 progress
+./make-appimage.sh
+```
+
+The script writes `build-appimage/xdelta3-gui-<version>-x86_64.AppImage` using the version in `debian/changelog`. GitHub Actions builds the same image and attaches it to each non-Arch release.

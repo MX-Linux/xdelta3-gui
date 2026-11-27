@@ -56,3 +56,4 @@ cmake_install.cmake
 /build-clang/
 # Arch package build directory (build.sh --arch)
 /build-arch/
+/build-appimage/
